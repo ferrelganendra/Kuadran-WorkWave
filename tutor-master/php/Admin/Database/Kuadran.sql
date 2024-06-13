@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 09 Jun 2024 pada 09.38
+-- Host: localhost
+-- Waktu pembuatan: 13 Jun 2024 pada 07.03
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -67,6 +67,37 @@ CREATE TABLE `event` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `gaji`
+--
+
+CREATE TABLE `gaji` (
+  `id` int(11) NOT NULL,
+  `kategori_id` int(11) NOT NULL,
+  `gaji_min` int(11) NOT NULL,
+  `gaji_max` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `gaji`
+--
+
+INSERT INTO `gaji` (`id`, `kategori_id`, `gaji_min`, `gaji_max`) VALUES
+(1, 1, 3000000, 5000000),
+(2, 2, 4000000, 6000000),
+(3, 3, 3500000, 5500000),
+(4, 4, 4500000, 7000000),
+(5, 5, 2500000, 4000000),
+(6, 6, 2800000, 4500000),
+(7, 7, 3200000, 5000000),
+(8, 8, 3800000, 6000000),
+(9, 9, 5000000, 8000000),
+(10, 10, 3000000, 4500000),
+(11, 11, 3500000, 5500000),
+(12, 12, 2500000, 4000000);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `kategori_pekerjaan`
 --
 
@@ -91,7 +122,7 @@ INSERT INTO `kategori_pekerjaan` (`id`, `nama_kategori`) VALUES
 (9, 'Teknologi Informasi'),
 (10, 'Transportasi'),
 (11, 'Hotel'),
-(12, 'Lainnya');
+(12, 'Jasa Antar Barang');
 
 -- --------------------------------------------------------
 
@@ -118,8 +149,6 @@ CREATE TABLE `loker` (
 --
 
 INSERT INTO `loker` (`id`, `user_id`, `kategori_pekerjaan_id`, `posisi`, `tingkat_pendidikan`, `gender`, `status_kerja`, `besaran_gaji`, `lokasi_bekerja`, `syarat_pekerjaan`, `tanggal_dipost`) VALUES
-(1, 1, 12, 'asdca', 'ewfaw', 'Laki-laki', 'Part-time', 10.00, 'vawev', 'gergerg\r\nesrgserg\r\nersgerg\r\nsergserg\r\nsergesrg\r\nsergser', NULL),
-(2, 1, 12, 'asdca', 'ewfaw', 'Laki-laki', 'Part-time', 10.00, 'vawev', 'gergerg\r\nesrgserg\r\nersgerg\r\nsergserg\r\nsergesrg\r\nsergser', NULL),
 (10, 17, 1, 'rfw', 'asdf', 'Laki-laki', '', 32.00, 'weqf', 'adswf', NULL),
 (11, 17, 3, 'Guru Sekolah Dasar', 'S1', 'Perempuan', '', 3000000.00, 'Sd Negeri 001 Sleman', '1. Pendidikan minimal S1\r\n2. Bisa mengajar anak autis\r\n3. Ini Prankk', NULL),
 (12, 17, 1, 'dsgaf', 'sadf', 'Perempuan', '', 234.00, 'wer', 'asfd', '2024-06-18');
@@ -138,7 +167,7 @@ CREATE TABLE `users` (
   `media_sosial` varchar(255) DEFAULT NULL,
   `website` varchar(255) DEFAULT NULL,
   `alamat_perusahaan` text DEFAULT NULL,
-  `logo_perusahaan` varchar(255) DEFAULT NULL,
+  `logo_perusahaan` longblob DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `status` enum('menunggu','ditolak','diterima') DEFAULT 'menunggu'
@@ -149,23 +178,23 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`) VALUES
-(1, 'savero', 'sasasa', 'ksjabiula fwuipegf iuaw efg pewiua gfpeiwu gfupif gwipfg aiuyefg aliuwyoe fla wei fol gaewf', 'ig:verzzkh', '-', 'dsadfuiwha fpuwaeghfpiuw efg paiuyg fipuaWE Y AW', '', '12345', '12345', 'diterima'),
-(2, 'savero', 'sasa', 'uyigefuia ewrfiauwg fpiauwygef ipawug friapuyfg aliuweyrfugy wer fa wf', 'ig:verzzkh', '-', 'hgdfalisy fgagf ayufg olayf gayw gf', 'sdd', '12345', '12345', 'ditolak'),
-(3, 'gugug', 'arsgaergf', 'aerwgawg', 'weagaweg', 'ewagaw', 'geawgwa', 'awegwegw', 'agus', 'agus', 'menunggu'),
+(3, 'gugug', 'arsgaergf', 'aerwgawg', 'weagaweg', 'ewagaw', 'geawgwa', 0x6177656777656777, 'agus', 'agus', 'menunggu'),
 (4, '', '', '', '', '', '', '', '', '', 'menunggu'),
 (5, '', '', '', '', '', '', '', '', '', 'menunggu'),
 (6, '', '', '', '', '', '', '', 'sa', 'sekar', 'diterima'),
 (7, '', '', '', '', '', '', '', 'asd', 'asd', 'menunggu'),
 (8, '', '', '', '', '', '', '', 'aaa', 'aaaaaaaa', 'menunggu'),
 (9, '', '', '', '', '', '', '', 'as', 'ssssssss', 'menunggu'),
-(10, 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', '', '', 'diterima'),
+(10, 'asd', 'asd', 'asd', 'asd', 'asd', 'asd', 0x617364, '', '', 'diterima'),
 (11, '', '', '', '', '', '', '', '', '', 'menunggu'),
-(12, 'dsf', 'sadfsa', 'dfsdaf', 'sadfsda', 'fasdfas', 'dfsa', 'asdfas', 'aaa', 'aaa', 'menunggu'),
+(12, 'dsf', 'sadfsa', 'dfsdaf', 'sadfsda', 'fasdfas', 'dfsa', 0x617364666173, 'aaa', 'aaa', 'menunggu'),
 (13, '', '', '', '', '', '', '', '', '', 'menunggu'),
 (14, '', '', '', '', '', '', '', '', '', 'menunggu'),
-(15, 'sadfasdf', 'sadfasdfa', 'sdfsdf', 'sdfasd', 'fasdfasd', 'fsafasd', 'dsafas', 'wawa', 'wawa', 'diterima'),
-(16, 'swsw', 'asdx', 'asda', 'sdasda', 'dasdasd', 'asdas', 'dasdsad', 'asd', 'asd', 'menunggu'),
-(17, 'gustui', 'jrytdt', 'ghjfjht', 'kutdct', 'iyflyf', 'jgck,ujy', 'ily7lf', 'aaaa', 'aaaa', 'diterima');
+(15, 'sadfasdf', 'sadfasdfa', 'sdfsdf', 'sdfasd', 'fasdfasd', 'fsafasd', 0x647361666173, 'wawa', 'wawa', 'diterima'),
+(16, 'swsw', 'asdx', 'asda', 'sdasda', 'dasdasd', 'asdas', 0x64617364736164, 'asd', 'asd', 'menunggu'),
+(17, 'gustui', 'jrytdt', 'ghjfjht', 'kutdct', 'iyflyf', 'jgck,ujy', 0x696c79376c66, 'aaaa', 'aaaa', 'diterima'),
+(18, 'dajwd', 'adawda', 'adawkln', 'adnadwal', 'dalskdnaw', 'addwada', 0x2d, 'aaaa', '1234', 'diterima'),
+(20, 'ABCDEFG', '-', '-', '-', '-', '-', 0x7361746f72752d676f6a6f2d6a756a757473752d6b616973656e2d6d696e696d616c6973742d616e696d652d75686470617065722e636f6d2d344b2d382e313739332e6a7067, '12345', '12345', 'diterima');
 
 --
 -- Indexes for dumped tables
@@ -182,6 +211,13 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `event`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `gaji`
+--
+ALTER TABLE `gaji`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kategori_id` (`kategori_id`);
 
 --
 -- Indeks untuk tabel `kategori_pekerjaan`
@@ -214,6 +250,12 @@ ALTER TABLE `event`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `gaji`
+--
+ALTER TABLE `gaji`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT untuk tabel `kategori_pekerjaan`
 --
 ALTER TABLE `kategori_pekerjaan`
@@ -229,11 +271,17 @@ ALTER TABLE `loker`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `gaji`
+--
+ALTER TABLE `gaji`
+  ADD CONSTRAINT `gaji_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori_pekerjaan` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `loker`

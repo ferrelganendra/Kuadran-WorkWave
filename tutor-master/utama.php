@@ -1,3 +1,16 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+
+
+include 'koneksi.php';
+
+// Fetch job categories
+$query = "SELECT id, nama_kategori FROM kategori_pekerjaan";
+$result = $koneksi->query($query);
+$categories = $result->fetch_all(MYSQLI_ASSOC);
+?>
 <!doctype html>
 <html lang="en">
 
@@ -20,6 +33,7 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   </head>
 
@@ -56,8 +70,8 @@
                 <ul class="site-menu main-menu js-clone-nav ml-auto ">
                   <li class="active"><a href="utama.html" class="nav-link">Utama</a></li>
                   <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
-                  <li><a href="grafik.html" class="nav-link">Grafik</a></li>
-                  <li><a href="event.html" class="nav-link">Event</a></li>
+                  <li><a href="grafik.php" class="nav-link">Grafik</a></li>
+                  <li><a href="event.html" class="nav-link">Bursa Kerja</a></li>
                   <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
                   <li><a href="login.html" class="nav-link">Masuk</a></li>
                 </ul>
@@ -87,35 +101,36 @@
           <div class="row align-items-stretch overlap">
             <div class="col-lg-8">
               <div class="box h-100">
-                <form action="#" class="d-flex search-form">
-                  <input type="search" class="form-control mr-2" placeholder="Search subjects">
-                  <input type="submit" class="btn btn-primary px-4" value="Search">
-                </form>
-                <br>
-                <div class="form-container">
-                  <form>
-                    <div class="form-group">
-                      <label for="jenispekerjaan">Jenis Pekerjaan:</label>
-                      <select id="jenispekerjaan" name="jenispekerjaan">
-                        <option value="option1">Opsi 1</option>
-                        <option value="option2">Opsi 2</option>
-                        <option value="option3">Opsi 3</option>
-                      </select>
-                      <label for="fulltime">
-                        <input type="checkbox" id="fulltime" name="Fulltime" value="fulltime"> Full Time
-                      </label>
-                      <label for="parttime">
-                        <input type="checkbox" id="parttime" name="Parttime" value="parttime"> Part Time
-                      </label>
-                      <label for="gaji">Gaji:</label>
-                      <select id="gaji" name="gaji">
-                        <option value="option1">Opsi 1</option>
-                        <option value="option2">Opsi 2</option>
-                        <option value="option3">Opsi 3</option>
-                      </select>
-                    </div>
-                  </form>
-                </div>
+              <form action="#" class="d-flex search-form" id="basic-search-form">
+        <input type="search" class="form-control mr-2" id="keyword" placeholder="Cari Pekerjaan">
+    </form>
+    <br>
+    <div id="search-results"></div>
+    <div class="form-container">
+        <form id="advanced-search-form" method="post">
+            <div class="form-group">
+                <label for="kategori">Jenis Pekerjaan:</label>
+                <select id="kategori" name="kategori">
+                    <option value="">Pilih Kategori</option>
+                    <?php
+                    // Assume $categories is populated from the database
+                    include 'get_categories.php'; // This should set $categories
+                    foreach ($categories as $category): ?>
+                        <option value="<?= htmlspecialchars($category['id']) ?>"><?= htmlspecialchars($category['nama_kategori']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="status">Status Kerja:</label>
+                <select id="status" name="status">
+                    <option value="">Pilih Status</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Kontrak">Kontrak</option>
+                </select>
+                <input type="submit" class="btn btn-primary px-4" value="Cari">
+            </div>
+        </form>
+    </div>
+    </div>
               </div>
             </div>
           </div>
@@ -240,7 +255,7 @@
 
 
             <div class="col-lg-4">
-              <h4>Event Lokal</h4>
+              <h4>Bursa Kerja</h4>
               <div class="box-side mb-3">
                 <a href="#"><img src="images/JOBFAIR.png" alt="jobfair" class="img-fluid"></a>
                 <h3><a href="event.html">Job Fair Offline UAJY</a></h3>
@@ -356,21 +371,21 @@
           <div class="col-lg-8 ml-auto">
             <div class="row">
               <div class="col-lg-3">
-                <h2 class="footer-heading mb-4">Pencarian Kerja</h2>
+                <h2 class="footer-heading mb-4"></h2>
                 <ul class="list-unstyled">
-                  <li><a href="utama.html">Lowongan Pekerjaan</a></li>
-                  <li><a href="grafik.html"></a>Grafik</li>
+                  <li><a href="utama.php">Lowongan Pekerjaan</a></li>
+                  <li><a href="grafik.php">Grafik</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
-                <h2 class="footer-heading mb-4">Event</h2>
+                <h2 class="footer-heading mb-4"></h2>
                 <ul class="list-unstyled">
-                  <li><a href="event.html">Event Lokal</a></li>
-                  <li><a href="#">Posting Event</a></li>
+                  <li><a href="blog.html">Bursa Kerja</a></li>
+                  <li><a href="#">Partisipasi Bursa Kerja</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
-                <h2 class="footer-heading mb-4">Perusahaan</h2>
+                <h2 class="footer-heading mb-4"></h2>
                 <ul class="list-unstyled">
                   <li><a href="registrasi.html">Registrasi</a></li>
                   <li><a href="login.html">Masuk</a></li>
@@ -380,6 +395,7 @@
             </div>
           </div>
         </div>
+      
        
 
     </div>
@@ -395,9 +411,8 @@
     <script src="js/jquery.easing.1.3.js"></script>
     <script src="js/bootstrap-datepicker.min.js"></script>
     <script src="js/aos.js"></script>
-
+    <script src="js/search.js"></script>
     <script src="js/main.js"></script>
-
   </body>
 
 </html>
