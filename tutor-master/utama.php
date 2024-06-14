@@ -279,14 +279,14 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
           <div class="col-lg-7 text-center mb-5">
             <div class="heading">
               <span class="caption">Testimonials</span>
-              <h2>Student Reviews</h2>
+              <h2>User Reviews</h2>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-4 mb-4 mb-lg-0">
             <div class="testimonial-2">
-              <h3 class="h5">Excellent Teacher!</h3>
+              <h3 class="h5">Website Pencari Kerja Terbaik di Yogyakarta!</h3>
               <div>
                 <span class="icon-star text-warning"></span>
                 <span class="icon-star text-warning"></span>
@@ -295,12 +295,12 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
                 <span class="icon-star-o text-warning"></span>
               </div>
               <blockquote class="mb-4">
-                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, deserunt eveniet veniam. Ipsam, nam, voluptatum"</p>
+                <p>"Memiliki banyak lowongan kerja dari berbagai perusahaan ternama, tampilan website mudah digunakan dan informatif, tersedia fitur filter yang lengkap untuk mempermudah pencarian lowongan kerja, proses pendaftaran dan lamaran kerja mudah dilakukan."</p>
               </blockquote>
               <div class="d-flex v-card align-items-center">
                 <img src="images/person_1.jpg" alt="Image" class="img-fluid mr-3">
                 <div class="author-name">
-                  <span class="d-block">Mike Fisher</span>
+                  <span class="d-block">Joko</span>
                   <span>Owner, Ford</span>
                 </div>
               </div>
@@ -308,7 +308,7 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
           </div>
           <div class="col-lg-4 mb-4 mb-lg-0">
             <div class="testimonial-2">
-              <h3 class="h5">Best Video Tutorial!</h3>
+              <h3 class="h5">Mantul!</h3>
               <div>
                 <span class="icon-star text-warning"></span>
                 <span class="icon-star text-warning"></span>
@@ -317,12 +317,12 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
                 <span class="icon-star-o text-warning"></span>
               </div>
               <blockquote class="mb-4">
-                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, deserunt eveniet veniam. Ipsam, nam, voluptatum"</p>
+                <p>"Menyediakan informasi gaji dan benefit yang transparan, memiliki fitur untuk pengembangan karir seperti bursa kerja dan konsultasi, tampilan website modern dan profesional."</p>
               </blockquote>
               <div class="d-flex v-card align-items-center">
                 <img src="images/person_2.jpg" alt="Image" class="img-fluid mr-3">
                 <div class="author-name">
-                  <span class="d-block">Jean Stanley</span>
+                  <span class="d-block">Citra</span>
                   <span>Traveler</span>
                 </div>
               </div>
@@ -330,7 +330,7 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
           </div>
           <div class="col-lg-4 mb-4 mb-lg-0">
             <div class="testimonial-2">
-              <h3 class="h5">Easy to Understand!</h3>
+              <h3 class="h5">Terima Kasih WorkWave!</h3>
               <div>
                 <span class="icon-star text-warning"></span>
                 <span class="icon-star text-warning"></span>
@@ -339,12 +339,12 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
                 <span class="icon-star-o text-warning"></span>
               </div>
               <blockquote class="mb-4">
-                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, deserunt eveniet veniam. Ipsam, nam, voluptatum"</p>
+                <p>"Memiliki jumlah lowongan kerja yang sangat banyak dari berbagai sumber, tampilan website sederhana dan mudah dinavigasi, tersedia fitur filter yang lengkap dan sistem pencocokan lowongan kerja dengan profil pengguna, proses pendaftaran dan lamaran kerja mudah dilakukan."</p>
               </blockquote>
               <div class="d-flex v-card align-items-center">
                 <img src="images/person_3.jpg" alt="Image" class="img-fluid mr-3">
                 <div class="author-name">
-                  <span class="d-block">Katie Rose</span>
+                  <span class="d-block">Sari</span>
                   <span >Customer</span>
                 </div>
               </div>
@@ -380,7 +380,7 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
               <div class="col-lg-3">
                 <h2 class="footer-heading mb-4"></h2>
                 <ul class="list-unstyled">
-                  <li><a href="blog.html">Bursa Kerja</a></li>
+                  <li><a href="bursakerja.html">Bursa Kerja</a></li>
                   <li><a href="#">Partisipasi Bursa Kerja</a></li>
                 </ul>
               </div>
