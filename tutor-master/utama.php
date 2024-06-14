@@ -71,7 +71,7 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
                   <li class="active"><a href="utama.html" class="nav-link">Utama</a></li>
                   <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
                   <li><a href="grafik.php" class="nav-link">Grafik</a></li>
-                  <li><a href="event.html" class="nav-link">Bursa Kerja</a></li>
+                  <li><a href="bursakerja.html" class="nav-link">Bursa Kerja</a></li>
                   <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
                   <li><a href="login.html" class="nav-link">Masuk</a></li>
                 </ul>
@@ -258,15 +258,15 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
               <h4>Bursa Kerja</h4>
               <div class="box-side mb-3">
                 <a href="#"><img src="images/JOBFAIR.png" alt="jobfair" class="img-fluid"></a>
-                <h3><a href="event.html">Job Fair Offline UAJY</a></h3>
+                <h3><a href="bursakerja.html">Job Fair Offline UAJY</a></h3>
               </div>  
               <div class="box-side mb-3">
                 <a href="#"><img src="images/jobfair1.png" alt="jobfair" class="img-fluid"></a>
-                <h3><a href="event.html">JOBFAIR CAREER EXPO 2024</a></h3>
+                <h3><a href="bursakerja.html">JOBFAIR CAREER EXPO 2024</a></h3>
               </div>  
               <div class="box-side">
                 <a href="#"><img src="images/jobfair2.png" alt="jobfair" class="img-fluid"></a>
-                <h3><a href="event.html">Job Fair Virtual</a></h3>
+                <h3><a href="bursakerja.html">Job Fair Virtual</a></h3>
               </div>  
             </div>
           </div>

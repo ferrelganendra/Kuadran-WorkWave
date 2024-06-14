@@ -105,7 +105,7 @@ session_start();
                   <li class="active"><a href="utama.html" class="nav-link">Utama</a></li>
                   <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
                   <li><a href="grafik.php" class="nav-link">Grafik</a></li>
-                  <li><a href="event.html" class="nav-link">Event</a></li>
+                  <li><a href="bursakerja.html" class="nav-link">Event</a></li>
                   <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
                   <li><a href="login.html" class="nav-link">Masuk</a></li>
                 </ul>
