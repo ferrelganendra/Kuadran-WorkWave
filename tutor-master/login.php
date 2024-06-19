@@ -1,3 +1,6 @@
+<?php
+include 'php/Admin/prosesLogin.php';
+?>
 <!doctype html>
 <html lang="en">
 
@@ -56,10 +59,10 @@
               <ul class="site-menu main-menu js-clone-nav ml-auto ">
                 <li><a href="utama.php" class="nav-link">Utama</a></li>
                 <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
-                <li><a href="grafik.html" class="nav-link">Grafik</a></li>
-                <li><a href="bursakerja.html" class="nav-link">Bursa Kerja</a></li>
-                <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
-                <li class="active"><a href="login.html" class="nav-link">Masuk</a></li>
+                <li><a href="grafik.php" class="nav-link">Grafik</a></li>
+                <li><a href="event.html" class="nav-link">Bursa Kerja</a></li>
+                <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
+                <li class="active"><a href="login.php" class="nav-link">Masuk</a></li>
               </ul>
             </nav>
           </div>
@@ -90,8 +93,8 @@
             
             <div class="row">
               <div class="col-lg-8 mb-5" >
-                <form action="#" method="post">
-                  <h2>Masuk Ke WorkWave Sebagai Perusahaan</h2>
+                <form action="prosesLogin.php" method="post">
+                  <h2>Masuk Ke Work Wave</h2>
                   <div class="form-group row">
                     <div class="col-md-12">
                       <input type="text" class="form-control" placeholder="Username">
@@ -117,7 +120,7 @@
                   <h3 class="text-black mb-4">Pengguna Baru</h3>
                   <ul class="list-unstyled footer-link">
                     <li class="d-block mb-3">
-                      <span>Jika Anda belum memiliki akun, silahkan melakukan registrasi terlebih dahulu sebagai Perusahaan.</span>
+                      <span>Jika Anda belum memiliki akun, silakan melakukan registrasi terlebih dahulu sebagai Perusahaan.</span>
                     </li>
                     <p><a href="registrasi.html" class="btn //</div> btn-block btn-primary text-white py-3 px-5" href="registrasi.html" >Registrasi</a></p>
                   </ul>

@@ -1,3 +1,6 @@
+<?php
+include '/php/Admin/prosesRegis.php';
+?>
 <!doctype html>
 <html lang="en">
 
@@ -57,9 +60,9 @@
                 <li><a href="utama.php" class="nav-link">Utama</a></li>
                 <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
                 <li><a href="grafik.php" class="nav-link">Grafik</a></li>
-                <li><a href="bursakerja.html" class="nav-link">Bursa Kerja</a></li>
-                <li class="active"><a href="registrasi.html" class="nav-link">Registrasi</a></li>
-                <li><a href="login.html" class="nav-link">Masuk</a></li>
+                <li><a href="event.html" class="nav-link">Bursa Kerja</a></li>
+                <li class="active"><a href="registrasi.php" class="nav-link">Registrasi</a></li>
+                <li><a href="login.php" class="nav-link">Masuk</a></li>
               </ul>
             </nav>
           </div>
@@ -91,58 +94,59 @@
         <div class="row">
           <div class="col-lg-8 mb-5" >
             <h2>Registrasi Sebagai Perusahaan</h2>
-            <form action="#" method="post">
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Nama Perusahaan">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Industri">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea name="" id="" class="form-control" placeholder="Deskripsi Perusahaan" cols="30" rows="10"></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Media Sosial">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Website">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea name="" id="" class="form-control" placeholder="Alamat Perusahaan" cols="30" rows="10"></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="file"  class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Username">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="password" class="form-control" placeholder="Kata Sandi">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-6 mr-auto">
-                  <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Daftar">
-                </div>
-              </div>
-            </form>
+            <form action="php/Admin/prosesRegis.php" method="post" enctype="multipart/form-data">
+    <div class="form-group row">
+        <div class="col-md-12">
+            <input type="text" class="form-control" name="nama_perusahaan" placeholder="Nama Perusahaan">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <input type="text" class="form-control" name="industri" placeholder="Industri">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <textarea class="form-control" name="deskripsi" placeholder="Deskripsi Perusahaan" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <input type="text" class="form-control" name="media_sosial" placeholder="Media Sosial">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <input type="text" class="form-control" name="website" placeholder="Website">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <textarea class="form-control" name="alamat" placeholder="Alamat Perusahaan" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <input type="file" id="fileInput" name="logo_perusahaan" placeholder="Logo Perusahaan" accept="image/*">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <input type="text" class="form-control" name="username" placeholder="Username">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <input type="password" class="form-control" name="password" placeholder="Kata Sandi">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6 mr-auto">
+            <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Daftar">
+        </div>
+    </div>
+</form>
+
           </div>
           
         </div>
@@ -180,7 +184,7 @@
                 <div class="col-lg-3">
                   <h2 class="footer-heading mb-4"></h2>
                   <ul class="list-unstyled">
-                    <li><a href="registrasi.html">Registrasi</a></li>
+                    <li><a href="registrasi.php">Registrasi</a></li>
                     <li><a href="login.html">Masuk</a></li>
                     <li><a href="#">Beli paket</a></li>
                   </ul>
@@ -203,7 +207,7 @@
   <script src="js/jquery.easing.1.3.js"></script>
   <script src="js/bootstrap-datepicker.min.js"></script>
   <script src="js/aos.js"></script>
-
+  <script src="js/registrasi.js"></script>
   <script src="js/main.js"></script>
 
 </body>

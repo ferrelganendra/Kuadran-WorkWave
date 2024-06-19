@@ -914,20 +914,40 @@ h1, h2, h3, h4, h5,
   font-weight: 700;
   color: #0779e4; }
 
-.custom-pagination ul li {
-  display: inline-block; }
+  .custom-pagination ul {
+    padding: 0;
+    list-style: none;
+  }
+  
+  .custom-pagination ul li {
+    display: inline-block;
+    margin: 5px;
+  }
+  
   .custom-pagination ul li a, .custom-pagination ul li span {
     display: inline-block;
     width: 50px;
     height: 50px;
     line-height: 50px;
     font-size: 20px;
+    font-weight: bold;
     border-radius: 50%;
-    background: #fff;
-    text-align: center; }
+    background: #f0f0f0; /* Default background color */
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s; /* Smooth transition */
+  }
+  
+  .custom-pagination ul li a:hover, .custom-pagination ul li span:hover {
+    background: #007bff; /* Hover background color */
+    color: #fff; /* Hover text color */
+  }
+  
   .custom-pagination ul li > span {
-    background: #0779e4;
-    color: #fff; }
+    background: #007bff; /* Active page background color */
+    color: #fff; /* Active page text color */
+  }
 
 .box-side {
   padding: 20px;

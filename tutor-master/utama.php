@@ -3,14 +3,74 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-
 include 'koneksi.php';
+
+// Get filter parameters from GET request
+$gaji_min = isset($_GET['gaji_min']) ? (int)$_GET['gaji_min'] : 0;
+$gaji_max = isset($_GET['gaji_max']) ? (int)$_GET['gaji_max'] : PHP_INT_MAX;
+
+// Number of records to display per page
+$records_per_page = 6;
+
+// Get the current page number from the URL, if not set default to 1
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($current_page - 1) * $records_per_page;
+
+// Fetch total number of records with salary filter
+$total_query = "SELECT COUNT(*) FROM loker WHERE besaran_gaji BETWEEN ? AND ?";
+$stmt_total = $koneksi->prepare($total_query);
+$stmt_total->bind_param("ii", $gaji_min, $gaji_max);
+$stmt_total->execute();
+$stmt_total->bind_result($total_rows);
+$stmt_total->fetch();
+$stmt_total->close();
+$total_pages = ceil($total_rows / $records_per_page);
 
 // Fetch job categories
 $query = "SELECT id, nama_kategori FROM kategori_pekerjaan";
 $result = $koneksi->query($query);
 $categories = $result->fetch_all(MYSQLI_ASSOC);
+
+// Fetch status_kerja values
+$status_kerja = [];
+try {
+    // Prepare the SQL statement
+    $stmt = $koneksi->prepare("SELECT DISTINCT status_kerja FROM loker");
+    
+    // Execute the statement
+    $stmt->execute();
+    
+    // Bind result variables
+    $stmt->bind_result($status);
+    
+    // Fetch values
+    while ($stmt->fetch()) {
+        $status_kerja[] = ['status_kerja' => $status];
+    }
+    
+    // Close the statement
+    $stmt->close();
+} catch (Exception $e) {
+    // Handle any errors
+    echo "Error: " . $e->getMessage();
+}
+
+// Fetch records for the current page with salary filter
+$loker_query = "
+    SELECT loker.*, users.logo_perusahaan
+    FROM loker
+    LEFT JOIN users ON loker.user_id = users.id
+    WHERE besaran_gaji BETWEEN ? AND ?
+    LIMIT ?, ?
+";
+$stmt = $koneksi->prepare($loker_query);
+$stmt->bind_param("iiii", $gaji_min, $gaji_max, $offset, $records_per_page);
+$stmt->execute();
+$loker_result = $stmt->get_result();
+
 ?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -58,7 +118,7 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
 
             <div class="col-3">
               <div class="site-logo">
-                <a href="utama.html"><strong>Work Wave</strong></a>
+                <a href="utama.php"><strong>Work Wave</strong></a>
               </div>
             </div>
 
@@ -72,8 +132,8 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
                   <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
                   <li><a href="grafik.php" class="nav-link">Grafik</a></li>
                   <li><a href="bursakerja.html" class="nav-link">Bursa Kerja</a></li>
-                  <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
-                  <li><a href="login.html" class="nav-link">Masuk</a></li>
+                  <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
+                  <li><a href="login.php" class="nav-link">Masuk</a></li>
                 </ul>
               </nav>
             </div>
@@ -101,10 +161,6 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
           <div class="row align-items-stretch overlap">
             <div class="col-lg-8">
               <div class="box h-100">
-              <form action="#" class="d-flex search-form" id="basic-search-form">
-        <input type="search" class="form-control mr-2" id="keyword" placeholder="Cari Pekerjaan">
-    </form>
-    <br>
     <div id="search-results"></div>
     <div class="form-container">
         <form id="advanced-search-form" method="post">
@@ -114,28 +170,30 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
                     <option value="">Pilih Kategori</option>
                     <?php
                     // Assume $categories is populated from the database
-                    include 'get_categories.php'; // This should set $categories
+                    include 'koneksi.php'; // This should set $categories
                     foreach ($categories as $category): ?>
                         <option value="<?= htmlspecialchars($category['id']) ?>"><?= htmlspecialchars($category['nama_kategori']) ?></option>
                     <?php endforeach; ?>
                 </select>
                 <label for="status">Status Kerja:</label>
                 <select id="status" name="status">
-                    <option value="">Pilih Status</option>
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Kontrak">Kontrak</option>
+                  <option value="">Pilih Status</option>
+                  <?php
+                  include 'koneksi.php'; // This should set $status_kerja
+                  foreach ($status_kerja as $status): ?>
+                  <option value="<?= htmlspecialchars($status['status_kerja']) ?>"><?= htmlspecialchars($status['status_kerja']) ?></option>
+                  <?php endforeach; ?>
                 </select>
                 <input type="submit" class="btn btn-primary px-4" value="Cari">
-            </div>
-        </form>
-    </div>
-    </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+</div>
       
       <div class="site-section bg-light">
         <div class="container">
@@ -148,112 +206,35 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
               </div>
             </div>
             <div class="col-lg-8">
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/INDO BERUANG.png" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">TELEMARKETING</a></h3>
-                  <p>Indo Beruang sedang membuka lowongan kerja untuk posisi sebagai Telemarketing</p>
-                
-                  <p class="meta">
-                    <span class="mr-2 mb-2">1hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 18, 2024</span>
-                  </p>
-                  
-                  <p><a href="indoberuang.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/bowling.png" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Gardener & Cleaning Service</a></h3>
-                  <p>Bowl-Ling Fruit Bar & Kitchen merupakan resto dengan menu ikonik sup 
-                    buah di Indonesia dan berkembang menyajikan berbagai makanan utama 
-                    (tradisional food, western food dan oriental food).</p>
-
-                  <p class="meta">
-                    <span class="mr-2 mb-2">3hr 21m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 19, 2024</span>
-                  </p>
-                  
-                  <p><a href="bowling.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/cabinhotel.png" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Staff Front Office - House Keeping</a></h3>
-                  <p>The Cabin Hotel merupakan perusahaan penyedia jasa akomodasi dan management 
-                    hotel yang terus berekspansi dibeberapa kota. Hingga saat ini kami memiliki total 17 cabang.</p>
-
-                  <p class="meta">
-                    <span class="mr-2 mb-2">11hr 14m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 19, 2024</span>
-                  </p>
-                  <p><a href="cabinhotel.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/laundry.png" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Karyawati Laundry</a></h3>
-                  <p>Prime Wash Laundry Management adalah Usaha Layanan Jasa Laundry yang sedang berkembang 
-                     di Area Yogyakarta, melayani berbagai kebutuhan jasa laundry. Saat ini membuka lowongan 
-                     kerja untuk posisi sebagai Karyawati Laundry.</p>
-                  
-                  <p class="meta">
-                    <span class="mr-2 mb-2">12hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 20, 2024</span>
-                  </p>
-                  <p><a href="laundry.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-              <div class="d-flex tutorial-item mb-4">
-                <div class="img-wrap">
-                  <a href="#"><img src="images/apotek.png" alt="Image" class="img-fluid"></a>
-                </div>
-                <div>
-                  <h3><a href="#">Account Executive (Sales Staff)</a></h3>
-                  <p>PT. Indah Medika Indonesia merupakan sebuah perusahaan yang 
-                     sedang berkembang dan memiliki beberapa unit bisnis.</p>
-                  
-                  <p class="meta">
-                    <span class="mr-2 mb-2">10hr 24m</span>
-                    <span class="mr-2 mb-2">Advanced</span>
-                    <span class="mr-2 mb-2">Jun 21, 2024</span>
-                  </p>
-                  <p><a href="apotek.html" class="btn btn-primary custom-btn">View</a></p>
-                </div>
-              </div>
-
-
+            <?php if ($loker_result->num_rows > 0): ?>
+                <?php while ($row = $loker_result->fetch_assoc()): ?>
+                  <div class="d-flex tutorial-item mb-4">
+                    <div class="img-wrap">
+                      <a href="#"><img src="images/<?= !empty($row['logo_perusahaan']) ? htmlspecialchars($row['logo_perusahaan']) : 'default.png' ?>" alt="Image" class="img-fluid"></a>
+                    </div>
+                    <div>
+                      <h3><a href="#"><?= htmlspecialchars($row['posisi']) ?></a></h3>
+                      <p><?= htmlspecialchars($row['syarat_pekerjaan']) ?></p>
+                      <p class="meta">
+                        <span class="mr-2 mb-2"><?= htmlspecialchars($row['tingkat_pendidikan']) ?></span>
+                        <span class="mr-2 mb-2"><?= htmlspecialchars($row['gender']) ?></span>
+                        <span class="mr-2 mb-2"><?= htmlspecialchars($row['tanggal_dipost']) ?></span>
+                      </p>
+                      <p><a href="details.php?id=<?= htmlspecialchars($row['id']) ?>" class="btn btn-primary custom-btn">View</a></p>
+                    </div>
+                  </div>
+                <?php endwhile; ?>
+              <?php else: ?>
+                <p>Tidak ada data lowongan kerja.</p>
+              <?php endif; ?>
               <div class="custom-pagination">
                 <ul class="list-unstyled">
-                  <li><a href="#"><span>1</span></a></li>
-                  <li><span>2</span></li>
-                  <li><a href="#"><span>3</span></a></li>
-                  <li><a href="#"><span>4</span></a></li>
-                  <li><a href="#"><span>5</span></a></li>
+                  <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li><a href="?page=<?= $i ?>"><span><?= $i ?></span></a></li>
+                  <?php endfor; ?>
                 </ul>
               </div>
             </div>
-
-
             <div class="col-lg-4">
               <h4>Bursa Kerja</h4>
               <div class="box-side mb-3">
@@ -278,8 +259,8 @@ $categories = $result->fetch_all(MYSQLI_ASSOC);
         <div class="row justify-content-center">
           <div class="col-lg-7 text-center mb-5">
             <div class="heading">
-              <span class="caption">Testimonials</span>
-              <h2>User Reviews</h2>
+              <span class="caption">Testimonials Perusahaan</span>
+              <h2>Users Reviews</h2>
             </div>
           </div>
         </div>

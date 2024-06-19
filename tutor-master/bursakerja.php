@@ -1,3 +1,12 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+
+include 'konten/header.php';
+include 'php/Admin/prosesFormEvent.php';
+include 'konten/isiEvent.php';
+?>
 <!doctype html>
 <html lang="en">
 
@@ -5,27 +14,19 @@
     <title>Work Wave</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="fonts/icomoon/style.css">
     <link rel="stylesheet" href="fonts/brand/style.css">
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="css/jquery.fancybox.min.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/aos.css">
-
-    <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/style.css">
-
   </head>
-
   <body>
-
-    
+  
     <div class="site-wrap" id="home-section">
 
       <div class="site-mobile-menu site-navbar-target">
@@ -44,7 +45,7 @@
 
             <div class="col-3">
               <div class="site-logo">
-                <a href="utama.html"><strong>Work</strong>Wave</a>
+                <a href="utama.php"><strong>Work</strong>Wave</a>
               </div>
             </div>
 
@@ -58,16 +59,13 @@
                   <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
                   <li><a href="grafik.php" class="nav-link">Grafik</a></li>
                   <li class="active"><a href="blog.html" class="nav-link">Bursa Kerja</a></li>
-                  <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
-                  <li><a href="login.html" class="nav-link">Masuk</a></li>
+                  <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
+                  <li><a href="login.php" class="nav-link">Masuk</a></li>
                 </ul>
               </nav>
             </div>
-
-            
           </div>
         </div>
-
       </header>
 
       
@@ -81,12 +79,11 @@
           </div>
         </div>
       </div>
-
-      
       
 
       <div class="site-section bg-light">
       <div class="container">
+      <button type="button" class="btn btn-primary d-flex justify-content-center" data-toggle="modal" data-target="#buatEventModal">Buat Event Baru</button>
         <div class="row">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="post-entry-1 h-100">
@@ -94,8 +91,8 @@
                 <img src="images/JOBFAIR.png" alt="Image"
                  class="img-fluid">
               </a>
-              <div class="post-entry-1-contents">
-                
+
+              <div class="post-entry-1-contents">  
                 <h2><a href="single.html">Job Fair Offline UAJY</a></h2>
                 <span class="meta d-inline-block mb-3">14-15 Mei 2024 <span class="mx-2">by</span> <a href="#">Admin</a></span>
                 <p>Universitas Atma Jaya Yogyakarta</p>
@@ -224,8 +221,8 @@
               <div class="col-lg-3">
                 <h2 class="footer-heading mb-4"></h2>
                 <ul class="list-unstyled">
-                  <li><a href="registrasi.html">Registrasi</a></li>
-                  <li><a href="login.html">Masuk</a></li>
+                  <li><a href="registrasi.php">Registrasi</a></li>
+                  <li><a href="login.php">Masuk</a></li>
                   <li><a href="#">Beli paket</a></li>
                 </ul>
               </div>
@@ -247,10 +244,73 @@
     <script src="js/jquery.easing.1.3.js"></script>
     <script src="js/bootstrap-datepicker.min.js"></script>
     <script src="js/aos.js"></script>
-
+    <script src="js/event.js"></script>
     <script src="js/main.js"></script>
 
+    <!-- Modal -->
+<div class="modal fade" id="buatEventModal" tabindex="-1" role="dialog" aria-labelledby="buatEventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="buatEventModalLabel">Buat Event Baru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="prosesFormEvent.php" method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="nama_acara">Nama Acara:</label>
+    <input type="text" class="form-control" id="nama_acara" name="nama_acara" required>
+  </div>
+  <div class="form-group">
+    <label for="deskripsi_acara">Deskripsi Acara:</label>
+    <textarea class="form-control" id="deskripsi_acara" name="deskripsi_acara" rows="3" required></textarea>
+  </div>
+  <div class="form-group">
+    <label for="tanggal_acara">Tanggal Acara:</label>
+    <input type="date" class="form-control" id="tanggal_acara" name="tanggal_acara" required>
+  </div>
+  <div class="form-group">
+    <label for="waktu_acara">Waktu Acara:</label>
+    <input type="time" class="form-control" id="waktu_acara" name="waktu_acara" required>
+  </div>
+  <div class="form-group">
+    <label for="tempat_acara">Tempat Acara:</label>
+    <input type="text" class="form-control" id="tempat_acara" name="tempat_acara" required>
+  </div>
+  <div class="form-group">
+    <label for="kategori_acara">Kategori Acara:</label>
+    <input type="text" class="form-control" id="kategori_acara" name="kategori_acara" required>
+  </div>
+  <div class="form-group">
+    <label for="biaya_pendaftaran">Biaya Pendaftaran:</label>
+    <input type="number" step="0.01" class="form-control" id="biaya_pendaftaran" name="biaya_pendaftaran" required>
+  </div>
+  <div class="form-group">
+    <label for="kontak_penyelenggara">Kontak Penyelenggara:</label>
+    <input type="text" class="form-control" id="kontak_penyelenggara" name="kontak_penyelenggara" required>
+  </div>
+  <div class="form-group">
+    <label for="url_pendaftaran">URL Pendaftaran:</label>
+    <input type="text" class="form-control" id="url_pendaftaran" name="url_pendaftaran" required>
+  </div>
+  <div class="form-group">
+    <label for="instruksi_tambahan">Instruksi Tambahan:</label>
+    <textarea class="form-control" id="instruksi_tambahan" name="instruksi_tambahan" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="foto_poster">Foto/Poster Acara:</label>
+    <input type="file" class="form-control-file" id="foto_poster" name="foto_poster">
+  </div>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-primary" id="submitEvent">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
   </body>
-
 </html>
-

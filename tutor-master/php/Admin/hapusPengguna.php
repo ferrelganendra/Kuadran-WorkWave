@@ -16,14 +16,14 @@ if(isset($_POST['delete_user'])) {
 
 // Fungsi PHP untuk menghapus pengguna
 function hapusPengguna($id) {
-    global $conn;
+    global $koneksi;
     $sql = "DELETE FROM users WHERE id=$id";
-    if ($conn->query($sql) === TRUE) {
+    if ($koneksi->query($sql) === TRUE) {
         echo "Pengguna berhasil dihapus.";
     } else {
-        echo "Error deleting record: " . $conn->error;
+        echo "Error deleting record: " . $koneksi->error;
     }
 }
 
-$conn->close();
+$koneksi->close();
 ?>
