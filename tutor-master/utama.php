@@ -131,7 +131,7 @@ $loker_result = $stmt->get_result();
                   <li class="active"><a href="utama.html" class="nav-link">Utama</a></li>
                   <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
                   <li><a href="grafik.php" class="nav-link">Grafik</a></li>
-                  <li><a href="bursakerja.html" class="nav-link">Bursa Kerja</a></li>
+                  <li><a href="bursakerja.php" class="nav-link">Bursa Kerja</a></li>
                   <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
                   <li><a href="login.php" class="nav-link">Masuk</a></li>
                 </ul>
