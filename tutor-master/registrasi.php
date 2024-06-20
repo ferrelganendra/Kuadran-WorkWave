@@ -129,6 +129,7 @@ include '/php/Admin/prosesRegis.php';
     </div>
     <div class="form-group row">
         <div class="col-md-12">
+        <label for="logo_perusahaan">Logo Perusahaan</label>
             <input type="file" id="fileInput" name="logo_perusahaan" placeholder="Logo Perusahaan" accept="image/*">
         </div>
     </div>

@@ -96,7 +96,7 @@ include 'php/Admin/prosesLogin.php';
             <div class="row">
               <div class="col-lg-8 mb-5" >
                 <form action="prosesLogin.php" method="post">
-                  <h2>Masuk Ke Work Wave</h2>
+                  <h2>Masuk Ke WorkWave</h2>
                   <div class="form-group row">
                     <div class="col-md-12">
                       <input type="text" class="form-control" placeholder="Username">
