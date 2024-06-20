@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 19 Jun 2024 pada 20.09
+-- Waktu pembuatan: 20 Jun 2024 pada 18.25
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -332,7 +332,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `nama_perusahaan` varchar(255) NOT NULL,
   `industri` varchar(255) NOT NULL,
-  `deskripsi_perusahaan` text DEFAULT NULL,
+  `deskripsi_perusahaan` varchar(255) NOT NULL,
   `media_sosial` varchar(255) DEFAULT NULL,
   `website` varchar(255) DEFAULT NULL,
   `alamat_perusahaan` text DEFAULT NULL,
@@ -347,9 +347,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`) VALUES
-(1, 'Perusahaan A', 'Teknologi Informasi', 'Perusahaan A bergerak di bidang teknologi informasi.', '@perusahaana', 'http://www.perusahaana.com', 'Jl. Teknologi No. 1', '', 'userA', 'passwordA', 'diterima'),
-(2, 'Perusahaan B', 'Pendidikan', 'Perusahaan B bergerak di bidang pendidikan.', '@perusahaanb', 'http://www.perusahaanb.com', 'Jl. Pendidikan No. 2', '', 'userB', 'passwordB', 'diterima'),
-(3, 'Perusahaan C', 'Kesehatan', 'Perusahaan C bergerak di bidang kesehatan.', '@perusahaanc', 'http://www.perusahaanc.com', 'Jl. Kesehatan No. 3', '', 'userC', 'passwordC', 'diterima');
+(1, 'PT. Ferrel Cyberprotect', 'Teknologi Informasi', 'Perusahaan A bergerak di bidang teknologi informasi.', '@perusahaana', 'http://www.perusahaana.com', 'Jl. Teknologi No. 1', '', 'userA', 'passwordA', 'diterima'),
+(2, 'Sekolah Dasar Negeri 1 Dinda', 'Pendidikan', 'Sekolah Dasar Negeri 1 Dinda bergerak di bidang pendidikan.', '@sekolahan', 'http://www.perusahaanb.com', 'Jl. Pendidikan No. 2', '', 'userB', 'passwordB', 'diterima'),
+(3, 'Apotek Savero anjai', 'Kesehatan', 'Apotek Savero anjai bergerak di bidang kesehatan.', '@perusahaanc', 'http://www.perusahaanc.com', 'Jl. Kesehatan No. 3', '', 'userC', 'passwordC', 'diterima');
 
 --
 -- Indexes for dumped tables
@@ -379,7 +379,8 @@ ALTER TABLE `loker`
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -407,7 +408,7 @@ ALTER TABLE `loker`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

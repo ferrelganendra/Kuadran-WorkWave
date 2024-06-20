@@ -1,34 +1,25 @@
 <?php
 session_start();
 error_reporting(E_ALL);
-ini_set('display_errors', 1);;
-// Include koneksi database
+ini_set('display_errors', 1);
+
 include 'koneksi.php';
 
-
-
-// Function to sanitize input data
-function sanitize_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
 // Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize input data
-    $username = sanitize_input($_POST['log-username']);
-    $password = sanitize_input($_POST['log-password']);
+if (isset($_POST['login'])) {
+    $username = $_POST['log-username'];
+    $password = $_POST['log-password'];
 
     // Check if username and password are not empty
     if (!empty($username) && !empty($password)) {
-        // Check if user exists and password is correct
-        $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-        $result = mysqli_query($koneksi, $query);
-        
-        if (mysqli_num_rows($result) == 1) {
-            $user_data = mysqli_fetch_assoc($result);
+        // Prepare and bind
+        $stmt = $koneksi->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 1) {
+            $user_data = $result->fetch_assoc();
             $status = $user_data['status'];
 
             // Check user status
@@ -37,26 +28,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
 
                 // Redirect to dashboard if status is 'diterima'
-                header("Location: profil.php");
+                header("Location: ../../profil.html");
                 exit();
             } elseif ($status == 'menunggu') {
                 // Alert 1 "menunggu"
-                echo "<script>alert('Akun Anda sedang dalam proses verifikasi admin. Harap tunggu konfirmasi dari admin.');</script>";
+                echo "<script>alert('Akun Anda sedang dalam proses verifikasi admin. Harap tunggu konfirmasi dari admin.'); window.location.href = '../../login.php';</script>";
             } elseif ($status == 'ditolak') {
                 // Alert 2 "ditolak"
-                echo "<script>alert('Akun Anda tidak lolos verifikasi admin. Silakan hubungi admin untuk informasi lebih lanjut.');</script>";
+                echo "<script>alert('Akun Anda tidak lolos verifikasi admin. Silakan hubungi admin untuk informasi lebih lanjut.'); window.location.href = '../../login.php';</script>";
             }
         } else {
             // Alert 3
-            echo "<script>alert('Username dan password salah !'); window.location.href = 'login.php';</script>";
+            echo "<script>alert('Username dan password salah!'); window.location.href = '../../login.php';</script>";
         }
+
+        // Close statement
+        $stmt->close();
     } else {
         // Alert 4
-        echo "<script>alert('Username atau password tidak boleh kosong.'); window.location.href = 'login.php';</script>";
+        echo "<script>alert('Username atau password tidak boleh kosong.'); window.location.href = '../../login.php';</script>";
     }
 }
 
 // Tutup koneksi
 $koneksi->close();
-
 ?>

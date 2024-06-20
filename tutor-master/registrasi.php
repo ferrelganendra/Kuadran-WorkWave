@@ -1,5 +1,7 @@
 <?php
-include '/php/Admin/prosesRegis.php';
+ error_reporting(E_ALL);
+ ini_set('display_errors', 1);
+ include 'php/Admin/prosesRegis.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -145,7 +147,7 @@ include '/php/Admin/prosesRegis.php';
     </div>
     <div class="form-group row">
         <div class="col-md-6 mr-auto">
-            <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Daftar">
+            <input type="submit" name="register" class="btn btn-block btn-primary text-white py-3 px-5" value="Daftar">
         </div>
     </div>
 </form>

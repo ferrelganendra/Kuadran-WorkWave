@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'php/Admin/prosesLogin.php';
 ?>
 <!doctype html>
@@ -95,24 +98,24 @@ include 'php/Admin/prosesLogin.php';
             
             <div class="row">
               <div class="col-lg-8 mb-5" >
-                <form action="prosesLogin.php" method="post">
+                <form action="php/Admin/prosesLogin.php" method="post">
                   <h2>Masuk Ke WorkWave</h2>
                   <div class="form-group row">
                     <div class="col-md-12">
-                      <input type="text" class="form-control" placeholder="Username">
+                      <input type="text" name="log-username" class="form-control" placeholder="Username" required>
                     </div>
                   </div>
     
                   <div class="form-group row">
                     <div class="col-md-12">
-                      <input type="password" class="form-control" placeholder="Kata Sandi">
+                      <input type="password" name="log-password" class="form-control" placeholder="Kata Sandi" required>
                     </div>
                   </div>
     
                 
                   <div class="form-group row">
                     <div class="col-md-6 mr-auto">
-                      <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Masuk">
+                      <input type="submit" name="login" class="btn btn-block btn-primary text-white py-3 px-5" value="Masuk">
                     </div>
                   </div>
                 </form>
@@ -124,7 +127,7 @@ include 'php/Admin/prosesLogin.php';
                     <li class="d-block mb-3">
                       <span>Jika Anda belum memiliki akun, silakan melakukan registrasi terlebih dahulu sebagai Perusahaan.</span>
                     </li>
-                    <p><a href="registrasi.html" class="btn //</div> btn-block btn-primary text-white py-3 px-5" href="registrasi.html" >Registrasi</a></p>
+                    <p><a href="registrasi.php" class="btn //</div> btn-block btn-primary text-white py-3 px-5" href="registrasi.html" >Registrasi</a></p>
                   </ul>
                 </div>
               </div>

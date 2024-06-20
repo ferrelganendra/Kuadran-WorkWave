@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include 'koneksi.php';
-include 'php/Admin/prosesFormEvent.php';
 
 // Number of records to display per page
 $records_per_page = 6;

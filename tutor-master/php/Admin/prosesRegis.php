@@ -67,7 +67,7 @@ if (isset($_POST['register'])) {
                 // Menggunakan JavaScript untuk menampilkan alert
                 echo "<script>
                         alert('Akun anda berhasil registrasi harap menunggu Admin');
-                        window.location.href='login.php';
+                        window.location.href='../../login.php';
                       </script>";
             } else {
                 echo "Error: " . $query . "<br>" . mysqli_error($koneksi) . "<br>";
