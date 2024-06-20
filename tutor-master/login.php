@@ -47,7 +47,7 @@ include 'php/Admin/prosesLogin.php';
 
           <div class="col-3">
             <div class="site-logo">
-              <a href="utama.html"><strong>W</strong>ork<strong>W</strong>ave</a>
+              <a href="utama.php"><strong>W</strong>ork<strong>W</strong>ave</a>
             </div>
           </div>
 
