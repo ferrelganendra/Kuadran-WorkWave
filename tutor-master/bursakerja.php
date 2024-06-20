@@ -57,7 +57,7 @@ $offset = ($current_page - 1) * $records_per_page;
 
             <div class="col-3">
               <div class="site-logo">
-                <a href="utama.php"><strong>Work</strong>Wave</a>
+                <a href="utama.php"><strong>W</strong>ork<strong>W</strong>ave</a>
               </div>
             </div>
 
@@ -69,10 +69,12 @@ $offset = ($current_page - 1) * $records_per_page;
                 <ul class="site-menu main-menu js-clone-nav ml-auto ">
                   <li><a href="utama.php" class="nav-link">Utama</a></li>
                   <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
+                  <li><a href="paket.html" class="nav-link">Beli Paket</a></li>
                   <li><a href="grafik.php" class="nav-link">Grafik</a></li>
                   <li class="active"><a href="bursakerja.php" class="nav-link">Bursa Kerja</a></li>
                   <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
                   <li><a href="login.php" class="nav-link">Masuk</a></li>
+                  <li><a href="profil.html" class="nav-link">Profil</a></li>
                 </ul>
               </nav>
             </div>
