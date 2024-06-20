@@ -1,11 +1,11 @@
 <?php
-
-// Include koneksi database
-include 'koneksi.php';
-
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);;
+// Include koneksi database
+include 'koneksi.php';
+
+
 
 // Function to sanitize input data
 function sanitize_input($data) {
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if user exists and password is correct
         $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
         $result = mysqli_query($koneksi, $query);
-
+        
         if (mysqli_num_rows($result) == 1) {
             $user_data = mysqli_fetch_assoc($result);
             $status = $user_data['status'];
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['username'] = $username;
 
                 // Redirect to dashboard if status is 'diterima'
-                header("Location: utama.php");
+                header("Location: profil.php");
                 exit();
             } elseif ($status == 'menunggu') {
                 // Alert 1 "menunggu"
