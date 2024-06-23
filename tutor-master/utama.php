@@ -6,6 +6,8 @@ session_start();
 include 'koneksi.php';
 
 // Get filter parameters from GET request
+$kategori = isset($_GET['kategori']) ? (int)$_GET['kategori'] : '';
+$status = isset($_GET['status']) ? $_GET['status'] : '';
 $gaji_min = isset($_GET['gaji_min']) ? (int)$_GET['gaji_min'] : 0;
 $gaji_max = isset($_GET['gaji_max']) ? (int)$_GET['gaji_max'] : PHP_INT_MAX;
 
@@ -15,6 +17,32 @@ $records_per_page = 6;
 // Get the current page number from the URL, if not set default to 1
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $records_per_page;
+
+// Build the SQL query with filters
+$sql = "SELECT loker.*, users.logo_perusahaan FROM loker LEFT JOIN users ON loker.user_id = users.id WHERE besaran_gaji BETWEEN ? AND ?";
+$params = [$gaji_min, $gaji_max];
+
+if ($kategori) {
+    $sql .= " AND kategori_pekerjaan_id = ?";
+    $params[] = $kategori;
+}
+
+if ($status) {
+    $sql .= " AND status_kerja = ?";
+    $params[] = $status;
+}
+
+$sql .= " LIMIT ?, ?";
+$params[] = $offset;
+$params[] = $records_per_page;
+
+$stmt = $koneksi->prepare($sql);
+
+// Use call_user_func_array to bind parameters dynamically
+$types = str_repeat('i', count($params) - 2) . 'ii'; // 'i' for integer and 's' for string
+$stmt->bind_param($types, ...$params);
+$stmt->execute();
+$loker_result = $stmt->get_result();
 
 // Fetch total number of records with salary filter
 $total_query = "SELECT COUNT(*) FROM loker WHERE besaran_gaji BETWEEN ? AND ?";
@@ -94,6 +122,7 @@ $loker_result = $stmt->get_result();
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/searchhjobb.js"></script>
 
   </head>
 
@@ -157,104 +186,102 @@ $loker_result = $stmt->get_result();
           </div>
         </div>
       </div>
-
       <div class="site-section bg-light pb-0">
-        <div class="container">
-          <div class="row align-items-stretch overlap">
+    <div class="container">
+        <div class="row align-items-stretch overlap">
             <div class="col-lg-8">
-              <div class="box h-100">
-    <div id="search-results"></div>
-    <div class="form-container">
-        <form id="advanced-search-form" method="post">
-            <div class="form-group">
-                <label for="kategori">Jenis Pekerjaan:</label>
-                <select id="kategori" name="kategori">
-                    <option value="">Pilih Kategori</option>
-                    <?php
-                    // Assume $categories is populated from the database
-                    include 'koneksi.php'; // This should set $categories
-                    foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['id']) ?>"><?= htmlspecialchars($category['nama_kategori']) ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <label for="status">Status Kerja:</label>
-                <select id="status" name="status">
-                  <option value="">Pilih Status</option>
-                  <?php
-                  include 'koneksi.php'; // This should set $status_kerja
-                  foreach ($status_kerja as $status): ?>
-                  <option value="<?= htmlspecialchars($status['status_kerja']) ?>"><?= htmlspecialchars($status['status_kerja']) ?></option>
-                  <?php endforeach; ?>
-                </select>
-                <input type="submit" class="btn btn-primary px-4" value="Cari">
-              </div>
-            </form>
-          </div>
+                <div class="box h-100">
+                    <div id="search-results"></div>
+                    <div class="form-container">
+                        <form id="advanced-search-form" method="post">
+                            <div class="form-group">
+                                <label for="kategori">Jenis Pekerjaan:</label>
+                                <select id="kategori" name="kategori">
+                                    <option value="">Pilih Kategori</option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <option value="<?= htmlspecialchars($category['id']) ?>"><?= htmlspecialchars($category['nama_kategori']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status Kerja:</label>
+                                <select id="status" name="status">
+                                    <option value="">Pilih Status</option>
+                                    <?php foreach ($status_kerja as $status): ?>
+                                        <option value="<?= htmlspecialchars($status['status_kerja']) ?>"><?= htmlspecialchars($status['status_kerja']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary px-4">Cari</button>
+                        </form>
+                    </div>
+                    <div id="job-results"></div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
-</div>
-      
-      <div class="site-section bg-light">
+    </div>
+
+    <div class="site-section bg-light">
         <div class="container">
-          <div class="row mb-5 align-items-center">
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="heading mb-4">
-                <h2>Rekomendasi Lowongan Pekerjaan</h2>
-              </div>
+            <div class="row mb-5 align-items-center">
             </div>
-            <div class="col-lg-8">
-            <?php if ($loker_result->num_rows > 0): ?>
-                <?php while ($row = $loker_result->fetch_assoc()): ?>
-                  <div class="d-flex tutorial-item mb-4">
-                    <div class="img-wrap">
-                      <a href="#"><img src="images/<?= !empty($row['logo_perusahaan']) ? htmlspecialchars($row['logo_perusahaan']) : 'default.png' ?>" alt="Image" class="img-fluid"></a>
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading mb-4">
+                        <h2>Lowongan Pekerjaan, untuk kamu.</h2>
                     </div>
-                    <div>
-                      <h3><a href="#"><?= htmlspecialchars($row['posisi']) ?></a></h3>
-                      <p><?= htmlspecialchars($row['syarat_pekerjaan']) ?></p>
-                      <p class="meta">
-                        <span class="mr-2 mb-2"><?= htmlspecialchars($row['tingkat_pendidikan']) ?></span>
-                        <span class="mr-2 mb-2"><?= htmlspecialchars($row['gender']) ?></span>
-                        <span class="mr-2 mb-2"><?= htmlspecialchars($row['tanggal_dipost']) ?></span>
-                      </p>
-                      <p><a href="details.php?id=<?= htmlspecialchars($row['id']) ?>" class="btn btn-primary custom-btn">View</a></p>
-                    </div>
-                  </div>
-                <?php endwhile; ?>
-              <?php else: ?>
-                <p>Tidak ada data lowongan kerja.</p>
-              <?php endif; ?>
-              <div class="custom-pagination">
-                <ul class="list-unstyled">
-                  <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <li><a href="?page=<?= $i ?>"><span><?= $i ?></span></a></li>
-                  <?php endfor; ?>
-                </ul>
-              </div>
+                </div>
+                <div class="col-lg-8">
+                <?php if ($loker_result->num_rows > 0): ?>
+                    <?php while ($row = $loker_result->fetch_assoc()): ?>
+                        <div class="d-flex tutorial-item mb-4">
+                            <div class="img-wrap">
+                                <a href="#"><img src="php/Admin/img/ !empty($row['foto_loker']) ? htmlspecialchars($row['foto_loker']) : '' ?>" alt="fotlok" class="img-fluid"></a>
+                            </div>
+                            <div>
+                                <h3><a href="#"><?= htmlspecialchars($row['posisi']) ?></a></h3>
+                                <p><?= htmlspecialchars($row['syarat_pekerjaan']) ?></p>
+                                <p class="meta">
+                                    <span class="mr-2 mb-2"><?= htmlspecialchars($row['tingkat_pendidikan']) ?></span>
+                                    <span class="mr-2 mb-2"><?= htmlspecialchars($row['gender']) ?></span>
+                                    <span class="mr-2 mb-2"><?= htmlspecialchars($row['tanggal_dipost']) ?></span>
+                                </p>
+                                <p><a href="details.php?id=<?= htmlspecialchars($row['id']) ?>" class="btn btn-primary custom-btn">View</a></p>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>Tidak ada data lowongan kerja.</p>
+                <?php endif; ?>
+                <div class="custom-pagination">
+                    <ul class="list-unstyled">
+                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                            <li><a href="?page=<?= $i ?>"><span><?= $i ?></span></a></li>
+                        <?php endfor; ?>
+                    </ul>
+                </div>
+                </div>
+                <div class="col-lg-4">
+                    <h4>Bursa Kerja</h4>
+                    <div class="box-side mb-3">
+                        <a href="#"><img src="images/JOBFAIR.png" alt="jobfair" class="img-fluid"></a>
+                        <h3><a href="bursakerja.html">Job Fair Offline UAJY</a></h3>
+                    </div>  
+                    <div class="box-side mb-3">
+                        <a href="#"><img src="images/jobfair1.png" alt="jobfair" class="img-fluid"></a>
+                        <h3><a href="bursakerja.html">JOBFAIR CAREER EXPO 2024</a></h3>
+                    </div>  
+                    <div class="box-side">
+                        <a href="#"><img src="images/jobfair2.png" alt="jobfair" class="img-fluid"></a>
+                        <h3><a href="bursakerja.html">Job Fair Virtual</a></h3>
+                    </div>  
+                </div>
             </div>
-            <div class="col-lg-4">
-              <h4>Bursa Kerja</h4>
-              <div class="box-side mb-3">
-                <a href="#"><img src="images/JOBFAIR.png" alt="jobfair" class="img-fluid"></a>
-                <h3><a href="bursakerja.html">Job Fair Offline UAJY</a></h3>
-              </div>  
-              <div class="box-side mb-3">
-                <a href="#"><img src="images/jobfair1.png" alt="jobfair" class="img-fluid"></a>
-                <h3><a href="bursakerja.html">JOBFAIR CAREER EXPO 2024</a></h3>
-              </div>  
-              <div class="box-side">
-                <a href="#"><img src="images/jobfair2.png" alt="jobfair" class="img-fluid"></a>
-                <h3><a href="bursakerja.html">Job Fair Virtual</a></h3>
-              </div>  
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
       
       <div class="site-section bg-light">
       <div class="container">
@@ -394,7 +421,7 @@ $loker_result = $stmt->get_result();
     <script src="js/jquery.easing.1.3.js"></script>
     <script src="js/bootstrap-datepicker.min.js"></script>
     <script src="js/aos.js"></script>
-    <script src="js/search.js"></script>
+    
     <script src="js/main.js"></script>
   </body>
 

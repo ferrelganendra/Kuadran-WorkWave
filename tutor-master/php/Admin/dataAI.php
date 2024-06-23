@@ -1,1 +1,0 @@
-<!-- masih training LLM -gusti -->

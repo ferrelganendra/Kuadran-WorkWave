@@ -51,7 +51,8 @@ if (isset($_POST['action']) && isset($_POST['event_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
-    <link rel="stylesheet" href="css/StDataEvent.css">
+    <link rel="stylesheet" href="css/Adminpage5.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <script>
         function updateStatus(eventId, status) {
             // Kirim request ke EventStatus.php dengan data yang diperlukan
@@ -72,25 +73,38 @@ if (isset($_POST['action']) && isset($_POST['event_id'])) {
     </script>
 </head>
 <body>
-    <div class="container mt-4">
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h2><strong>W</strong>ork<strong>W</strong>ave</h2>
+    </div>
+    <ul class="sidebar-menu">
+            <li><a href="AdminPage.php">Dashboard</a></li>
+            <li><a href="dataPerusahaan.php">Data Perusahaan</a></li>
+            <li><a href="dataLoker.php">Data Lowongan Pekerjaan</a></li> 
+            <li><a href="dataAI.php">CHAT AI</a></li>
+            <li><a href="dataAdmin.php">Admin</a></li>
+            <li><a href="dataEvent.php">Job Fair</a></li>
+            <li><a href="logout.php" class="btn btn-danger">Keluar</a></li>
+        </ul>
+</div>
+<div class="main-content">
     <header>
-            <h1>Data Event</h1>
+        <div class="header-title">
+            <h1>Data Bursa Kerja</h1>
             <?php if (!empty($status_message)) : ?>
-                <div class="alert alert-success" role="alert">
+                <div class="alert" role="alert">
                     <?php echo htmlspecialchars($status_message); ?>
                 </div>
             <?php endif; ?>
-        </header>
-        <section>
-            <p>Semangat ya <strong>Admin</strong></p>
-            <div class="navigation">
-                <a class="btn btn-primary" href="dataPerusahaan.php">Perusahaan</a>
-                <a class="btn btn-primary" href="dataAI.php">CHAT AI</a>
-                <a class="btn btn-primary" href="dataAdmin.php">Admin</a>
-                <a class="btn btn-primary" href="dataEvent.php">Job Fair</a>
-                <a class="btn btn-danger" href="logout.php">Keluar</a>
+        </div>
+        <div class="user-info">
+            <p>Powered by <strong>Gusti</strong/p>
             </div>
-            <table class="table table-bordered">
+    </header>
+    <div class="content">
+        <div class="data-section">
+        <h2><strong>W</strong>ork<strong>W</strong>ave.com</h2>
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>Nama Acara</th>
@@ -103,6 +117,7 @@ if (isset($_POST['action']) && isset($_POST['event_id'])) {
                         <th>Kontak Penyelenggara</th>
                         <th>URL Pendaftaran</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -120,19 +135,16 @@ if (isset($_POST['action']) && isset($_POST['event_id'])) {
                             <td><?php echo htmlspecialchars($row['status']); ?></td>
                             <td>
                                 <?php if ($row['status'] == 'menunggu') : ?>
-                                <?php else : ?>
+                                    <button class="btn btn-info" onclick="updateStatus('<?php echo $row['id']; ?>', 'diterima')">Terima</button>
+                                    <button class="btn btn-warning" onclick="updateStatus('<?php echo $row['id']; ?>', 'ditolak')">Tolak</button>
                                 <?php endif; ?>
                             </td>
-                            <td>
-                                <button class="btn btn-info" onclick="updateStatus('<?php echo $row['id']; ?>', 'diterima')">Terima</button>
-                                <button class="btn btn-warning" onclick="updateStatus('<?php echo $row['id']; ?>', 'ditolak')">Tolak</button>
-                            </td> <!-- Tombol Ubah Status -->
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
-        </section>
+        </div>
     </div>
-
+</div>
 </body>
 </html>
