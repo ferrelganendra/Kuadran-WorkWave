@@ -1,41 +1,33 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 session_start();
-include 'koneksi.php';
 
-// Pastikan metode yang digunakan adalah POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Pastikan data yang dibutuhkan terdefinisi
+include "koneksi.php";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['id']) && isset($_POST['status'])) {
-        // Ambil nilai dari formulir
         $id = $_POST['id'];
         $status = $_POST['status'];
 
-        // Buat dan jalankan SQL statement untuk memperbarui status dengan prepared statement
-        $sql = "UPDATE event SET status=? WHERE id=?";
-        $stmt = $koneksi->prepare($sql);
-
-        // Binding parameter
-        $stmt->bind_param("si", $status, $id);
-
-        // Eksekusi statement
-        if ($stmt->execute()) {
-            echo "Status berhasil diperbarui.";
+        $update_sql = "UPDATE event SET status = ? WHERE id = ?";
+        $stmt = $koneksi->prepare($update_sql);
+        if ($stmt) {
+            $stmt->bind_param("si", $status, $id);
+            if ($stmt->execute()) {
+                echo "Status event telah diperbarui.";
+            } else {
+                echo "Terjadi kesalahan saat memperbarui status.";
+            }
+            $stmt->close();
         } else {
-            echo "Error: " . $sql . "<br>" . $koneksi->error;
+            echo "Terjadi kesalahan pada pernyataan SQL.";
         }
-
-        // Tutup statement
-        $stmt->close();
     } else {
-        echo "Data yang dibutuhkan tidak lengkap.";
+        echo "Data tidak lengkap.";
     }
 } else {
-    echo "Metode yang digunakan harus POST.";
+    echo "Metode permintaan tidak valid.";
 }
-
-// Tutup koneksi
 $koneksi->close();
 ?>

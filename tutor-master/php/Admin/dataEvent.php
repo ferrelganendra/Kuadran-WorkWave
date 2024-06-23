@@ -3,46 +3,46 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-// Periksa apakah admin sudah login
-if (!isset($_SESSION['admin_username'])) {
-    // Redirect ke halaman login jika admin belum login
-    header("Location: loginAdmin.php");
-    exit();
-}
-
-// Panggil koneksi ke database
 include "koneksi.php";
+
+// Proses permintaan admin (terima atau tolak acara)
+$status_message = "";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['id']) && isset($_POST['status'])) {
+        $id = $_POST['id'];
+        $status = $_POST['status'];
+
+        $update_sql = "UPDATE event SET status = ? WHERE id = ?";
+        $stmt = $koneksi->prepare($update_sql);
+        if ($stmt) {
+            $stmt->bind_param("si", $status, $id);
+            if ($stmt->execute()) {
+                $status_message = "Status event telah diperbarui.";
+            } else {
+                $status_message = "Terjadi kesalahan saat memperbarui status.";
+            }
+            $stmt->close();
+        } else {
+            $status_message = "Terjadi kesalahan pada pernyataan SQL.";
+        }
+
+        // Redirect agar tidak ada resubmission saat refresh halaman
+        $_SESSION['status_message'] = $status_message;
+        header("Location: dataEvent.php");
+        exit();
+    } else {
+        $status_message = "Data tidak lengkap.";
+    }
+}
 
 // Ambil daftar event dari database
 $sql = "SELECT id, nama_acara, deskripsi_acara, tanggal_acara, waktu_acara, tempat_acara, kategori_acara, biaya_pendaftaran, kontak_penyelenggara, url_pendaftaran, status FROM event";
 $result = $koneksi->query($sql);
 
-// Inisialisasi pesan status
-$status_message = "";
-
-// Proses permintaan admin (terima atau tolak acara)
-if (isset($_POST['action']) && isset($_POST['event_id'])) {
-    $action = $_POST['action'];
-    $event_id = $_POST['event_id'];
-
-    // Update status event berdasarkan action (diterima atau ditolak)
-    if ($action == 'accept') {
-        $update_sql = "UPDATE event SET status = 'diterima' WHERE id = ?";
-        $stmt = $koneksi->prepare($update_sql);
-        $stmt->bind_param("i", $event_id);
-        $stmt->execute();
-        $status_message = "Event telah diterima.";
-    } elseif ($action == 'reject') {
-        $update_sql = "UPDATE event SET status = 'ditolak' WHERE id = ?";
-        $stmt = $koneksi->prepare($update_sql);
-        $stmt->bind_param("i", $event_id);
-        $stmt->execute();
-        $status_message = "Event telah ditolak.";
-    }
-
-    // Redirect agar tidak ada resubmission saat refresh halaman
-    header("Location: dataEvent.php");
-    exit();
+// Ambil pesan status dari session jika ada
+if (isset($_SESSION['status_message'])) {
+    $status_message = $_SESSION['status_message'];
+    unset($_SESSION['status_message']);
 }
 ?>
 <!DOCTYPE html>
@@ -53,24 +53,7 @@ if (isset($_POST['action']) && isset($_POST['event_id'])) {
     <title>Admin Page</title>
     <link rel="stylesheet" href="css/Adminpage5.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-    <script>
-        function updateStatus(eventId, status) {
-            // Kirim request ke EventStatus.php dengan data yang diperlukan
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "EventStatus.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Tampilkan pesan atau tanggapan setelah berhasil atau gagal
-                    var response = xhr.responseText.trim();
-                    alert(response);
-                    // Refresh halaman untuk memperbarui tabel
-                    location.reload();
-                }
-            };
-            xhr.send("id=" + eventId + "&status=" + status);
-        }
-    </script>
+    <script src="js/jobfair.js"></script>
 </head>
 <body>
 <div class="sidebar">
@@ -98,8 +81,8 @@ if (isset($_POST['action']) && isset($_POST['event_id'])) {
             <?php endif; ?>
         </div>
         <div class="user-info">
-            <p>Powered by <strong>Gusti</strong/p>
-            </div>
+            <p>Powered by <strong>Gusti</strong></p>
+        </div>
     </header>
     <div class="content">
         <div class="data-section">
@@ -148,3 +131,4 @@ if (isset($_POST['action']) && isset($_POST['event_id'])) {
 </div>
 </body>
 </html>
+
