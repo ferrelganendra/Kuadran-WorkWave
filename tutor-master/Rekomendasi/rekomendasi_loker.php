@@ -12,7 +12,7 @@ session_start();
     <p>
         <?php
         if (isset($_SESSION['resultGroq'])) {
-            echo nl2br($_SESSION['resultGroq']);
+            echo nl2br(htmlspecialchars($_SESSION['resultGroq']));
             unset($_SESSION['resultGroq']);
         } else {
             echo "No recommendations available.";

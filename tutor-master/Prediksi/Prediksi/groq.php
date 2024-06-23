@@ -1,9 +1,13 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require __DIR__ . '/vendor/autoload.php';
 
+use Dotenv\Dotenv;
 use LucianoTonet\GroqPHP\Groq;
 
-$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+// Load environment variables
+$dotenv = Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->load();
 
 $apiKey = getenv('GROQ_API_KEY');
@@ -32,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $messages = [
         [
             'role' => 'system',
-            'content' => 'Kamu adalah asisten yang membantu pengguna dalam bahasa Indonesia. bahasa indonesia.'
+            'content' => 'Kamu adalah asisten yang membantu pengguna dalam bahasa Indonesia.'
         ],
         [
             'role' => 'user',
@@ -43,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $groq = new Groq($apiKey);
         $chatCompletion = $groq->chat()->completions()->create([
-            'model'    => 'mixtral-8x7b-32768', // Ensure this model ID is correct
+            'model'    => 'mixtral-8x7b-32768', // pastikan model ID ini benar
             'messages' => $messages,
         ]);
 
