@@ -363,8 +363,21 @@ $loker_result = $stmt->get_result();
         </div>
       </div>
     </div>
-      
-      
+       
+    <div class="site-section bg-primary py-5 cta">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-4 mb-md-0">
+                    <h2 class="mb-0 text-white">Kesulitan mencari pekerjaan yang cocok?</h2>
+                    <p class="mb-0 opa-7">Kami akan bantu anda mendapatkan rekomendasi yang cocok dengan minat anda</p>
+                </div>
+                <div class="col-lg-5 text-md-right">
+                    <a href="grafik.php" class="btn btn-primary btn-white">Klik disini!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="site-footer">
       <div class="container">
         <div class="row">
