@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 20 Jun 2024 pada 18.25
+-- Waktu pembuatan: 26 Jun 2024 pada 04.39
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -339,17 +339,20 @@ CREATE TABLE `users` (
   `logo_perusahaan` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `status` enum('menunggu','ditolak','diterima') DEFAULT 'menunggu'
+  `status` enum('menunggu','ditolak','diterima') DEFAULT 'menunggu',
+  `tanggal_bergabung` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`) VALUES
-(1, 'PT. Ferrel Cyberprotect', 'Teknologi Informasi', 'Perusahaan A bergerak di bidang teknologi informasi.', '@perusahaana', 'http://www.perusahaana.com', 'Jl. Teknologi No. 1', '', 'userA', 'passwordA', 'diterima'),
-(2, 'Sekolah Dasar Negeri 1 Dinda', 'Pendidikan', 'Sekolah Dasar Negeri 1 Dinda bergerak di bidang pendidikan.', '@sekolahan', 'http://www.perusahaanb.com', 'Jl. Pendidikan No. 2', '', 'userB', 'passwordB', 'diterima'),
-(3, 'Apotek Savero anjai', 'Kesehatan', 'Apotek Savero anjai bergerak di bidang kesehatan.', '@perusahaanc', 'http://www.perusahaanc.com', 'Jl. Kesehatan No. 3', '', 'userC', 'passwordC', 'diterima');
+INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `tanggal_bergabung`) VALUES
+(1, 'PT. Ferrel Cyberprotect', 'Teknologi Informasi', 'Perusahaan A bergerak di bidang teknologi informasi.', '@perusahaana', 'http://www.perusahaana.com', 'Jl. Teknologi No. 1', '', 'userA', 'passwordA', 'diterima', '2000-01-30'),
+(2, 'Sekolah Dasar Negeri 1 Dinda', 'Pendidikan', 'Sekolah Dasar Negeri 1 Dinda bergerak di bidang pendidikan.', '@sekolahan', 'http://www.perusahaanb.com', 'Jl. Pendidikan No. 2', '', 'userB', 'passwordB', 'diterima', '2024-06-17'),
+(3, 'Apotek Savero anjai', 'Kesehatan', 'Apotek Savero anjai bergerak di bidang kesehatan.', '@perusahaanc', 'http://www.perusahaanc.com', 'Jl. Kesehatan No. 3', '', 'userC', 'passwordC', 'diterima', '2024-06-03'),
+(5, 'TES PERUSAHAAN', 'farhangusti', '', '0123', '12348-', 'kadnaodnadad', 'uploads/perusahaan7.jpeg', 'anjayanjay', '123123', 'diterima', '2017-06-26'),
+(6, 'SAFIK NGENTOT', 'anjay', '', 'pepek', 'asu', 'jl kaliurang', 'uploads/Safik.jpeg', 'safikngentot', '12345', 'diterima', '2024-06-02');
 
 --
 -- Indexes for dumped tables
@@ -408,7 +411,7 @@ ALTER TABLE `loker`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

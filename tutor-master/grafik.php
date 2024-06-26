@@ -1,5 +1,9 @@
 <?php
-include 'php/Admin/prosesGrafik1.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+
+include 'php/Admin/prosesGrafik3.php';
 include 'php/Admin/prosesGrafik2.php';
 ?>
 <!doctype html>
@@ -124,15 +128,15 @@ include 'php/Admin/prosesGrafik2.php';
               <div class="col-lg-3">
                 <h2 class="footer-heading mb-4"></h2>
                 <ul class="list-unstyled">
-                  <li><a href="blog.html">Bursa Kerja</a></li>
+                  <li><a href="bursakerja.php">Bursa Kerja</a></li>
                   <li><a href="#">Partisipasi Bursa Kerja</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
                 <h2 class="footer-heading mb-4"></h2>
                 <ul class="list-unstyled">
-                  <li><a href="registrasi.html">Registrasi</a></li>
-                  <li><a href="login.html">Masuk</a></li>
+                  <li><a href="registrasi.php">Registrasi</a></li>
+                  <li><a href="login.php">Masuk</a></li>
                   <li><a href="#">Beli paket</a></li>
                 </ul>
               </div>

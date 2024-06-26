@@ -48,9 +48,9 @@ include 'php/Admin/prosesGrafik2.php';
                                 <li><a href="utama.php" class="nav-link">Utama</a></li>
                                 <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
                                 <li class="active"><a href="grafik.php" class="nav-link">Grafik</a></li>
-                                <li><a href="bursakerja.html" class="nav-link">Bursa Kerja</a></li>
-                                <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
-                                <li><a href="login.html" class="nav-link">Masuk</a></li>
+                                <li><a href="bursakerja.php" class="nav-link">Bursa Kerja</a></li>
+                                <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
+                                <li><a href="login.php" class="nav-link">Masuk</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -75,7 +75,7 @@ include 'php/Admin/prosesGrafik2.php';
                         <div class="chart" id="line-chart"></div>
                     </div>
                     <div class="col-lg-12 text-center mt-4">
-                        <a href="grafik.php" class="btn btn-primary">Kembali ke grafik sebelumnya</a>
+                        <a href="grafik.php" class="btn btn-primary">Kembali ke grafik awal</a>
                     </div>
                 </div>
             </div>
