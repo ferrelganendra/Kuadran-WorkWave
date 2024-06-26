@@ -26,20 +26,24 @@ if (isset($_POST['login'])) {
             if ($status == 'diterima') {
                 // Set session
                 $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $user_data['id']; // Store user ID in session
 
                 // Redirect to dashboard if status is 'diterima'
-                header("Location: ../../profil.html");
+                header("Location: ../../profil.php?status=diterima");
                 exit();
             } elseif ($status == 'menunggu') {
                 // Alert 1 "menunggu"
                 echo "<script>alert('Akun Anda sedang dalam proses verifikasi admin. Harap tunggu konfirmasi dari admin.'); window.location.href = '../../login.php';</script>";
+                exit(); // Make sure to exit after the script
             } elseif ($status == 'ditolak') {
                 // Alert 2 "ditolak"
                 echo "<script>alert('Akun Anda tidak lolos verifikasi admin. Silakan hubungi admin untuk informasi lebih lanjut.'); window.location.href = '../../login.php';</script>";
+                exit(); // Make sure to exit after the script
             }
         } else {
             // Alert 3
             echo "<script>alert('Username dan password salah!'); window.location.href = '../../login.php';</script>";
+            exit(); // Make sure to exit after the script
         }
 
         // Close statement
@@ -47,6 +51,7 @@ if (isset($_POST['login'])) {
     } else {
         // Alert 4
         echo "<script>alert('Username atau password tidak boleh kosong.'); window.location.href = '../../login.php';</script>";
+        exit(); // Make sure to exit after the script
     }
 }
 

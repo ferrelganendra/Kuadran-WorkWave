@@ -7,44 +7,64 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+        }
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
         }
         .chat-container {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
             width: 90%;
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
+            max-width: 400px;
             overflow: hidden;
+            z-index: 1000;
+            flex-direction: column;
         }
         .chat-header {
             background-color: #4CAF50;
             color: #fff;
             padding: 10px;
             text-align: center;
+            font-size: 1.2em;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
         .chat-messages {
             flex: 1;
             padding: 10px;
             overflow-y: auto;
-            max-height: 400px;
+            max-height: 300px;
+            border-bottom: 1px solid #ddd;
         }
         .chat-message {
             margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
         }
         .chat-message.user {
+            background-color: #dcf8c6;
+            align-self: flex-end;
             text-align: right;
         }
         .chat-message.assistant {
+            background-color: #f1f0f0;
+            align-self: flex-start;
             text-align: left;
         }
         .chat-footer {
@@ -55,7 +75,9 @@
             flex: 1;
             padding: 10px;
             border: none;
-            border-radius: 0;
+            outline: none;
+            font-size: 1em;
+            border-bottom-left-radius: 10px;
         }
         .chat-footer button {
             padding: 10px;
@@ -63,11 +85,17 @@
             color: #fff;
             border: none;
             cursor: pointer;
+            font-size: 1em;
+            border-bottom-right-radius: 10px;
+        }
+        .chat-footer button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="chat-container">
+    <button class="chat-toggle" onclick="toggleChat()">Chat</button>
+    <div class="chat-container" id="chat-container">
         <div class="chat-header">
             <h1>JobAssist Datang Membantu</h1>
         </div>
@@ -79,6 +107,15 @@
     </div>
 
     <script>
+        function toggleChat() {
+            const chatContainer = document.getElementById('chat-container');
+            if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
+                chatContainer.style.display = 'flex';
+            } else {
+                chatContainer.style.display = 'none';
+            }
+        }
+
         document.getElementById('send-button').addEventListener('click', async function () {
             const question = document.getElementById('question').value;
             if (question.trim() === '') return;

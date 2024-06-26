@@ -22,6 +22,18 @@ $current_page_perusahaan = isset($_GET['page_perusahaan']) ? $_GET['page_perusah
 // Hitung offset berdasarkan halaman saat ini untuk setiap tabel
 $offset_users = ($current_page_users - 1) * $items_per_page;
 $offset_perusahaan = ($current_page_perusahaan - 1) * $items_per_page;
+
+// Query untuk mengambil total perusahaan, lowongan, admin, dan event
+$totalPerusahaanQuery = "SELECT COUNT(*) FROM users";
+$totalLowonganQuery = "SELECT COUNT(*) FROM loker";
+$totalAdminQuery = "SELECT COUNT(*) FROM admin";
+$totalEventQuery = "SELECT COUNT(*) FROM event";
+
+// Menjalankan query dan mendapatkan hasil
+$totalPerusahaan = $koneksi->query($totalPerusahaanQuery)->fetch_row()[0];
+$totalLowongan = $koneksi->query($totalLowonganQuery)->fetch_row()[0];
+$totalAdmin = $koneksi->query($totalAdminQuery)->fetch_row()[0];
+$totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
 ?>
 
 <!DOCTYPE html>
@@ -63,21 +75,21 @@ $offset_perusahaan = ($current_page_perusahaan - 1) * $items_per_page;
         </header>
         <div class="content">
             <div class="cards">
-                <div class="card bg-primary">
-                    <h3>Total Pengguna</h3>
-                    <p>50</p> <!-- Replace with dynamic data -->
+            <div class="card bg-primary">
+                    <h3>Total Perusahaan</h3>
+                    <p><?php echo $totalPerusahaan; ?></p>
                 </div>
                 <div class="card bg-success">
-                    <h3>Total Perusahaan</h3>
-                    <p>25</p> <!-- Replace with dynamic data -->
+                    <h3>Total Lowongan</h3>
+                    <p><?php echo $totalLowongan; ?></p>
                 </div>
                 <div class="card bg-warning">
-                    <h3>Total Lowongan</h3>
-                    <p>150</p> <!-- Replace with dynamic data -->
+                    <h3>Total Admin</h3>
+                    <p><?php echo $totalAdmin; ?></p>
                 </div>
                 <div class="card bg-danger">
                     <h3>Total Event</h3>
-                    <p>10</p> <!-- Replace with dynamic data -->
+                    <p><?php echo $totalEvent; ?></p>
                 </div>
             </div>
             <div class="data-section">

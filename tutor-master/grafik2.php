@@ -50,7 +50,7 @@ include 'php/Admin/prosesGrafik2.php';
                                 <li class="active"><a href="grafik.php" class="nav-link">Grafik</a></li>
                                 <li><a href="bursakerja.php" class="nav-link">Bursa Kerja</a></li>
                                 <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
-                                <li><a href="login.php" class="nav-link">Masuk</a></li>
+                                <li><a href="login.php" class="nav-link">Masuk</a></li>   
                             </ul>
                         </nav>
                     </div>
