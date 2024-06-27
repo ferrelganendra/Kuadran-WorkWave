@@ -209,7 +209,7 @@
               </div>
             </div>
           </div>
-          
+          <a href="bursakerja.php" class="fixed-button">Kembali ke awal</a>
 
   </div>
 
