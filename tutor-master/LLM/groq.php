@@ -1,13 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-session_start();
-
-include 'koneksi.php';
-
-use LucianoTonet\GroqPHP\Groq;
-
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/koneksi.php'; // Include file koneksi database
+use LucianoTonet\GroqPHP\Groq;
 
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->load();
@@ -23,7 +17,6 @@ if (!$question) {
     echo json_encode(['error' => 'Pertanyaan tidak boleh kosong']);
     exit;
 }
-
 
 // Cari jawaban di database
 $query = $koneksi->prepare("SELECT posisi, lokasi_bekerja, syarat_pekerjaan FROM loker WHERE posisi LIKE ? OR lokasi_bekerja LIKE ? OR syarat_pekerjaan LIKE ?");
