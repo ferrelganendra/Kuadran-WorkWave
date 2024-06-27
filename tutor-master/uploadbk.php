@@ -1,8 +1,10 @@
 <?php
  error_reporting(E_ALL);
  ini_set('display_errors', 1);
- 
+ session_start();
  include 'php/Admin/prosesFormEvent.php';
+
+ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 ?>
 <!doctype html>
 <html lang="en">
@@ -59,15 +61,22 @@
             <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
 
             <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-              <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                <li><a href="utama.php" class="nav-link">Utama</a></li>
-                <li><a href="lowongan.html" class="nav-link">Lowongan</a></li>
-                <li><a href="grafik.php" class="nav-link">Grafik</a></li>
-                <li class="active"><a href="blog.html" class="nav-link">Bursa Kerja</a></li>
-                <li><a href="registrasi.html" class="nav-link">Registrasi</a></li>
-                <li><a href="login.html" class="nav-link">Masuk</a></li>
-              </ul>
-            </nav>
+                            <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                                <li><a href="utama.php" class="nav-link">Utama</a></li>
+                                <li><a href="grafik.php" class="nav-link">Grafik</a></li>
+                                <li class="active"><a href="bursakerja.php" class="nav-link">Bursa Kerja</a></li>
+                                <?php if (!$user_id): ?>
+                                    <li><a href="registrasi.php" class="nav-link">Registrasi</a></li>
+                                    <li><a href="login.php" class="nav-link">Masuk</a></li>
+                                <?php endif; ?>
+                                <?php if ($user_id): ?>
+                                    <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
+                                    <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
+                                    <li><a href="profil.php" class="nav-link">Profil</a></li>
+                                    <li><a href="logout.php" class="nav-link">Keluar</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
           </div>
 
 
