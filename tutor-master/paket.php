@@ -1,10 +1,11 @@
 <?php
- error_reporting(E_ALL);
- ini_set('display_errors', 1);
- session_start();
- include 'koneksi.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
 
- $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+include 'koneksi.php';
+
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,6 +26,8 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" type="text/css" href="css/aaaa.css">
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-server-2ybf1Dlh3fptsONo3qo7LBpl"></script>
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -59,7 +62,6 @@
             <div class="col-9  text-right">
               
               <span class="d-inline-block d-lg-none"><a href="#" class=" site-menu-toggle js-menu-toggle py-5 "><span class="icon-menu h3 text-black"></span></a></span>
-
               <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
                             <ul class="site-menu main-menu js-clone-nav ml-auto ">
                                 <li><a href="utama.php" class="nav-link">Utama</a></li>
@@ -70,8 +72,8 @@
                                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                                 <?php endif; ?>
                                 <?php if ($user_id): ?>
-                                    <li class="active"><a href="lowongan.php" class="nav-link">Lowongan</a></li>
-                                    <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
+                                    <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
+                                    <li class="active"><a href="paket.php" class="nav-link">Beli Paket</a></li>
                                     <li><a href="profil.php" class="nav-link">Profil</a></li>
                                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                                 <?php endif; ?>
@@ -91,82 +93,75 @@
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">
-              <h1>Upload <strong>Lowongan</strong></h1>
+              <h1>Paket <strong>Lowongan Pekerjaan</strong></h1>
             </div>
           </div>
         </div>
       </div>
 
 
-      <div class="site-section bg-light" id="contact-section">
-        <div class="container">
+      <div class="container1">
+        <div class="package-item purchase-item">
+            <div class="title"> <img src="images/gold-icon.png" alt="Gold Package Icon" /> </div>
+            <div class="package-title">Gold</div>
+            <div class="package-price">Rp200.000</div>
+            <ul class="package-benefits">
+                <li>Paket super efektif</li>
+                <li>4 kali publikasi di semua jaringan Lokerjogja.ID (publikasi 2 hari sekali)</li>
+                <li>Website & Aplikasi</li>
+                <li>Instagram Post & Story</li>
+                <li>Highlight Story Favorit</li>
+                <li>G Google Jobs & Bisnis</li>
+                <li>Facebook Post & Story</li>
+                <li>Twitter in Linkedin</li>
+                <li>Telegram</li>
+                <div class="">
+                    <a id="bayarsatu" 
+                    href="https://app.sandbox.midtrans.com/payment-links/EPAY-1715331285058" class="purchase-button">Beli sekarang</a>
+                </div>
+            </ul>
+            
+        </div>
+    
+    
+        <div class="package-item purchase-item">
+          <div class="title"> <img src="images/silver-icon.png" alt="Silver Package Icon"/> </div>
+            <div class="package-title">Silver</div>
+            <div class="package-price">Rp150.000</div>
+            <ul class="package-benefits">
+                <li>Kandidat lebih banyak</li>
+                <li>3 kali publikasi di semua jaringan Lokerjogja.ID (publikasi 2 hari sekali)</li>
+                <li>Website & Aplikasi</li>
+                <li>Instagram Post & Story</li>
+                <li>G Google Jobs & Bisnis</li>
+                <li>Facebook Post & Story</li>
+                <li>Twitter in Linkedin</li>
+                <li>Telegram</li>
+                <div class="">
+                    <a id="bayardua"   href="https://app.sandbox.midtrans.com/payment-links/EPAY-1715331331827" class="purchase-button">Beli sekarang</a>
+                </div>
+            </ul>
+        
+            
+        </div>
+    
+        <div class="package-item purchase-item">
+          <div class="title"> <img src="images/bronze-icon.png" alt="Bronze Package Icon" /> </div>
+            <div class="package-title">Bronze</div>
+            <div class="package-price">Rp100.000 </div>
+            <ul class="package-benefits">
+                <li>Kandidat lebih banyak</li>
+                <li>3 kali publikasi di semua jaringan Lokerjogja.ID (publikasi 2 hari sekali)</li>
+                <li>Website & Aplikasi</li>
+                <li>Instagram Post & Story</li>
+                <li>G Google Jobs & Bisnis</li>
+                <li>  <div class="">
+                    <a id="bayartiga" href="https://app.sandbox.midtrans.com/payment-links/EPAY-1715331368006" class="purchase-button">Beli sekarang</a>
+                </div></li>
+            </ul>
           
-          <div class="row">
-            <div class="col-lg-10 mb-5" >
-              <h2>Upload Lowongan Anda</h2>
-              <form action="php/Admin/prosesTambahLowongan.php" method="post" enctype="multipart/form-data">
-      <div class="form-group row">
-          <div class="col-md-12">
-              <input type="text" class="form-control" name="posisi_pekerjaan" placeholder="Posisi Pekerjaan">
-          </div>
-      </div>
-      <div class="form-group row">
-          <div class="col-md-12">
-              <input type="text" class="form-control" name="tingkat_pendidikan" placeholder="Tingkat Pendidikan">
-          </div>
-      </div>
-      <div class="form-group row">
-          <div class="col-md-12">
-            <label for="gender">Gender:</label>
-            <select name="gender" id="gender">
-              <option value="Pria">Pria</option>
-              <option value="Wanita">Wanita</option>
-            </select> 
-          </div>
-      </div>
-      <div class="form-group row">
-          <div class="col-md-12">
-            <label for="status_kerja">Status Kerja:</label>
-            <select name="status_kerja" id="status_kerja">
-              <option value="Full-Time">Full-Time</option>
-              <option value="Part-Time">Part-Time</option>
-              <option value="Kontrak">Kontrak</option>
-            </select>
-          </div>
-      </div>
-      <div class="form-group row">
-          <div class="col-md-12">
-            <label for="besaran_gaji">Besaran Gaji:</label>
-            <input type="number" required name="price" min="0" value="0" step="any">
-          </div>
-      </div>
-      <div class="form-group row">
-          <div class="col-md-12">
-              <textarea class="form-control" name="lokasi" placeholder="Lokasi Bekerja" rows="5"></textarea>
-          </div>
-      </div>
-      <div class="form-group row">
-          <div class="col-md-12">
-            <textarea name="" id="" class="form-control" placeholder="Syarat Pekerjaan" cols="30" rows="10"></textarea>
-          </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-md-12">
-          <label for="poster_pekerjaan">Poster Pekerjaan:</label>
-            <input type="file" id="fileInput" name="logo_perusahaan" placeholder="Logo Perusahaan" accept="image/*">
         </div>
     </div>
-      <div class="form-group row">
-          <div class="col-md-6 mr-auto">
-              <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Upload">
-          </div>
-      </div>
-  </form>
-  
-            </div>
-            
-          </div>
-        </div>
       
       
       <footer class="site-footer">
