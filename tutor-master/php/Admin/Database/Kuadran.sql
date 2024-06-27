@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 26 Jun 2024 pada 04.39
+-- Waktu pembuatan: 27 Jun 2024 pada 15.39
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -62,24 +62,20 @@ CREATE TABLE `event` (
   `kontak_penyelenggara` varchar(255) NOT NULL,
   `url_pendaftaran` varchar(255) NOT NULL,
   `Instruksi_tambahan` varchar(255) NOT NULL,
-  `foto_poster` varchar(255) NOT NULL,
-  `status` enum('menunggu','ditolak','diterima') DEFAULT 'menunggu'
+  `foto_poster` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `event`
 --
 
-INSERT INTO `event` (`id`, `nama_acara`, `deskripsi_acara`, `tanggal_acara`, `waktu_acara`, `tempat_acara`, `kategori_acara`, `biaya_pendaftaran`, `kontak_penyelenggara`, `url_pendaftaran`, `Instruksi_tambahan`, `foto_poster`, `status`) VALUES
-(1, 'Job Fair Offline UAJY', 'Job fair yang diselenggarakan oleh Universitas Atma Jaya Yogyakarta.', '2024-05-14', '09:00:00', 'Universitas Atma Jaya Yogyakarta', 'Job Fair', 0.00, 'Admin', 'https://example.com/pendaftaran1', '', '', 'diterima'),
-(2, 'JOBAIR CAREER EXPO 2024', 'Job fair besar yang diadakan oleh JOBFAIRCOID Yogyakarta.', '2024-06-18', '08:30:00', 'JOBFAIRCOID Yogyakarta', 'Job Fair', 0.00, 'Admin', 'https://example.com/pendaftaran2', '', '', 'diterima'),
-(3, 'Job Fair Virtual', 'Job fair yang diadakan secara virtual oleh Dinas Sosial Kerja Dan Transmigrasi Kota Yogyakarta.', '2024-07-22', '10:00:00', 'Dinas Sosial Kerja Dan Transmigrasi Kota Yogyakarta', 'Job Fair', 0.00, 'Admin', 'https://example.com/pendaftaran3', '', '', 'diterima'),
-(4, 'Microsoft Azure Synapse for Developers', 'Workshop tentang Microsoft Azure Synapse for Developers.', '2019-07-17', '14:00:00', 'Tempat lain', 'Workshop', 0.00, 'Admin', 'https://example.com/pendaftaran4', '', '', 'diterima'),
-(5, 'Seminar Teknologi 2024', 'Seminar tentang perkembangan teknologi tahun 2024', '2024-07-15', '09:00:00', 'Gedung Serba Guna Jakarta', 'Seminar', 100000.00, '08123456789', 'http://seminarteknologi2024.com', 'Persiapkan diri sebelum seminar dimulai', 'seminar_teknologi_2024.jpg', 'diterima'),
-(6, 'Pameran Seni Rupa', 'Pameran seni rupa dengan karya seniman lokal', '2024-08-20', '10:00:00', 'Galeri Seni Surabaya', 'Pameran Seni', 75000.00, '08543210987', 'http://pameransenirupa.com', 'Tidak diperlukan instruksi tambahan', 'pameran_seni_rupa.jpg', 'diterima'),
-(7, 'Festival Musik Indie', 'Festival musik indie dengan band-bad indie terkenal', '2024-09-05', '18:00:00', 'Stadion Utama Bandung', 'Festival Musik', 125000.00, '08217654321', 'http://festivalmusikindie.com', 'Harap membawa tiket yang telah terdaftar', 'festival_musik_indie.jpg', 'diterima'),
-(8, 'Lomba Desain Grafis 2024', 'Lomba desain grafis bagi pelajar dan mahasiswa', '2024-07-30', '13:00:00', 'Universitas Teknologi Yogyakarta', 'Lomba Desain', 50000.00, '08987654321', 'http://lombadesaingrafis2024.com', 'Pastikan file karya telah siap diupload', 'lomba_desain_grafis_2024.jpg', 'diterima'),
-(9, 'Konferensi Bisnis 2024', 'Konferensi bisnis dengan topik tentang strategi pemasaran digital', '2024-08-10', '11:30:00', 'Hotel Grand Hyatt Bali', 'Konferensi Bisnis', 150000.00, '08765432109', 'http://konferensibisnis2024.com', 'Mohon mengisi formulir pendaftaran dengan benar', 'konferensi_bisnis_2024.jpg', 'diterima');
+INSERT INTO `event` (`id`, `nama_acara`, `deskripsi_acara`, `tanggal_acara`, `waktu_acara`, `tempat_acara`, `kategori_acara`, `biaya_pendaftaran`, `kontak_penyelenggara`, `url_pendaftaran`, `Instruksi_tambahan`, `foto_poster`) VALUES
+(10, 'Cek1', '213412idadawjdpoj', '2004-03-12', '10:00:00', 'Tidak diketahui', 'adakdno', 0.00, 'dkanawklda', 'ddawdad.com', 'dajkdjwka;dgk;adwga', 'uploads/jobfair3.jpeg'),
+(12, 'Job Fair Offline UAJY', 'Job fair yang diselenggarakan oleh Universitas Atma Jaya Yogyakarta', '2024-05-14', '09:00:00', 'Universitas Atma Jaya Yogyakarta', 'Job Fair', 0.00, 'Admin', 'https://www.karirfair.com/jf-1099', 'Info selanjutnya hubungi admin.', 'uploads/JOBFAIR.png'),
+(14, 'JOBFAIR CAREER EXPO 2024', 'Job fair besar yang diadakan oleh JOBFAIRCOID Yogyakarta.', '2024-06-18', '08:30:00', 'JOBFAIRCOID Yogyakarta', 'Job Fair', 0.00, 'Admin Penyelenggara', 'https://jadwalevent.web.id/jobfair-career-expo-2024-di-sleman-city-hall', 'Info lebih lanjut klik link ', 'uploads/jobfair1.png'),
+(15, 'Job Fair Virtual', 'Job fair yang diadakan secara virtual oleh Dinas Sosial Kerja Dan Transmigrasi Kota Yogyakarta.', '2024-07-22', '10:00:00', 'Via Link Zoom', 'Workshop', 0.00, 'Admin Penyelenggara', 'https://www.karirfair.com/jf-1033', 'Hubungi Admin.', 'uploads/jobfair2.png'),
+(16, 'Konferensi Bisnis 2024', 'Konferensi bisnis dengan topik tentang strategi pemasaran digital.', '2024-08-10', '11:30:00', 'Hotel Grand Hyatt Bali', 'Konferensi Bisnis', 150000.00, '08765432109', 'http://konferensibisnis2024.com', 'Mohon mengisi formulir pendaftaran dengan benar di website pendaftaran.', 'uploads/konferensi_bisnis_2024.jpg'),
+(17, 'Lomba Desain Grafis 2024', 'Lomba desain grafis bagi pelajar dan mahasiswa', '2024-07-30', '13:00:00', 'Universitas Teknologi Yogyakarta', 'Lomba Desain', 50000.00, '08987654321', 'http://lombadesaingrafis2024.com', 'Pastikan file karya telah siap diupload di link yang tertera.', 'uploads/lomba_desain_2024.jpeg');
 
 -- --------------------------------------------------------
 
@@ -325,6 +321,23 @@ INSERT INTO `loker` (`id`, `user_id`, `kategori_pekerjaan_id`, `posisi`, `tingka
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` int(11) NOT NULL,
+  `order_id` varchar(100) NOT NULL,
+  `transaction_status` varchar(50) NOT NULL,
+  `payment_type` varchar(50) NOT NULL,
+  `gross_amount` decimal(20,2) NOT NULL,
+  `transaction_time` datetime NOT NULL,
+  `fraud_status` varchar(50) DEFAULT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `users`
 --
 
@@ -352,7 +365,7 @@ INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`
 (2, 'Sekolah Dasar Negeri 1 Dinda', 'Pendidikan', 'Sekolah Dasar Negeri 1 Dinda bergerak di bidang pendidikan.', '@sekolahan', 'http://www.perusahaanb.com', 'Jl. Pendidikan No. 2', '', 'userB', 'passwordB', 'diterima', '2024-06-17'),
 (3, 'Apotek Savero anjai', 'Kesehatan', 'Apotek Savero anjai bergerak di bidang kesehatan.', '@perusahaanc', 'http://www.perusahaanc.com', 'Jl. Kesehatan No. 3', '', 'userC', 'passwordC', 'diterima', '2024-06-03'),
 (5, 'TES PERUSAHAAN', 'farhangusti', '', '0123', '12348-', 'kadnaodnadad', 'uploads/perusahaan7.jpeg', 'anjayanjay', '123123', 'diterima', '2017-06-26'),
-(6, 'SAFIK NGENTOT', 'anjay', '', 'pepek', 'asu', 'jl kaliurang', 'uploads/Safik.jpeg', 'safikngentot', '12345', 'diterima', '2024-06-02');
+(6, 'SAFIK AHOK', 'perkodingan', 'Perusahaan ini adalah perusahaan terpusing di dunia.', 'safikcoding.github', 'www.safikcoding.com', 'jl kaliurang', 'uploads/perusahaan100.png', 'safikahok', '12345', 'diterima', '2024-06-02');
 
 --
 -- Indexes for dumped tables
@@ -379,6 +392,14 @@ ALTER TABLE `loker`
   ADD KEY `FK_kategori_pekerjaan_loker` (`kategori_pekerjaan_id`);
 
 --
+-- Indeks untuk tabel `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `order_id` (`order_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -393,7 +414,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_pekerjaan`
@@ -406,6 +427,12 @@ ALTER TABLE `kategori_pekerjaan`
 --
 ALTER TABLE `loker`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+
+--
+-- AUTO_INCREMENT untuk tabel `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -423,6 +450,12 @@ ALTER TABLE `users`
 ALTER TABLE `loker`
   ADD CONSTRAINT `FK_nama_kategori_loker` FOREIGN KEY (`kategori_pekerjaan_id`) REFERENCES `kategori_pekerjaan` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_user_loker` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `transactions`
+--
+ALTER TABLE `transactions`
+  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
