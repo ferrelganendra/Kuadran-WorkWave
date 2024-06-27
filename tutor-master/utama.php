@@ -286,10 +286,6 @@ $loker_result = $stmt->get_result();
                     </div>  
                 </div>
             </div>
-            <?php
-            include 'LLM/chat.php';
-            ?>
-            
         </div>
     </div>
 </div>

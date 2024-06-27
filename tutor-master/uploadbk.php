@@ -1,10 +1,11 @@
 <?php
- error_reporting(E_ALL);
- ini_set('display_errors', 1);
- session_start();
- include 'php/Admin/prosesFormEvent.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+include 'koneksi.php';
+include 'prosesbursakerja.php';
 
- $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 ?>
 <!doctype html>
 <html lang="en">
@@ -103,60 +104,60 @@
         
         <div class="row">
           <div class="col-lg-8 mb-5" >
-            <form action="php/Admin/prosesFormEvent.php" method="post">
+            <form action="prosesbursakerja.php" method="post" enctype="multipart/form-data">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Nama  Acara">
+                  <input type="text" name="nama_acara" class="form-control" placeholder="Nama  Acara">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <textarea name="" id="" class="form-control" placeholder="Deskripsi  Acara" cols="30" rows="10"></textarea>
+                  <textarea name="deskripsi_acara" id="" class="form-control" placeholder="Deskripsi  Acara" cols="30" rows="10"></textarea>
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="date" class="form-control" placeholder="Tanggal Acara">
+                  <input type="date" name="tanggal_acara" class="form-control" placeholder="Tanggal Acara">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="time" class="form-control" placeholder="Waktu Acara">
+                  <input type="time" name="waktu_acara" class="form-control" placeholder="Waktu Acara">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Tempat Acara">
+                  <input type="text" name="tempat_acara" class="form-control" placeholder="Tempat Acara">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Kategori Acara">
+                  <input type="text" name="kategori_acara" class="form-control" placeholder="Kategori Acara">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Biaya Pendaftaran">
+                  <input type="text" name="biaya_pendaftaran" class="form-control" placeholder="Biaya Pendaftaran">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Kontak Penyelenggara">
+                  <input type="text" name="kontak_penyelenggara" class="form-control" placeholder="Kontak Penyelenggara">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="URL Pendaftaran">
+                  <input type="text" name="url_pendaftaran" class="form-control" placeholder="URL Pendaftaran">
                 </div>
               </div>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <textarea name="" id="" class="form-control" placeholder="Instruksi Tambahan" cols="30" rows="10"></textarea>
+                  <textarea name="instruksi_tambahan" id="" class="form-control" placeholder="Instruksi Tambahan" cols="30" rows="10"></textarea>
                 </div>
               </div>
               <div class="form-group">
                 <label for="foto_poster">Foto/Poster Job Fair:</label>
-                <input type="file" class="form-control-file" id="foto_poster" name="foto_poster">
+                <input type="file" name="foto_poster" class="form-control-file" id="foto_poster">
               </div>
               <div class="form-group row">
                 <div class="col-md-6 mr-auto">
@@ -165,7 +166,6 @@
               </div>
             </form>
           </div>
-          <a href="bursakerja.php" class="fixed-button">Kembali </a>
         </div>
       </div>
 
@@ -182,7 +182,7 @@
                 <li><a href="#"><span class="icon-linkedin"></span></a></li>
               </ul>
             </div>
-            <div class="col-lg-8 ml-auto">
+            <div claam"col-lg-8 ml-auto">
               <div class="row">
                 <div class="col-lg-3">
                   <h2 class="footer-heading mb-4">Pencarian Kerja</h2>
