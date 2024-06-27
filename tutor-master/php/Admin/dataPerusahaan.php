@@ -42,7 +42,7 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Perusahaan</title>
-    <link rel="stylesheet" href="css/Adminpage2.css">
+    <link rel="stylesheet" href="css/adminpage2.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -59,7 +59,7 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
             <li><a href="dataLoker.php">Data Lowongan Pekerjaan</a></li> 
             <li><a href="dataAI.php">CHAT AI</a></li>
             <li><a href="dataAdmin.php">Admin</a></li>
-            <li><a href="dataEvent.php">Job Fair</a></li>
+            <li><a href="databursakerja.php">Job Fair</a></li>
             <li><a href="logout.php" class="btn btn-danger">Keluar</a></li>
         </ul>
     </div>
