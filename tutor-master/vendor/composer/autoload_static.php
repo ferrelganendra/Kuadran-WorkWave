@@ -4,22 +4,8 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf7e9b5f946f7ec9110439346d71c9f07
+class ComposerStaticInitda58794fc80dc1be2cf98a5f0e16fd1e
 {
-    public static $prefixLengthsPsr4 = array (
-        'M' => 
-        array (
-            'Midtrans\\' => 9,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Midtrans\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/midtrans/midtrans-php/Midtrans',
-        ),
-    );
-
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -27,9 +13,7 @@ class ComposerStaticInitf7e9b5f946f7ec9110439346d71c9f07
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf7e9b5f946f7ec9110439346d71c9f07::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf7e9b5f946f7ec9110439346d71c9f07::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf7e9b5f946f7ec9110439346d71c9f07::$classMap;
+            $loader->classMap = ComposerStaticInitda58794fc80dc1be2cf98a5f0e16fd1e::$classMap;
 
         }, null, ClassLoader::class);
     }
