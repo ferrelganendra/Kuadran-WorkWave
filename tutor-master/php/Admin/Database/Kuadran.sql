@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 27 Jun 2024 pada 15.39
+-- Waktu pembuatan: 28 Jun 2024 pada 20.34
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -321,18 +321,42 @@ INSERT INTO `loker` (`id`, `user_id`, `kategori_pekerjaan_id`, `posisi`, `tingka
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `paketloker`
+--
+
+CREATE TABLE `paketloker` (
+  `package_id` int(11) NOT NULL,
+  `nama_paket` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `paketloker`
+--
+
+INSERT INTO `paketloker` (`package_id`, `nama_paket`, `created_at`, `updated_at`) VALUES
+(1, 'Gold', '2024-06-28 18:29:18', '2024-06-28 18:29:18'),
+(2, 'Silver', '2024-06-28 18:29:18', '2024-06-28 18:29:18'),
+(3, 'Bronze', '2024-06-28 18:29:18', '2024-06-28 18:29:18');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `transactions`
 --
 
 CREATE TABLE `transactions` (
   `id` int(11) NOT NULL,
-  `order_id` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
   `transaction_status` varchar(50) NOT NULL,
-  `payment_type` varchar(50) NOT NULL,
-  `gross_amount` decimal(20,2) NOT NULL,
-  `transaction_time` datetime NOT NULL,
-  `fraud_status` varchar(50) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
+  `gross_amount` decimal(10,2) NOT NULL,
+  `payment_type` varchar(50) DEFAULT NULL,
+  `transaction_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -353,19 +377,21 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `status` enum('menunggu','ditolak','diterima') DEFAULT 'menunggu',
-  `tanggal_bergabung` date NOT NULL
+  `tanggal_bergabung` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `tanggal_bergabung`) VALUES
-(1, 'PT. Ferrel Cyberprotect', 'Teknologi Informasi', 'Perusahaan A bergerak di bidang teknologi informasi.', '@perusahaana', 'http://www.perusahaana.com', 'Jl. Teknologi No. 1', '', 'userA', 'passwordA', 'diterima', '2000-01-30'),
-(2, 'Sekolah Dasar Negeri 1 Dinda', 'Pendidikan', 'Sekolah Dasar Negeri 1 Dinda bergerak di bidang pendidikan.', '@sekolahan', 'http://www.perusahaanb.com', 'Jl. Pendidikan No. 2', '', 'userB', 'passwordB', 'diterima', '2024-06-17'),
-(3, 'Apotek Savero anjai', 'Kesehatan', 'Apotek Savero anjai bergerak di bidang kesehatan.', '@perusahaanc', 'http://www.perusahaanc.com', 'Jl. Kesehatan No. 3', '', 'userC', 'passwordC', 'diterima', '2024-06-03'),
-(5, 'TES PERUSAHAAN', 'farhangusti', '', '0123', '12348-', 'kadnaodnadad', 'uploads/perusahaan7.jpeg', 'anjayanjay', '123123', 'diterima', '2017-06-26'),
-(6, 'SAFIK AHOK', 'perkodingan', 'Perusahaan ini adalah perusahaan terpusing di dunia.', 'safikcoding.github', 'www.safikcoding.com', 'jl kaliurang', 'uploads/perusahaan100.png', 'safikahok', '12345', 'diterima', '2024-06-02');
+INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `tanggal_bergabung`, `created_at`, `updated_at`) VALUES
+(1, 'PT. Ferrel Cyberprotect', 'Teknologi Informasi', 'Perusahaan A bergerak di bidang teknologi informasi.', '@perusahaana', 'http://www.perusahaana.com', 'Jl. Teknologi No. 1', '', 'userA', 'passwordA', 'diterima', '2000-01-30', '2024-06-28 18:16:08', '2024-06-28 18:17:05'),
+(2, 'Sekolah Dasar Negeri 1 Dinda', 'Pendidikan', 'Sekolah Dasar Negeri 1 Dinda bergerak di bidang pendidikan.', '@sekolahan', 'http://www.perusahaanb.com', 'Jl. Pendidikan No. 2', '', 'userB', 'passwordB', 'diterima', '2024-06-17', '2024-06-28 18:16:08', '2024-06-28 18:17:05'),
+(3, 'Apotek Savero anjai', 'Kesehatan', 'Apotek Savero anjai bergerak di bidang kesehatan.', '@perusahaanc', 'http://www.perusahaanc.com', 'Jl. Kesehatan No. 3', '', 'userC', 'passwordC', 'diterima', '2024-06-03', '2024-06-28 18:16:08', '2024-06-28 18:17:05'),
+(5, 'TES PERUSAHAAN', 'farhangusti', '', '0123', '12348-', 'kadnaodnadad', 'uploads/perusahaan7.jpeg', 'anjayanjay', '123123', 'diterima', '2017-06-26', '2024-06-28 18:16:08', '2024-06-28 18:17:05'),
+(6, 'SAFIK AHOK', 'perkodingan', 'Perusahaan ini adalah perusahaan terpusing di dunia.', 'safikcoding.github', 'www.safikcoding.com', 'jl kaliurang', 'uploads/perusahaan100.png', 'safikahok', '12345', 'diterima', '2024-06-02', '2024-06-28 18:16:08', '2024-06-28 18:17:05');
 
 --
 -- Indexes for dumped tables
@@ -392,12 +418,18 @@ ALTER TABLE `loker`
   ADD KEY `FK_kategori_pekerjaan_loker` (`kategori_pekerjaan_id`);
 
 --
+-- Indeks untuk tabel `paketloker`
+--
+ALTER TABLE `paketloker`
+  ADD PRIMARY KEY (`package_id`);
+
+--
 -- Indeks untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `order_id` (`order_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `fk_user` (`user_id`),
+  ADD KEY `fk_package` (`package_id`);
 
 --
 -- Indeks untuk tabel `users`
@@ -429,6 +461,12 @@ ALTER TABLE `loker`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
+-- AUTO_INCREMENT untuk tabel `paketloker`
+--
+ALTER TABLE `paketloker`
+  MODIFY `package_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
@@ -455,7 +493,8 @@ ALTER TABLE `loker`
 -- Ketidakleluasaan untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
-  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_package` FOREIGN KEY (`package_id`) REFERENCES `paketloker` (`package_id`),
+  ADD CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
