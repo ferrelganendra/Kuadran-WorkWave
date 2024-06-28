@@ -17,6 +17,8 @@ This website is designed to help users search for job vacancies specifically in 
 - **JavaScript**: For interactivity and dynamic functionality.
 - **PHP**: For server-side data processing.
 - **MySQL**: For the database that stores job vacancy and user information.
+- **MIDTRANS PAYMENT API** : For the purchase/payment process for job vacancy packages for companies
+- **Groq AI API** : For users who need and want recommendations from AI chat that are answered responsively
 - etc.
 
 ## Installation
