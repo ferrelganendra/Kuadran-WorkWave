@@ -1,31 +1,20 @@
 <?php
-// Panggil koneksi ke database
-include "koneksi.php";
+include 'koneksi.php';
 
-// Periksa apakah data yang diperlukan telah disubmit melalui metode POST
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["userId"])) {
-    // Ambil ID pengguna dari permintaan POST
-    $userId = $_POST["userId"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
+    $id = $_POST['id'];
+    $status = 'ditolak';
 
-    // Query SQL untuk memperbarui status pengguna menjadi "ditolak"
-    $sql = "UPDATE users SET status='ditolak' WHERE id=$userId";
+    $query = "UPDATE users SET status = ? WHERE id = ?";
+    $stmt = $koneksi->prepare($query);
+    $stmt->bind_param('si', $status, $id);
 
-    // Eksekusi query
-    if (mysqli_query($koneksi, $sql)) {
-        // Kirim respons berhasil
-        http_response_code(200);
-        exit();
+    if ($stmt->execute()) {
+        echo "User rejected successfully.";
     } else {
-        // Kirim respons gagal
-        http_response_code(500);
-        exit();
+        echo "Error: " . $stmt->error;
     }
 
-    // Tutup koneksi database
-    mysqli_close($koneksi);
-} else {
-    // Kirim respons jika data tidak lengkap
-    http_response_code(400);
-    exit();
+    $stmt->close();
 }
 ?>

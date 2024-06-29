@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 session_start();
 include 'koneksi.php';
 
-if (isset($_POST['posisi']) && isset($_SESSION['user_id'])) {
+if (isset($_POST['posisi']) && isset($_SESSION['user_id']) && isset($_POST['kategori_pekerjaan_id'])) {
     $user_id = $_SESSION['user_id'];
     $posisi = $_POST['posisi'];
     $tingkat_pendidikan = $_POST['tingkat_pendidikan'];
@@ -13,25 +13,12 @@ if (isset($_POST['posisi']) && isset($_SESSION['user_id'])) {
     $besaran_gaji = $_POST['besaran_gaji'];
     $lokasi_bekerja = $_POST['lokasi_bekerja'];
     $syarat_pekerjaan = $_POST['syarat_pekerjaan'];
-    $logo_perusahaan= '';
+    $kategori_pekerjaan_id = $_POST['kategori_pekerjaan_id'];
 
-    if (isset($_FILES['logo_perusahaan']) && $_FILES['logo_perusahaan']['error'] == UPLOAD_ERR_OK) {
-        $upload_dir = 'uploads/';
-        $foto_loker = basename($_FILES['logo_perusahaan']['name']);
-        $target_file = $upload_dir . $foto_loker;
-
-        if (move_uploaded_file($_FILES['logo_perusahaan']['tmp_name'], $target_file)) {
-            // File uploaded successfully
-        } else {
-            echo "Gagal mengunggah file.";
-            exit();
-        }
-    }
-
-    $query = "INSERT INTO loker (user_id, posisi, tingkat_pendidikan, gender, status_kerja, besaran_gaji, lokasi_bekerja, syarat_pekerjaan) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO loker (user_id, posisi, tingkat_pendidikan, gender, status_kerja, besaran_gaji, lokasi_bekerja, syarat_pekerjaan, kategori_pekerjaan_id) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $koneksi->prepare($query);
-    $stmt->bind_param('issssisss', $user_id, $posisi, $tingkat_pendidikan, $gender, $status_kerja, $besaran_gaji, $lokasi_bekerja, $syarat_pekerjaan);
+    $stmt->bind_param('issssissi', $user_id, $posisi, $tingkat_pendidikan, $gender, $status_kerja, $besaran_gaji, $lokasi_bekerja, $syarat_pekerjaan, $kategori_pekerjaan_id);
 
     if ($stmt->execute()) {
         // Mengarahkan ke halaman utama setelah sukses mengunggah

@@ -12,6 +12,8 @@ if (!isset($_SESSION['admin_username'])) {
 
 include "koneksi.php";
 
+$query = "SELECT * FROM users WHERE status = 'menunggu'";
+
 // Atur jumlah data per halaman
 $items_per_page = 5;
 
@@ -47,6 +49,7 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="js/ScData.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -163,7 +166,6 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
                             <th>Media Sosial</th>
                             <th>Website</th>
                             <th>Alamat Perusahaan</th>
-                            <th>Logo Perusahaan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -182,7 +184,6 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
                             echo "<td>" . $row['media_sosial'] . "</td>";
                             echo "<td>" . $row['website'] . "</td>";
                             echo "<td>" . $row['alamat_perusahaan'] . "</td>";
-                            echo "<td><img src='path_to_logo/" . $row['logo_perusahaan'] . "' alt='Logo' width='50'></td>";
                             echo "</tr>";
                         }
 

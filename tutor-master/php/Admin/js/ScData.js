@@ -11,7 +11,7 @@ function acceptUser(userId) {
         };
         xhttp.open("POST", "prosesTerima.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("userId=" + userId);
+        xhttp.send("id=" + userId);
     }
 }
 
@@ -28,7 +28,6 @@ function rejectUser(userId) {
         };
         xhttp.open("POST", "prosesTolak.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("userId=" + userId);
+        xhttp.send("id=" + userId);
     }
 }
-
