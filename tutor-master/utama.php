@@ -255,9 +255,32 @@ $loker_result = $stmt->get_result();
                                     <span class="mr-2 mb-2"><?= htmlspecialchars($row['gender']) ?></span>
                                     <span class="mr-2 mb-2"><?= htmlspecialchars($row['tanggal_dipost']) ?></span>
                                 </p>
-                                <p><a href="details.php?id=<?= htmlspecialchars($row['id']) ?>" class="btn btn-primary custom-btn">View</a></p>
+                                <p><a href="#" class="btn btn-primary custom-btn" data-toggle="modal" data-target="#viewModal<?= $row['id'] ?>">View</a></p>
                             </div>
                         </div>
+                          <div class="modal fade" id="viewModal<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel<?= $row['id'] ?>" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="viewModalLabel<?= $row['id'] ?>">Job Details</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <p><strong>Position:</strong> <?= htmlspecialchars($row['posisi']) ?></p>
+                                  <p><strong>Requirements:</strong> <?= htmlspecialchars($row['syarat_pekerjaan']) ?></p>
+                                  <p><strong>Education Level:</strong> <?= htmlspecialchars($row['tingkat_pendidikan']) ?></p>
+                                  <p><strong>Gender:</strong> <?= htmlspecialchars($row['gender']) ?></p>
+                                  <p><strong>Posted on:</strong> <?= htmlspecialchars($row['tanggal_dipost']) ?></p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                     <?php endwhile; ?>
                 <?php else: ?>
                     <p>Tidak ada data lowongan kerja.</p>
@@ -441,6 +464,8 @@ $loker_result = $stmt->get_result();
     <script src="js/jquery.easing.1.3.js"></script>
     <script src="js/bootstrap-datepicker.min.js"></script>
     <script src="js/aos.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
     
     <script src="js/main.js"></script>
     
