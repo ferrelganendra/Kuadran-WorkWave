@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Surat Lamaran</title>
 </head>
+<link rel="stylesheet" href="buatsurat.css">
 <body>
     <h1>Buat Surat Lamaran Otomatis</h1>
     <form action="lihatHasil.php" method="post">
