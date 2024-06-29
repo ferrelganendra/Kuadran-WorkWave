@@ -1250,3 +1250,8 @@ h1, h2, h3, h4, h5,
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5); 
   }
+
+  #logoperus1 {
+    width: 200px;
+    height: 150px;
+  }

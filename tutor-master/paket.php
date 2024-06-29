@@ -26,6 +26,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/stylepaket.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-9zm0L8TLN8ymMiJv"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
@@ -82,63 +83,62 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
           </div>
         </div>
       </div>
-
       <div class="container1">
-        <div class="package-item purchase-item">
-          <div class="title"><img src="images/gold-icon.png" alt="Gold Package Icon" /></div>
-          <div class="package-title">Gold</div>
-          <div class="package-price">Rp200.000</div>
-          <ul class="package-benefits">
-            <li>Paket super efektif</li>
-            <li>4 kali publikasi di semua jaringan Lokerjogja.ID (publikasi 2 hari sekali)</li>
-            <li>Website & Aplikasi</li>
-            <li>Instagram Post & Story</li>
-            <li>Highlight Story Favorit</li>
-            <li>G Google Jobs & Bisnis</li>
-            <li>Facebook Post & Story</li>
-            <li>Twitter in Linkedin</li>
-            <li>Telegram</li>
-          </ul>
-          <div class="">
+    <div class="package-item purchase-item">
+        <div class="title"><img src="images/gold-icon.png" alt="Gold Package Icon" /></div>
+        <div class="package-title">Gold</div>
+        <div class="package-price">Rp200.000</div>
+        <ul class="package-benefits">
+            <li><i class="fas fa-star"></i> Paket super efektif</li>
+            <li><i class="fas fa-newspaper"></i> 4 kali publikasi di Workwave.co.id</li>
+            <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
+            <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
+            <li><i class="fas fa-star"></i> Highlight Story Favorit</li>
+            <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
+            <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
+            <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
+            <li><i class="fab fa-telegram"></i> Telegram</li>
+        </ul>
+        <div class="">
             <button id="bayarsatu" type="button" class="purchase-button" data-package-id="gold">Beli sekarang</button>
-          </div>
         </div>
+    </div>
 
-        <div class="package-item purchase-item">
-          <div class="title"><img src="images/silver-icon.png" alt="Silver Package Icon"/></div>
-          <div class="package-title">Silver</div>
-          <div class="package-price">Rp150.000</div>
-          <ul class="package-benefits">
-            <li>Kandidat lebih banyak</li>
-            <li>3 kali publikasi di semua jaringan Lokerjogja.ID (publikasi 2 hari sekali)</li>
-            <li>Website & Aplikasi</li>
-            <li>Instagram Post & Story</li>
-            <li>G Google Jobs & Bisnis</li>
-            <li>Facebook Post & Story</li>
-            <li>Twitter in Linkedin</li>
-            <li>Telegram</li>
-          </ul>
-          <div class="">
+    <div class="package-item purchase-item">
+        <div class="title"><img src="images/silver-icon.png" alt="Silver Package Icon"/></div>
+        <div class="package-title">Silver</div>
+        <div class="package-price">Rp150.000</div>
+        <ul class="package-benefits">
+            <li><i class="fas fa-users"></i> Kandidat lebih banyak</li>
+            <li><i class="fas fa-newspaper"></i> 2 kali publikasi di Workwave.co.id</li>
+            <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
+            <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
+            <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
+            <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
+            <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
+            <li><i class="fab fa-telegram"></i> Telegram</li>
+        </ul>
+        <div class="">
             <button id="bayardua" type="button" class="purchase-button" data-package-id="silver">Beli sekarang</button>
-          </div>
         </div>
+    </div>
 
-        <div class="package-item purchase-item">
-          <div class="title"><img src="images/bronze-icon.png" alt="Bronze Package Icon"/></div>
-          <div class="package-title">Bronze</div>
-          <div class="package-price">Rp100.000</div>
-          <ul class="package-benefits">
-            <li>Kandidat lebih banyak</li>
-            <li>3 kali publikasi di semua jaringan Lokerjogja.ID (publikasi 2 hari sekali)</li>
-            <li>Website & Aplikasi</li>
-            <li>Instagram Post & Story</li>
-            <li>G Google Jobs & Bisnis</li>
-          </ul>
-          <div class="">
+    <div class="package-item purchase-item">
+        <div class="title"><img src="images/bronze-icon.png" alt="Bronze Package Icon"/></div>
+        <div class="package-title">Bronze</div>
+        <div class="package-price">Rp100.000</div>
+        <ul class="package-benefits">
+            <li><i class="fas fa-users"></i> Kandidat lebih banyak</li>
+            <li><i class="fas fa-newspaper"></i> 1 kali publikasi di Workwave.co.id</li>
+            <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
+            <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
+            <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
+        </ul>
+        <div class="">
             <button id="bayartiga" type="button" class="purchase-button" data-package-id="bronze">Beli sekarang</button>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
       <footer class="site-footer">
         <div class="container">

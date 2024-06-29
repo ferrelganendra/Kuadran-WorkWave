@@ -15,6 +15,7 @@ if (isset($_POST['posisi']) && isset($_SESSION['user_id']) && isset($_POST['kate
     $syarat_pekerjaan = $_POST['syarat_pekerjaan'];
     $kategori_pekerjaan_id = $_POST['kategori_pekerjaan_id'];
 
+
     $query = "INSERT INTO loker (user_id, posisi, tingkat_pendidikan, gender, status_kerja, besaran_gaji, lokasi_bekerja, syarat_pekerjaan, kategori_pekerjaan_id) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $koneksi->prepare($query);

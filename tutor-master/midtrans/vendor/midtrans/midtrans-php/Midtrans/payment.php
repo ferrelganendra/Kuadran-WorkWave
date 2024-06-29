@@ -37,7 +37,6 @@ $itemDetails = [
 
 $customerDetails = [
     'user_id' => $user_id,
-    'email' => getUserEmail($user_id), // Implement getUserEmail function to get user email by user_id
 ];
 
 $transaction = [
@@ -62,18 +61,20 @@ function getPackageName($packageId) {
     if ($packageId == 'bronze') return 'Bronze Package';
 }
 
-function getUserEmail($user_id) {
-    // Implement this function to get the user email by user_id
-    // For example:
-    // Connect to your database and get the email for the given user_id
-}
-
 try {
     $snapToken = \Midtrans\Snap::getSnapToken($transaction);
     echo json_encode(['snapToken' => $snapToken]);
 } catch (Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);
     exit();
+}
+
+function saveTransactionDetails($user_id, $package_id, $order_id, $transaction_status, $gross_amount, $payment_type) {
+    include 'koneksi.php';
+    $stmt = $koneksi->prepare("INSERT INTO transactions (user_id, package_id, order_id, transaction_status, gross_amount, payment_type, transaction_time, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())");
+    $stmt->bind_param("iississ", $user_id, $package_id, $order_id, $transaction_status, $gross_amount, $payment_type);
+    $stmt->execute();
+    $stmt->close();
 }
 
 ?>
