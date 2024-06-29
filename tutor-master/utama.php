@@ -263,7 +263,8 @@ $loker_result = $stmt->get_result();
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="viewModalLabel<?= $row['id'] ?>">Job Details</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <button type="button" class="CV" data-dismiss="modal" aria-label="Close">
+                                  
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
@@ -275,7 +276,13 @@ $loker_result = $stmt->get_result();
                                   <p><strong>Posted on:</strong> <?= htmlspecialchars($row['tanggal_dipost']) ?></p>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" onclick="redirectPage()">Buat Surat Lamaran</button>
+                                    <script>
+                                    function redirectPage() {
+                                        $('.modal').modal('hide');
+                                        window.location.href = 'buatSurat/bikin.php';
+                                    }
+                                    </script>
                                 </div>
                               </div>
                             </div>
