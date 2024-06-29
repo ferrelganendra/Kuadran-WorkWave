@@ -13,7 +13,7 @@ if (isset($_POST['register'])) {
     $alamat_perusahaan = $_POST['alamat'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-
+    
     // Set status default 'menunggu'
     $status = 'menunggu';
 
