@@ -108,7 +108,7 @@
     </div>
     <div class="form-group row">
         <div class="col-md-12">
-            <textarea class="form-control" name="deskripsi" placeholder="Deskripsi Perusahaan" rows="5"></textarea>
+            <textarea class="form-control" name="deskripsi_perusahaan" placeholder="Deskripsi Perusahaan" rows="5"></textarea>
         </div>
     </div>
     <div class="form-group row">
