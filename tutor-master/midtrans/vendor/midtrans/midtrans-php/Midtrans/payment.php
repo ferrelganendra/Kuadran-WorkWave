@@ -71,7 +71,8 @@ try {
 
 function saveTransactionDetails($user_id, $package_id, $order_id, $transaction_status, $gross_amount, $payment_type) {
     include 'koneksi.php';
-    $stmt = $koneksi->prepare("INSERT INTO transactions (user_id, package_id, order_id, transaction_status, gross_amount, payment_type, transaction_time, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())");
+    $stmt = $koneksi->prepare("INSERT INTO transactions (user_id, package_id, order_id, transaction_status, gross_amount, payment_type, transaction_time, created_at, updated_at) 
+    VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), NOW())");
     $stmt->bind_param("iississ", $user_id, $package_id, $order_id, $transaction_status, $gross_amount, $payment_type);
     $stmt->execute();
     $stmt->close();

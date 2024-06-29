@@ -284,15 +284,15 @@ $loker_result = $stmt->get_result();
             <div class="col-lg-4">
                 <h4>Bursa Kerja</h4>
                 <div class="box-side mb-3">
-                    <a href="#"><img src="images/JOBFAIR.png" alt="jobfair" class="img-fluid"></a>
+                    <a href="event_detail.php?id=12"><img src="images/JOBFAIR.png" alt="jobfair" class="img-fluid"></a>
                     <h3>Job Fair Offline UAJY</h3>
                 </div>  
                 <div class="box-side mb-3">
-                    <a href="#"><img src="images/jobfair1.png" alt="jobfair" class="img-fluid"></a>
+                    <a href="event_detail.php?id=14"><img src="images/jobfair1.png" alt="jobfair" class="img-fluid"></a>
                     <h3>Job Fair CAREER EXPO 2024</h3>
                 </div>  
                 <div class="box-side">
-                    <a href="#"><img src="images/jobfair2.png" alt="jobfair" class="img-fluid"></a>
+                    <a href="event_detail.php?id=15"><img src="images/jobfair2.png" alt="jobfair" class="img-fluid"></a>
                     <h3>Job Fair Virtual</h3>
                 </div>  
             </div>
