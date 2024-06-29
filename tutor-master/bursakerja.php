@@ -85,7 +85,7 @@ $result = $koneksi->query($query);
                                 <?php endif; ?>
                                 <?php if ($user_id): ?>
                                     <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
-                                    <li><a href="paket.html" class="nav-link">Beli Paket</a></li>
+                                    <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
                                     <li><a href="profil.php" class="nav-link">Profil</a></li>
                                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                                 <?php endif; ?>

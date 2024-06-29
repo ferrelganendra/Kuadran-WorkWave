@@ -26,7 +26,8 @@ if (isset($_POST['register'])) {
         // Set session
         $_SESSION['username'] = $username;
         // Menggunakan header location untuk mengarahkan ke profil.php
-        header("Location: ../../profil.php");
+        echo "<script>alert('Akun Anda sedang dalam proses verifikasi admin. Harap tunggu konfirmasi dari admin.'); window.location.href = '../../login.php';</script>";
+        header("Location: ../../login.php");
         exit();
     } else {
         echo "Error: " . $stmt->error;

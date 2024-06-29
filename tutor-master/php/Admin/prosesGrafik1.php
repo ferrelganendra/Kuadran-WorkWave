@@ -12,7 +12,7 @@ while ($row = $lowonganResult->fetch_assoc()) {
 }
 
 // Fetch data for perusahaan chart
-$perusahaanQuery = "SELECT MONTH(tanggal_bergabung) AS month, COUNT(*) AS count FROM users GROUP BY MONTH(tanggal_bergabung)";
+$perusahaanQuery = "SELECT MONTH(created_at) AS month, COUNT(*) AS count FROM users GROUP BY MONTH(created_at)";
 $perusahaanResult = $koneksi->query($perusahaanQuery);
 $perusahaanData = [];
 $perusahaanLabels = [];

@@ -200,6 +200,7 @@ $user_data = $result->fetch_assoc();
                                             <td colspan="2">
                                                 <div class="upload-section">
                                                     <h3>Upload Logo Perusahaan</h3>
+                                                    <p>Ukuran maks. 500kb</p>
                                                     <form action="uploadLogo.php" method="post" enctype="multipart/form-data">
                                                         <input type="file" name="logo_perusahaan" required>
                                                         <button type="submit" name="upload">Upload</button>

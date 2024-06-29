@@ -18,59 +18,55 @@ require '../../../autoload.php'; // Include Composer's autoload
 // Ensure the response is always JSON
 header('Content-Type: application/json');
 
-// Assuming user is logged in and user_id is set in session
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+$packageId = $_POST['package_id'];
+$user_id = $_SESSION['user_id']; // Ensure the user_id is stored in session
 
-if (!$user_id) {
-    echo json_encode(['error' => 'User not logged in']);
-    exit();
-}
-
-// Example data, you can fetch data from your database
-$package_id = isset($_POST['package_id']) ? $_POST['package_id'] : null;
-$packages = [
-    'gold' => ['name' => 'Gold Package', 'price' => 200000],
-    'silver' => ['name' => 'Silver Package', 'price' => 150000],
-    'bronze' => ['name' => 'Bronze Package', 'price' => 100000]
+$transactionDetails = [
+    'order_id' => uniqid(),
+    'gross_amount' => getPackagePrice($packageId)
 ];
 
-if (!array_key_exists($package_id, $packages)) {
-    echo json_encode(['error' => 'Invalid package selected']);
-    exit();
+$itemDetails = [
+    [
+        'id' => $packageId,
+        'price' => getPackagePrice($packageId),
+        'quantity' => 1,
+        'name' => getPackageName($packageId)
+    ]
+];
+
+$customerDetails = [
+    'user_id' => $user_id,
+    'email' => getUserEmail($user_id), // Implement getUserEmail function to get user email by user_id
+];
+
+$transaction = [
+    'transaction_details' => $transactionDetails,
+    'item_details' => $itemDetails,
+    'customer_details' => $customerDetails,
+];
+
+function getPackagePrice($packageId) {
+    // Implement this function to get the package price by packageId
+    // For example:
+    if ($packageId == 'gold') return 200000;
+    if ($packageId == 'silver') return 150000;
+    if ($packageId == 'bronze') return 100000;
 }
 
-$package = $packages[$package_id];
+function getPackageName($packageId) {
+    // Implement this function to get the package name by packageId
+    // For example:
+    if ($packageId == 'gold') return 'Gold Package';
+    if ($packageId == 'silver') return 'Silver Package';
+    if ($packageId == 'bronze') return 'Bronze Package';
+}
 
-// Required
-$transaction_details = array(
-    'order_id' => rand(),
-    'gross_amount' => $package['price'], // no decimal allowed for creditcard
-);
-
-// Optional
-$item_details = array(
-    array(
-        'id' => $package_id,
-        'price' => $package['price'],
-        'quantity' => 1,
-        'name' => $package['name']
-    )
-);
-
-// Optional
-$customer_details = array(
-    'first_name'    => "User",
-    'last_name'     => "Example",
-    'email'         => "user@example.com",
-    'phone'         => "081122334455"
-);
-
-// Fill transaction details
-$transaction = array(
-    'transaction_details' => $transaction_details,
-    'item_details'        => $item_details,
-    'customer_details'    => $customer_details,
-);
+function getUserEmail($user_id) {
+    // Implement this function to get the user email by user_id
+    // For example:
+    // Connect to your database and get the email for the given user_id
+}
 
 try {
     $snapToken = \Midtrans\Snap::getSnapToken($transaction);

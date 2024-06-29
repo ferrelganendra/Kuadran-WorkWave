@@ -48,9 +48,9 @@ $lowonganTerbaruResult = $koneksi->query($lowonganTerbaruQuery);
 
 // Query untuk mendapatkan perusahaan terbaru
 $perusahaanTerbaruQuery = "
-    SELECT nama_perusahaan, tanggal_bergabung
+    SELECT nama_perusahaan, created_at
     FROM users
-    ORDER BY tanggal_bergabung DESC
+    ORDER BY created_at DESC
     LIMIT 5";
 $perusahaanTerbaruResult = $koneksi->query($perusahaanTerbaruQuery);
 ?>
@@ -155,7 +155,7 @@ $perusahaanTerbaruResult = $koneksi->query($perusahaanTerbaruQuery);
                             <?php while ($row = $perusahaanTerbaruResult->fetch_assoc()): ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($row['nama_perusahaan']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['tanggal_bergabung']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['created_at']); ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>

@@ -6,6 +6,8 @@ session_start();
 include 'koneksi.php';
 
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -194,7 +196,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
       <script src="js/aos.js"></script>
       <script src="js/main.js"></script>
       <script>
-        $(document).ready(function() {
+       $(document).ready(function() {
     $('.purchase-button').click(function() {
         var packageId = $(this).data('package-id');
         $.ajax({
@@ -232,6 +234,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
         });
     });
 });
+
 
       </script>
   </body>

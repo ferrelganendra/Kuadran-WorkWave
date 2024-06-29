@@ -245,7 +245,7 @@ $loker_result = $stmt->get_result();
                     <?php while ($row = $loker_result->fetch_assoc()): ?>
                         <div class="d-flex tutorial-item mb-4">
                             <div class="img-wrap">
-                                <a href="#"><img src="php/Admin/img/ !empty($row['foto_loker']) ? htmlspecialchars($row['foto_loker']) : '' ?>" alt="fotlok" class="img-fluid"></a>
+                                <a href="#"><img src="uploads/ !empty($row['foto_loker']) ? htmlspecialchars($row['foto_loker']) : '' ?>" alt="fotlok" class="img-fluid"></a>
                             </div>
                             <div>
                                 <h3><a href="#"><?= htmlspecialchars($row['posisi']) ?></a></h3>
