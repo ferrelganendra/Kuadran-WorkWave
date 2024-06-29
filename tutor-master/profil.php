@@ -12,20 +12,6 @@ if (!isset($_SESSION['username'])) {
 
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
-// // Periksa apakah pengguna telah membeli paket
-// $query = "SELECT package_purchased FROM users WHERE id = ?";
-// $stmt = $koneksi->prepare($query);
-// $stmt->bind_param('i', $user_id);
-// $stmt->execute();
-// $stmt->bind_result($package_purchased);
-// $stmt->fetch();
-// $stmt->close();
-
-// if (!$package_purchased) {
-//     // Jika pengguna belum membeli paket, arahkan ke halaman beli paket
-//     header("Location: paket.php");
-//     exit();
-// }
 
 $username = $_SESSION['username'];
 $query = "SELECT * FROM users WHERE username = ?";

@@ -58,7 +58,6 @@ $result = $koneksi->query($sql);
                         <th>Kategori</th>
                         <th>Biaya Pendaftaran</th>
                         <th>Kontak Penyelenggara</th>
-                        <th>URL Pendaftaran</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +71,6 @@ $result = $koneksi->query($sql);
                             <td><?php echo htmlspecialchars($row['kategori_acara']); ?></td>
                             <td><?php echo htmlspecialchars($row['biaya_pendaftaran']); ?></td>
                             <td><?php echo htmlspecialchars($row['kontak_penyelenggara']); ?></td>
-                            <td><a href="<?php echo htmlspecialchars($row['url_pendaftaran']); ?>" target="_blank">Link Pendaftaran</a></td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>

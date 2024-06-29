@@ -24,7 +24,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/aos.css">
-    <link rel="stylesheet" href="css/stylepaket.css">
+    <link rel="stylesheet" href="css/paket.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-9zm0L8TLN8ymMiJv"></script>
@@ -133,6 +133,9 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
             <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
             <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
             <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
+            <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
+            <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
+            <li><i class="fab fa-telegram"></i> Telegram</li>
         </ul>
         <div class="">
             <button id="bayartiga" type="button" class="purchase-button" data-package-id="bronze">Beli sekarang</button>
