@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 29 Jun 2024 pada 23.17
+-- Waktu pembuatan: 30 Jun 2024 pada 23.05
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -224,7 +224,9 @@ CREATE TABLE `loker` (
 INSERT INTO `loker` (`id`, `user_id`, `kategori_pekerjaan_id`, `posisi`, `tingkat_pendidikan`, `gender`, `status_kerja`, `besaran_gaji`, `lokasi_bekerja`, `syarat_pekerjaan`, `tanggal_dipost`) VALUES
 (96, 8, 1, 'FullStack Developer', 'SMA', 'Laki-laki', 'Full-time', 25000000.00, 'Singapore', 'A list of qualifications and skills required for the job. This can include educational background, work experience, technical skills, and any other relevant requirements.', '2024-06-29 18:04:31'),
 (97, 8, 101, 'Staff Notaris', 'S1 HUKUM', 'Perempuan', 'Part-time', 50000000.00, 'Kantor Notaris dan PPAT Windri Astuti Wismi Suprihatin, SH\r\nJl. Langenastran Kidul No. 43 A, Panembahan, Kraton, Yogyakarta.', '\r\n\r\n- Wanita\r\n- Pendidikan minimal SMA/K diutamakan jurusan Administrasi Perkantoran\r\n- Usia maksimal 30 tahun\r\n- Dapat mengopeerasikan Komputer (Ms. Word/Excel/sejenisnya)\r\n- Berpengalaman atau Freshgraduate\r\n- Mempunyai kendaraan sendiri (Punya SIM C)\r\n- Jujur, disiplin, teliti dan mampu bekerja individu dan tim', '2024-06-29 19:24:03'),
-(98, 9, 86, 'Information Technology Programmer', 'SMK/S1', 'Laki-laki', 'Full-time', 10000000.00, 'PT Telkom Indonesia (Persero) Tbk', '• Pria / Wanita Min 21 Tahun ke atas\r\n• Pendidikan Minimal SMK & D3.S1 Semua Jurusan\r\n• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-29 20:19:31');
+(98, 9, 86, 'Information Technology Programmer', 'SMK/S1', 'Laki-laki', 'Full-time', 10000000.00, 'PT Telkom Indonesia (Persero) Tbk', '• Pria / Wanita Min 21 Tahun ke atas\r\n• Pendidikan Minimal SMK & D3.S1 Semua Jurusan\r\n• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-29 20:19:31'),
+(99, 9, 10, 'Data Analyst', ' S1, S2, Diploma, SMA', 'Semua', 'Full-time', 15000000.00, 'Yogyakarta', 'Menguasai bahasa pemrograman Java', '2024-06-29 21:24:04'),
+(100, 9, 46, 'Product Management', 'S2', 'Semua', 'Kontrak', 1000000.00, 'Sleman, Yogyakarta.', 'Pengalaman minimal 2 tahun di bidang terkait', '2024-06-29 21:26:29');
 
 -- --------------------------------------------------------
 
@@ -277,7 +279,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `nama_perusahaan` varchar(255) NOT NULL,
   `industri` varchar(255) NOT NULL,
-  `deskripsi_perusahaan` varchar(255) NOT NULL,
+  `deskripsi_perusahaan` varchar(10000) NOT NULL,
   `media_sosial` varchar(255) DEFAULT NULL,
   `website` varchar(255) DEFAULT NULL,
   `alamat_perusahaan` text DEFAULT NULL,
@@ -296,7 +298,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `created_at`, `updated_at`, `package_purchased`) VALUES
 (8, 'PT. Teknologi Inovatif Indonesia', 'Teknologi Informasi', 'PT. Teknologi Inovatif Indonesia adalah perusahaan yang bergerak di bidang pengembangan perangkat lunak dan solusi teknologi informasi. Kami berfokus pada inovasi dan kualitas untuk memberikan solusi terbaik kepada pelanggan kami.\r\n', 'Facebook: PT. Teknologi Inovatif Indonesia Instagram: @tekinovindo LinkedIn: PT. Teknologi Inovatif Indonesia', 'www.tekinovindo.co.id', 'Jl. Pahlawan No. 123, Jakarta Pusat, DKI Jakarta, 10130', 'uploads/Inovasiteknologi.png', 'teknovindo', 'SecurePass2024!', 'diterima', '2024-06-29 16:14:27', '2024-06-29 16:41:19', 1),
-(9, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel.png', 'telkom', 'tsel123', 'diterima', '2024-06-29 19:59:06', '2024-06-29 20:16:41', 1);
+(9, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel.png', 'telkom', 'tsel123', 'diterima', '2024-06-29 19:59:06', '2024-06-29 20:16:41', 1),
+(10, 'Gojek', 'Teknologi', 'Gojek adalah perusahaan teknologi asal Indonesia yang menyediakan berbagai layanan mulai dari transportasi, pengiriman makanan, pembayaran digital, hingga layanan keuangan dan logistik. Gojek didirikan pada tahun 2010 dan telah berkembang menjadi salah satu startup terbesar di Asia Tenggara.\r\n\r\n', 'Instagram: @gojekindonesia Twitter: @gojekindonesia Facebook: Gojek', 'www.gojek.com', 'Jl. Kemang Timur No. 21, RT.14/RW.8, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730, Indonesia', 'uploads/gojekindo.png', 'gojek_user', 'G0j3k@2024', 'diterima', '2024-06-30 20:49:33', '2024-06-30 20:59:20', 0);
 
 --
 -- Indexes for dumped tables
@@ -363,7 +366,7 @@ ALTER TABLE `kategori_pekerjaan`
 -- AUTO_INCREMENT untuk tabel `loker`
 --
 ALTER TABLE `loker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT untuk tabel `paketloker`
@@ -381,7 +384,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

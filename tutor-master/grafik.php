@@ -107,7 +107,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     <div class="site-section bg-light">
         <div class="container container-grafik">
             <div class="grafik">
-                <h2>Jumlah Lowongan Berdasarkan Kategor</h2>
+                <h2>Jumlah Lowongan Berdasarkan Kategori</h2>
                 <div id="bar-chart"></div>
             </div>
             <div class="grafik">

@@ -48,9 +48,9 @@ $transaction = [
 function getPackagePrice($packageId) {
     // Implement this function to get the package price by packageId
     // For example:
-    if ($packageId == 'gold') return 200000;
-    if ($packageId == 'silver') return 150000;
-    if ($packageId == 'bronze') return 100000;
+    if ($packageId == 'gold') return 400000;
+    if ($packageId == 'silver') return 175000;
+    if ($packageId == 'bronze') return 50000;
 }
 
 function getPackageName($packageId) {
