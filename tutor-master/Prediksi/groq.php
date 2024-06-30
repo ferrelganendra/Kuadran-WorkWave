@@ -77,20 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (\Exception $e) {
         $recommendation = "Error: " . $e->getMessage();
     }
+    echo nl2br(htmlspecialchars($recommendation));
 }
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style2.css">
-    <title>Job Recommendation Result</title>
-</head>
-<body>
-    <h1>Recommendation Result for <?php echo htmlspecialchars($kategori); ?> on <?php echo htmlspecialchars($date); ?></h1>
-    <p><?php echo nl2br(htmlspecialchars($recommendation)); ?></p>
-    <a href="index.php">Back</a>
-</body>
-</html>
