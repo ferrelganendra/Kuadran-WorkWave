@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 30 Jun 2024 pada 23.05
+-- Waktu pembuatan: 01 Jul 2024 pada 01.22
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -195,7 +195,8 @@ INSERT INTO `kategori_pekerjaan` (`id`, `nama_kategori`, `gaji_min`, `gaji_max`)
 (98, 'Respiratory Therapist', 50000.00, 90000.00),
 (99, 'Risk Manager', 70000.00, 130000.00),
 (100, 'Technical Writer', 45000.00, 85000.00),
-(101, 'Notary Public', 20000.00, 750000.00);
+(101, 'Notary Public', 20000.00, 750000.00),
+(102, 'Staff', 650000.00, 1010000.00);
 
 -- --------------------------------------------------------
 
@@ -226,7 +227,9 @@ INSERT INTO `loker` (`id`, `user_id`, `kategori_pekerjaan_id`, `posisi`, `tingka
 (97, 8, 101, 'Staff Notaris', 'S1 HUKUM', 'Perempuan', 'Part-time', 50000000.00, 'Kantor Notaris dan PPAT Windri Astuti Wismi Suprihatin, SH\r\nJl. Langenastran Kidul No. 43 A, Panembahan, Kraton, Yogyakarta.', '\r\n\r\n- Wanita\r\n- Pendidikan minimal SMA/K diutamakan jurusan Administrasi Perkantoran\r\n- Usia maksimal 30 tahun\r\n- Dapat mengopeerasikan Komputer (Ms. Word/Excel/sejenisnya)\r\n- Berpengalaman atau Freshgraduate\r\n- Mempunyai kendaraan sendiri (Punya SIM C)\r\n- Jujur, disiplin, teliti dan mampu bekerja individu dan tim', '2024-06-29 19:24:03'),
 (98, 9, 86, 'Information Technology Programmer', 'SMK/S1', 'Laki-laki', 'Full-time', 10000000.00, 'PT Telkom Indonesia (Persero) Tbk', '• Pria / Wanita Min 21 Tahun ke atas\r\n• Pendidikan Minimal SMK & D3.S1 Semua Jurusan\r\n• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-29 20:19:31'),
 (99, 9, 10, 'Data Analyst', ' S1, S2, Diploma, SMA', 'Semua', 'Full-time', 15000000.00, 'Yogyakarta', 'Menguasai bahasa pemrograman Java', '2024-06-29 21:24:04'),
-(100, 9, 46, 'Product Management', 'S2', 'Semua', 'Kontrak', 1000000.00, 'Sleman, Yogyakarta.', 'Pengalaman minimal 2 tahun di bidang terkait', '2024-06-29 21:26:29');
+(100, 9, 46, 'Product Management', 'S2', 'Semua', 'Kontrak', 1000000.00, 'Sleman, Yogyakarta.', 'Pengalaman minimal 2 tahun di bidang terkait', '2024-06-29 21:26:29'),
+(101, 9, 2, 'Administration & Secretarial', 'SMK & D3.S1. Semua Jurusan', 'Semua', 'Full-time', 5000000.00, 'PT Telkom Indonesia (Persero) Tbk, Yogyakarta.', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-30 22:52:37'),
+(102, 9, 76, 'Software Documentation Engineer', 'SMA', 'Semua', 'Kontrak', 7500000.00, 'Yogyakarta', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Cabang Terdekat', '2024-06-30 22:55:12');
 
 -- --------------------------------------------------------
 
@@ -238,17 +241,19 @@ CREATE TABLE `paketloker` (
   `package_id` int(11) NOT NULL,
   `nama_paket` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `price` decimal(10,2) NOT NULL,
+  `limit_publish` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `paketloker`
 --
 
-INSERT INTO `paketloker` (`package_id`, `nama_paket`, `created_at`, `updated_at`) VALUES
-(1, 'Gold', '2024-06-28 18:29:18', '2024-06-28 18:29:18'),
-(2, 'Silver', '2024-06-28 18:29:18', '2024-06-28 18:29:18'),
-(3, 'Bronze', '2024-06-28 18:29:18', '2024-06-28 18:29:18');
+INSERT INTO `paketloker` (`package_id`, `nama_paket`, `created_at`, `updated_at`, `price`, `limit_publish`) VALUES
+(1, 'Gold', '2024-06-28 18:29:18', '2024-06-30 21:21:52', 400000.00, 5),
+(2, 'Silver', '2024-06-28 18:29:18', '2024-06-30 21:22:08', 175000.00, 2),
+(3, 'Bronze', '2024-06-28 18:29:18', '2024-06-30 21:22:21', 50000.00, 1);
 
 -- --------------------------------------------------------
 
@@ -264,10 +269,18 @@ CREATE TABLE `transactions` (
   `transaction_status` varchar(50) NOT NULL,
   `gross_amount` decimal(10,2) NOT NULL,
   `payment_type` varchar(50) DEFAULT NULL,
-  `transaction_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `transaction_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `user_id`, `package_id`, `order_id`, `transaction_status`, `gross_amount`, `payment_type`, `transaction_time`) VALUES
+(1, 9, 2, '6681df963b373', 'success', 175000.00, 'qris', '2024-06-30 22:43:55'),
+(2, 9, 2, '6681e4c989d6e', 'success', 175000.00, 'qris', '2024-06-30 23:06:01'),
+(3, 9, 2, '6681e6c82bbab', 'success', 175000.00, 'qris', '2024-06-30 23:14:31'),
+(4, 9, 1, '6681e7bea9807', 'success', 400000.00, 'qris', '2024-06-30 23:18:37');
 
 -- --------------------------------------------------------
 
@@ -298,7 +311,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `created_at`, `updated_at`, `package_purchased`) VALUES
 (8, 'PT. Teknologi Inovatif Indonesia', 'Teknologi Informasi', 'PT. Teknologi Inovatif Indonesia adalah perusahaan yang bergerak di bidang pengembangan perangkat lunak dan solusi teknologi informasi. Kami berfokus pada inovasi dan kualitas untuk memberikan solusi terbaik kepada pelanggan kami.\r\n', 'Facebook: PT. Teknologi Inovatif Indonesia Instagram: @tekinovindo LinkedIn: PT. Teknologi Inovatif Indonesia', 'www.tekinovindo.co.id', 'Jl. Pahlawan No. 123, Jakarta Pusat, DKI Jakarta, 10130', 'uploads/Inovasiteknologi.png', 'teknovindo', 'SecurePass2024!', 'diterima', '2024-06-29 16:14:27', '2024-06-29 16:41:19', 1),
-(9, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel.png', 'telkom', 'tsel123', 'diterima', '2024-06-29 19:59:06', '2024-06-29 20:16:41', 1),
+(9, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel.png', 'telkom', 'tsel123', 'diterima', '2024-06-29 19:59:06', '2024-06-30 23:19:45', 0),
 (10, 'Gojek', 'Teknologi', 'Gojek adalah perusahaan teknologi asal Indonesia yang menyediakan berbagai layanan mulai dari transportasi, pengiriman makanan, pembayaran digital, hingga layanan keuangan dan logistik. Gojek didirikan pada tahun 2010 dan telah berkembang menjadi salah satu startup terbesar di Asia Tenggara.\r\n\r\n', 'Instagram: @gojekindonesia Twitter: @gojekindonesia Facebook: Gojek', 'www.gojek.com', 'Jl. Kemang Timur No. 21, RT.14/RW.8, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730, Indonesia', 'uploads/gojekindo.png', 'gojek_user', 'G0j3k@2024', 'diterima', '2024-06-30 20:49:33', '2024-06-30 20:59:20', 0);
 
 --
@@ -360,13 +373,13 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT untuk tabel `kategori_pekerjaan`
 --
 ALTER TABLE `kategori_pekerjaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT untuk tabel `loker`
 --
 ALTER TABLE `loker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT untuk tabel `paketloker`
@@ -378,7 +391,7 @@ ALTER TABLE `paketloker`
 -- AUTO_INCREMENT untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
