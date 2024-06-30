@@ -5,7 +5,12 @@ session_start();
 
 include 'koneksi.php';
 
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php");
+  exit();
+}
+
+$user_id = $_SESSION['user_id'];
 
 
 ?>
@@ -100,7 +105,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
             <li><i class="fab fa-telegram"></i> Telegram</li>
         </ul>
         <div class="">
-            <button id="bayarsatu" type="button" class="purchase-button" data-package-id="gold">Beli sekarang</button>
+            <button id="bayarsatu" type="button" class="purchase-button" data-package-id="1">Beli sekarang</button>
         </div>
     </div>
 
@@ -119,7 +124,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
             <li><i class="fab fa-telegram"></i> Telegram</li>
         </ul>
         <div class="">
-            <button id="bayardua" type="button" class="purchase-button" data-package-id="silver">Beli sekarang</button>
+            <button id="bayardua" type="button" class="purchase-button" data-package-id="2">Beli sekarang</button>
         </div>
     </div>
 
@@ -138,7 +143,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
             <li><i class="fab fa-telegram"></i> Telegram</li>
         </ul>
         <div class="">
-            <button id="bayartiga" type="button" class="purchase-button" data-package-id="bronze">Beli sekarang</button>
+            <button id="bayartiga" type="button" class="purchase-button" data-package-id="3">Beli sekarang</button>
         </div>
     </div>
 </div>
@@ -199,7 +204,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
       <script src="js/aos.js"></script>
       <script src="js/main.js"></script>
       <script>
-       $(document).ready(function() {
+        $(document).ready(function() {
     $('.purchase-button').click(function() {
         var packageId = $(this).data('package-id');
         $.ajax({
@@ -213,14 +218,36 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
                 if (response.snapToken) {
                     snap.pay(response.snapToken, {
                         onSuccess: function(result){
-                            alert("payment success!"); console.log(result);
-                            window.location.href = 'lowongan.php';
+                            alert("payment success!"); 
+                            console.log(result);
+                            // Send transaction details to server
+                            $.ajax({
+                                url: 'save_transaction.php', // New endpoint to save transaction
+                                type: 'POST',
+                                data: {
+                                    user_id: <?= $user_id ?>, // Ensure user_id is sent correctly
+                                    package_id: packageId,
+                                    order_id: result.order_id,
+                                    transaction_status: 'success', // Hardcode status to success
+                                    gross_amount: result.gross_amount,
+                                    payment_type: result.payment_type
+                                },
+                                success: function(saveResponse) {
+                                    console.log("Transaction saved: ", saveResponse);
+                                    window.location.href = 'lowongan.php';
+                                },
+                                error: function(saveXhr, saveStatus, saveError) {
+                                    console.error("Save transaction error: ", saveStatus, saveError);
+                                }
+                            });
                         },
                         onPending: function(result){
-                            alert("waiting for your payment!"); console.log(result);
+                            alert("waiting for your payment!"); 
+                            console.log(result);
                         },
                         onError: function(result){
-                            alert("payment failed!"); console.log(result);
+                            alert("payment failed!"); 
+                            console.log(result);
                         },
                         onClose: function(){
                             alert('you closed the popup without finishing the payment');
@@ -237,8 +264,6 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
         });
     });
 });
-
-
       </script>
   </body>
 </html>

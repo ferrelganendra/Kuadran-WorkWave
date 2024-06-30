@@ -4,19 +4,25 @@ ini_set('display_errors', 1);
 session_start();
 include 'koneksi.php';
 
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-
-if (!$user_id) {
-    // Jika user_id tidak ada di sesi, arahkan ke halaman login
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
 
+if (!$user_id) {
+    header("Location: login.php");
+    exit();
+}
+
 // Periksa apakah pengguna telah membeli paket
 $query = "SELECT package_purchased FROM users WHERE id = ?";
 $stmt = $koneksi->prepare($query);
+if (!$stmt) {
+    error_log("Prepare failed (check package_purchased): (" . $koneksi->errno . ") " . $koneksi->error);
+    die("Database error");
+}
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
 $stmt->bind_result($package_purchased);
@@ -28,7 +34,41 @@ if (!$package_purchased) {
     header("Location: paket.php");
     exit();
 }
+
+// Periksa jumlah lowongan yang sudah diupload oleh pengguna
+$query = "SELECT COUNT(*) as count FROM loker WHERE user_id = ?";
+$stmt = $koneksi->prepare($query);
+if (!$stmt) {
+    error_log("Prepare failed (check loker count): (" . $koneksi->errno . ") " . $koneksi->error);
+    die("Database error");
+}
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($current_count);
+$stmt->fetch();
+$stmt->close();
+
+// Dapatkan limit dari paket yang dibeli pengguna
+$query = "SELECT p.limit_publish FROM transactions t 
+          JOIN paketloker p ON t.package_id = p.package_id 
+          WHERE t.user_id = ? AND t.transaction_status = 'success' 
+          ORDER BY t.transaction_time DESC LIMIT 1";
+$stmt = $koneksi->prepare($query);
+if (!$stmt) {
+    error_log("Prepare failed (get limit_publish): (" . $koneksi->errno . ") " . $koneksi->error);
+    die("Database error");
+}
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($limit_publish);
+$stmt->fetch();
+$stmt->close();
+
+error_log("lowongan.php: current_count = $current_count, limit_publish = $limit_publish for user_id = $user_id");
+
 ?>
+
+
 <!doctype html>
 <html lang="en">
 
