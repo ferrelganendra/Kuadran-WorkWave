@@ -45,6 +45,16 @@ $result = $koneksi->query($query);
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/bursastyle.css">
+
+    <style>
+        .thumbnail-link img {
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-link:hover img {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 
 <body>

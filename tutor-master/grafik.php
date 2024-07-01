@@ -41,6 +41,56 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
         .grafik {
             width: 48%;
         }
+        .container-grafik {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .grafik {
+            width: 48%;
+        }
+        .form-prediksi {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-prediksi h2 {
+            margin-bottom: 20px;
+        }
+        .form-prediksi label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-prediksi select,
+        .form-prediksi input,
+        .form-prediksi button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-prediksi button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-prediksi button:hover {
+            background-color: #0056b3;
+        }
+        .prediction-result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
     </style>
 </head>
 
