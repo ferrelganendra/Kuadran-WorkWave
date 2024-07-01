@@ -21,12 +21,15 @@ if (isset($_POST['login'])) {
         if ($result->num_rows == 1) {
             $user_data = $result->fetch_assoc();
             $status = $user_data['status'];
+            $package_purchased = $user_data['package_purchased'];
 
             // Check user status
             if ($status == 'diterima') {
                 // Set session
                 $_SESSION['username'] = $username;
                 $_SESSION['user_id'] = $user_data['id']; // Store user ID in session
+                $_SESSION['status'] = $status;
+                $_SESSION['package_purchased'] = $package_purchased;
 
                 // SweetAlert script
                 echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
@@ -34,12 +37,12 @@ if (isset($_POST['login'])) {
                         document.addEventListener('DOMContentLoaded', function() {
                           Swal.fire({
                             title: 'Success!',
-                            text: 'Jangan lupa menambahkan Logo Perusahaan ya !',
+                            text: 'Jangan lupa menambahkan Logo Perusahaan ya!',
                             icon: 'success',
                             confirmButtonText: 'OK'
                           }).then((result) => {
                             if (result.isConfirmed) {
-                              window.location.href = '../../profil.php?status=diterima';
+                              window.location.href = '../../profil.php?status=diterima&user_id=" . $_SESSION['user_id'] . "&package_purchased=" . $_SESSION['package_purchased'] . "';
                             }
                           });
                         });
