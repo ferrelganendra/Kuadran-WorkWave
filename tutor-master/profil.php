@@ -10,10 +10,13 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
+// Ambil informasi pengguna dari session
 $user_id = $_SESSION['user_id'];
-
-
 $username = $_SESSION['username'];
+$status = $_SESSION['status'];
+$package_purchased = $_SESSION['package_purchased'];
+
+// Ambil data pengguna dari database
 $query = "SELECT * FROM users WHERE username = ?";
 $stmt = $koneksi->prepare($query);
 $stmt->bind_param("s", $username);
@@ -76,9 +79,9 @@ $koneksi->close();
                                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                                 <?php endif; ?>
                                 <?php if ($user_id): ?>
-                                    <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
-                                    <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
-                                    <li class="active"><a href="profil.php" class="nav-link">Profil</a></li>
+                                    <li><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a></li>
+                                    <li><a href="paket.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Beli Paket</a></li>
+                                    <li class="active"><a href="profil.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Profil</a></li>
                                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                                 <?php endif; ?>
                             </ul>
@@ -108,7 +111,6 @@ $koneksi->close();
                                     <img id="logoperus" src="<?= htmlspecialchars($user_data['logo_perusahaan']) ?>" alt="Logo Perusahaan" class="logo-img">
                                 <?php endif; ?>
                             </div>
-                            <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip" src="php/Admin/uploads/<?= htmlspecialchars($user_data['logo_perusahaan']) ?>" data-original-title="Usuario"> 
                             <ul title="Ratings" class="list-inline ratings text-center">
                                 <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>
                                 <li><a href="#"><span class="glyphicon glyphicon-star"></span></a></li>

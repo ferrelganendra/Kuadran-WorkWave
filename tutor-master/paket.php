@@ -11,6 +11,15 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
+$username = $_SESSION['username'];
+$status = $_SESSION['status'];
+$package_purchased = $_SESSION['package_purchased'];
+
+
+// Fetch package details
+$query = "SELECT * FROM paketloker";
+$result = $koneksi->query($query);
+$packages = $result->fetch_all(MYSQLI_ASSOC);
 
 
 ?>
@@ -67,9 +76,9 @@ $user_id = $_SESSION['user_id'];
                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                   <?php endif; ?>
                   <?php if ($user_id): ?>
-                    <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
-                    <li class="active"><a href="paket.php" class="nav-link">Beli Paket</a></li>
-                    <li><a href="profil.php" class="nav-link">Profil</a></li>
+                    <li><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a></li>
+                    <li class="active"><a href="paket.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Beli Paket</a></li>
+                    <li><a href="profil.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Profil</a></li>
                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                   <?php endif; ?>
                 </ul>
@@ -89,64 +98,27 @@ $user_id = $_SESSION['user_id'];
         </div>
       </div>
       <div class="container1">
-    <div class="package-item purchase-item">
-        <div class="title"><img src="images/gold-icon.png" alt="Gold Package Icon" /></div>
-        <div class="package-title">Gold</div>
-        <div class="package-price">Rp400.000</div>
-        <ul class="package-benefits">
-            <li><i class="fas fa-star"></i> Paket super efektif</li>
-            <li><i class="fas fa-newspaper"></i> 5 kali publikasi di Workwave.co.id</li>
-            <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
-            <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
-            <li><i class="fas fa-star"></i> Highlight Story Favorit</li>
-            <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
-            <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
-            <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
-            <li><i class="fab fa-telegram"></i> Telegram</li>
-        </ul>
-        <div class="">
-            <button id="bayarsatu" type="button" class="purchase-button" data-package-id="1">Beli sekarang</button>
+            <?php foreach ($packages as $package): ?>
+                <div class="package-item purchase-item">
+                    <div class="title"><img src="images/<?= strtolower($package['nama_paket']) ?>-icon.png" alt="<?= $package['nama_paket'] ?> Package Icon" /></div>
+                    <div class="package-title"><?= $package['nama_paket'] ?></div>
+                    <div class="package-price">Rp<?= number_format($package['price'], 0, ',', '.') ?></div>
+                    <ul class="package-benefits">
+                        <li><i class="fas fa-star"></i> <?= $package['nama_paket'] == 'Gold' ? 'Paket super efektif' : ($package['nama_paket'] == 'Silver' ? 'Kandidat lebih banyak' : 'Paket dasar') ?></li>
+                        <li><i class="fas fa-newspaper"></i> <?= $package['limit_publish'] ?> kali publikasi di Workwave.co.id</li>
+                        <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
+                        <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
+                        <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
+                        <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
+                        <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
+                        <li><i class="fab fa-telegram"></i> Telegram</li>
+                    </ul>
+                    <div class="">
+                        <button type="button" class="purchase-button" data-package-id="<?= $package['package_id'] ?>">Beli sekarang</button>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-    </div>
-
-    <div class="package-item purchase-item">
-        <div class="title"><img src="images/silver-icon.png" alt="Silver Package Icon"/></div>
-        <div class="package-title">Silver</div>
-        <div class="package-price">Rp175.000</div>
-        <ul class="package-benefits">
-            <li><i class="fas fa-users"></i> Kandidat lebih banyak</li>
-            <li><i class="fas fa-newspaper"></i> 2 kali publikasi di Workwave.co.id</li>
-            <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
-            <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
-            <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
-            <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
-            <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
-            <li><i class="fab fa-telegram"></i> Telegram</li>
-        </ul>
-        <div class="">
-            <button id="bayardua" type="button" class="purchase-button" data-package-id="2">Beli sekarang</button>
-        </div>
-    </div>
-
-    <div class="package-item purchase-item">
-        <div class="title"><img src="images/bronze-icon.png" alt="Bronze Package Icon"/></div>
-        <div class="package-title">Bronze</div>
-        <div class="package-price">Rp50.000</div>
-        <ul class="package-benefits">
-            <li><i class="fas fa-users"></i> Kandidat lebih banyak</li>
-            <li><i class="fas fa-newspaper"></i> 1 kali publikasi di Workwave.co.id</li>
-            <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
-            <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
-            <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
-            <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
-            <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
-            <li><i class="fab fa-telegram"></i> Telegram</li>
-        </ul>
-        <div class="">
-            <button id="bayartiga" type="button" class="purchase-button" data-package-id="3">Beli sekarang</button>
-        </div>
-    </div>
-</div>
 
       <footer class="site-footer">
         <div class="container">

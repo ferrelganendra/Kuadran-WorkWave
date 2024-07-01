@@ -10,38 +10,12 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-
-if (!$user_id) {
-    header("Location: login.php");
-    exit();
-}
-
-// Periksa apakah pengguna telah membeli paket
-$query = "SELECT package_purchased FROM users WHERE id = ?";
-$stmt = $koneksi->prepare($query);
-if (!$stmt) {
-    error_log("Prepare failed (check package_purchased): (" . $koneksi->errno . ") " . $koneksi->error);
-    die("Database error");
-}
-$stmt->bind_param('i', $user_id);
-$stmt->execute();
-$stmt->bind_result($package_purchased);
-$stmt->fetch();
-$stmt->close();
-
-if (!$package_purchased) {
-    // Jika pengguna belum membeli paket, arahkan ke halaman beli paket
-    header("Location: paket.php");
-    exit();
-}
+$status = $_SESSION['status'];
+$package_purchased = $_SESSION['package_purchased'];
 
 // Periksa jumlah lowongan yang sudah diupload oleh pengguna
 $query = "SELECT COUNT(*) as count FROM loker WHERE user_id = ?";
 $stmt = $koneksi->prepare($query);
-if (!$stmt) {
-    error_log("Prepare failed (check loker count): (" . $koneksi->errno . ") " . $koneksi->error);
-    die("Database error");
-}
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
 $stmt->bind_result($current_count);
@@ -54,19 +28,18 @@ $query = "SELECT p.limit_publish FROM transactions t
           WHERE t.user_id = ? AND t.transaction_status = 'success' 
           ORDER BY t.transaction_time DESC LIMIT 1";
 $stmt = $koneksi->prepare($query);
-if (!$stmt) {
-    error_log("Prepare failed (get limit_publish): (" . $koneksi->errno . ") " . $koneksi->error);
-    die("Database error");
-}
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
 $stmt->bind_result($limit_publish);
 $stmt->fetch();
 $stmt->close();
 
-error_log("lowongan.php: current_count = $current_count, limit_publish = $limit_publish for user_id = $user_id");
-
+if ($current_count >= $limit_publish) {
+    echo "<script>alert('Anda telah mencapai batas publikasi lowongan sesuai paket yang dibeli. Silakan beli paket baru.'); window.location.href = 'paket.php?status=$status&user_id=$user_id&package_purchased=$package_purchased';</script>";
+    exit();
+}
 ?>
+
 
 
 <!doctype html>
@@ -144,9 +117,9 @@ error_log("lowongan.php: current_count = $current_count, limit_publish = $limit_
                                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                                 <?php endif; ?>
                                 <?php if ($user_id): ?>
-                                    <li class="active"><a href="lowongan.php" class="nav-link">Lowongan</a></li>
-                                    <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
-                                    <li><a href="profil.php" class="nav-link">Profil</a></li>
+                                    <li class="active"><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a></li>
+                                    <li><a href="paket.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Beli Paket</a></li>
+                                    <li><a href="profil.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Profil</a></li>
                                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                                 <?php endif; ?>
                             </ul>

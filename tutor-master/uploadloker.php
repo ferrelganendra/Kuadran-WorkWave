@@ -1,15 +1,16 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 include 'koneksi.php';
 
-$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-
-if (!$user_id) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
+$user_id = $_SESSION['user_id'];
 
 // Periksa jumlah lowongan yang sudah diupload oleh pengguna
 $query = "SELECT COUNT(*) as count FROM loker WHERE user_id = ?";
@@ -20,11 +21,8 @@ $stmt->bind_result($current_count);
 $stmt->fetch();
 $stmt->close();
 
-// Dapatkan limit dari paket yang dibeli pengguna
-$query = "SELECT p.limit_publish FROM transactions t 
-          JOIN paketloker p ON t.package_id = p.package_id 
-          WHERE t.user_id = ? AND t.transaction_status = 'success' 
-          ORDER BY t.transaction_time DESC LIMIT 1";
+// Dapatkan limit dari kolom limit_publish_users di tabel users
+$query = "SELECT limit_publish_users FROM users WHERE id = ?";
 $stmt = $koneksi->prepare($query);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
@@ -32,17 +30,12 @@ $stmt->bind_result($limit_publish);
 $stmt->fetch();
 $stmt->close();
 
-// Jika pengguna telah mencapai limit, set package_purchased menjadi 0
 if ($current_count >= $limit_publish) {
-    $stmt = $koneksi->prepare("UPDATE users SET package_purchased = 0 WHERE id = ?");
-    $stmt->bind_param('i', $user_id);
-    $stmt->execute();
-    $stmt->close();
-
     echo "<script>alert('Anda telah mencapai batas publikasi lowongan sesuai paket yang dibeli. Silakan beli paket baru.'); window.location.href = 'paket.php';</script>";
     exit();
 }
 
+// Jika semua pemeriksaan lolos, izinkan upload lowongan dan kurangi limit_publish_users
 if (isset($_POST['posisi']) && isset($_SESSION['user_id']) && isset($_POST['kategori_pekerjaan_id'])) {
     $user_id = $_SESSION['user_id'];
     $posisi = $_POST['posisi'];
@@ -60,6 +53,12 @@ if (isset($_POST['posisi']) && isset($_SESSION['user_id']) && isset($_POST['kate
     $stmt->bind_param('issssissi', $user_id, $posisi, $tingkat_pendidikan, $gender, $status_kerja, $besaran_gaji, $lokasi_bekerja, $syarat_pekerjaan, $kategori_pekerjaan_id);
 
     if ($stmt->execute()) {
+        // Kurangi limit_publish_users
+        $stmt = $koneksi->prepare("UPDATE users SET limit_publish_users = limit_publish_users - 1 WHERE id = ?");
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $stmt->close();
+
         echo "<script>alert('Lowongan berhasil diupload.'); window.location.href = 'utama.php';</script>";
     } else {
         echo "Error: " . $stmt->error;
