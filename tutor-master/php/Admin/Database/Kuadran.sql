@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 01 Jul 2024 pada 01.22
+-- Waktu pembuatan: 01 Jul 2024 pada 21.37
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -229,7 +229,10 @@ INSERT INTO `loker` (`id`, `user_id`, `kategori_pekerjaan_id`, `posisi`, `tingka
 (99, 9, 10, 'Data Analyst', ' S1, S2, Diploma, SMA', 'Semua', 'Full-time', 15000000.00, 'Yogyakarta', 'Menguasai bahasa pemrograman Java', '2024-06-29 21:24:04'),
 (100, 9, 46, 'Product Management', 'S2', 'Semua', 'Kontrak', 1000000.00, 'Sleman, Yogyakarta.', 'Pengalaman minimal 2 tahun di bidang terkait', '2024-06-29 21:26:29'),
 (101, 9, 2, 'Administration & Secretarial', 'SMK & D3.S1. Semua Jurusan', 'Semua', 'Full-time', 5000000.00, 'PT Telkom Indonesia (Persero) Tbk, Yogyakarta.', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-30 22:52:37'),
-(102, 9, 76, 'Software Documentation Engineer', 'SMA', 'Semua', 'Kontrak', 7500000.00, 'Yogyakarta', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Cabang Terdekat', '2024-06-30 22:55:12');
+(102, 9, 76, 'Software Documentation Engineer', 'SMA', 'Semua', 'Kontrak', 7500000.00, 'Yogyakarta', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Cabang Terdekat', '2024-06-30 22:55:12'),
+(103, 9, 10, 'Data Analyst Telkom', ' S1, S2, Diploma, SMA', 'Laki-laki', 'Kontrak', 1750000.00, 'Telkom Yogyakarta', 'IPK Minimal : 2.75', '2024-07-01 13:02:31'),
+(104, 9, 36, 'Back-End Developer', 'SMK/S1', 'Laki-laki', 'Part-time', 25000000.00, 'Telkom Sleman, Yogyakarta.', 'IPK : 2.75', '2024-07-01 13:13:14'),
+(105, 10, 10, 'Data Business Analyst', 'S1 Sains Data', 'Laki-laki', 'Part-time', 75000000.00, 'Yogyakarta, Gamping.', 'Pintar', '2024-07-01 19:30:35');
 
 -- --------------------------------------------------------
 
@@ -280,7 +283,12 @@ INSERT INTO `transactions` (`id`, `user_id`, `package_id`, `order_id`, `transact
 (1, 9, 2, '6681df963b373', 'success', 175000.00, 'qris', '2024-06-30 22:43:55'),
 (2, 9, 2, '6681e4c989d6e', 'success', 175000.00, 'qris', '2024-06-30 23:06:01'),
 (3, 9, 2, '6681e6c82bbab', 'success', 175000.00, 'qris', '2024-06-30 23:14:31'),
-(4, 9, 1, '6681e7bea9807', 'success', 400000.00, 'qris', '2024-06-30 23:18:37');
+(4, 9, 1, '6681e7bea9807', 'success', 400000.00, 'qris', '2024-06-30 23:18:37'),
+(5, 9, 1, '6682a554c9dd2', 'success', 400000.00, 'qris', '2024-07-01 12:47:39'),
+(6, 9, 2, '6682a7a8057c1', 'success', 175000.00, 'qris', '2024-07-01 12:57:34'),
+(7, 9, 2, '6682a8a915b4a', 'success', 175000.00, 'qris', '2024-07-01 13:01:47'),
+(8, 9, 2, '6682cb9f5863a', 'success', 175000.00, 'qris', '2024-07-01 15:30:58'),
+(11, 10, 1, '6683038534cbb', 'success', 400000.00, 'qris', '2024-07-01 19:29:24');
 
 -- --------------------------------------------------------
 
@@ -302,17 +310,18 @@ CREATE TABLE `users` (
   `status` enum('menunggu','ditolak','diterima') DEFAULT 'menunggu',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `package_purchased` tinyint(1) DEFAULT 0
+  `package_purchased` tinyint(1) DEFAULT 0,
+  `limit_publish_users` int(255) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `created_at`, `updated_at`, `package_purchased`) VALUES
-(8, 'PT. Teknologi Inovatif Indonesia', 'Teknologi Informasi', 'PT. Teknologi Inovatif Indonesia adalah perusahaan yang bergerak di bidang pengembangan perangkat lunak dan solusi teknologi informasi. Kami berfokus pada inovasi dan kualitas untuk memberikan solusi terbaik kepada pelanggan kami.\r\n', 'Facebook: PT. Teknologi Inovatif Indonesia Instagram: @tekinovindo LinkedIn: PT. Teknologi Inovatif Indonesia', 'www.tekinovindo.co.id', 'Jl. Pahlawan No. 123, Jakarta Pusat, DKI Jakarta, 10130', 'uploads/Inovasiteknologi.png', 'teknovindo', 'SecurePass2024!', 'diterima', '2024-06-29 16:14:27', '2024-06-29 16:41:19', 1),
-(9, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel.png', 'telkom', 'tsel123', 'diterima', '2024-06-29 19:59:06', '2024-06-30 23:19:45', 0),
-(10, 'Gojek', 'Teknologi', 'Gojek adalah perusahaan teknologi asal Indonesia yang menyediakan berbagai layanan mulai dari transportasi, pengiriman makanan, pembayaran digital, hingga layanan keuangan dan logistik. Gojek didirikan pada tahun 2010 dan telah berkembang menjadi salah satu startup terbesar di Asia Tenggara.\r\n\r\n', 'Instagram: @gojekindonesia Twitter: @gojekindonesia Facebook: Gojek', 'www.gojek.com', 'Jl. Kemang Timur No. 21, RT.14/RW.8, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730, Indonesia', 'uploads/gojekindo.png', 'gojek_user', 'G0j3k@2024', 'diterima', '2024-06-30 20:49:33', '2024-06-30 20:59:20', 0);
+INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `created_at`, `updated_at`, `package_purchased`, `limit_publish_users`) VALUES
+(8, 'PT. Teknologi Inovatif Indonesia', 'Teknologi Informasi', 'PT. Teknologi Inovatif Indonesia adalah perusahaan yang bergerak di bidang pengembangan perangkat lunak dan solusi teknologi informasi. Kami berfokus pada inovasi dan kualitas untuk memberikan solusi terbaik kepada pelanggan kami.\r\n', 'Facebook: PT. Teknologi Inovatif Indonesia Instagram: @tekinovindo LinkedIn: PT. Teknologi Inovatif Indonesia', 'www.tekinovindo.co.id', 'Jl. Pahlawan No. 123, Jakarta Pusat, DKI Jakarta, 10130', 'uploads/Inovasiteknologi.png', 'teknovindo', 'SecurePass2024!', 'diterima', '2024-06-29 16:14:27', '2024-07-01 19:28:54', 0, 0),
+(9, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel.png', 'telkom', 'tsel123', 'diterima', '2024-06-29 19:59:06', '2024-07-01 15:45:16', 0, 0),
+(10, 'Gojek', 'Teknologi', 'Gojek adalah perusahaan teknologi asal Indonesia yang menyediakan berbagai layanan mulai dari transportasi, pengiriman makanan, pembayaran digital, hingga layanan keuangan dan logistik. Gojek didirikan pada tahun 2010 dan telah berkembang menjadi salah satu startup terbesar di Asia Tenggara.\r\n\r\n', 'Instagram: @gojekindonesia Twitter: @gojekindonesia Facebook: Gojek', 'www.gojek.com', 'Jl. Kemang Timur No. 21, RT.14/RW.8, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730, Indonesia', 'uploads/gojekindo.png', 'gojek_user', 'G0j3k@2024', 'diterima', '2024-06-30 20:49:33', '2024-07-01 19:30:35', 1, 4);
 
 --
 -- Indexes for dumped tables
@@ -379,7 +388,7 @@ ALTER TABLE `kategori_pekerjaan`
 -- AUTO_INCREMENT untuk tabel `loker`
 --
 ALTER TABLE `loker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT untuk tabel `paketloker`
@@ -391,7 +400,7 @@ ALTER TABLE `paketloker`
 -- AUTO_INCREMENT untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
