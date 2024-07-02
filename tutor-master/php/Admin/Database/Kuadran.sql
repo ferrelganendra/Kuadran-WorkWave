@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 01 Jul 2024 pada 21.37
+-- Waktu pembuatan: 02 Jul 2024 pada 21.58
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -182,7 +182,7 @@ INSERT INTO `kategori_pekerjaan` (`id`, `nama_kategori`, `gaji_min`, `gaji_max`)
 (85, 'Financial Controller', 80000.00, 150000.00),
 (86, 'IT Project Manager', 70000.00, 130000.00),
 (87, 'Veterinary Technician', 30000.00, 50000.00),
-(88, 'Product Designer', 60000.00, 110000.00),
+(88, 'Product Designer', 1000000.00, 99000000.00),
 (89, 'Academic Advisor', 40000.00, 65000.00),
 (90, 'Supply Chain Manager', 60000.00, 120000.00),
 (91, 'Multimedia Artist', 35000.00, 60000.00),
@@ -196,7 +196,8 @@ INSERT INTO `kategori_pekerjaan` (`id`, `nama_kategori`, `gaji_min`, `gaji_max`)
 (99, 'Risk Manager', 70000.00, 130000.00),
 (100, 'Technical Writer', 45000.00, 85000.00),
 (101, 'Notary Public', 20000.00, 750000.00),
-(102, 'Staff', 650000.00, 1010000.00);
+(102, 'Staff', 650000.00, 1010000.00),
+(103, 'Lecturer', 750000.00, 120000.00);
 
 -- --------------------------------------------------------
 
@@ -223,16 +224,23 @@ CREATE TABLE `loker` (
 --
 
 INSERT INTO `loker` (`id`, `user_id`, `kategori_pekerjaan_id`, `posisi`, `tingkat_pendidikan`, `gender`, `status_kerja`, `besaran_gaji`, `lokasi_bekerja`, `syarat_pekerjaan`, `tanggal_dipost`) VALUES
-(96, 8, 1, 'FullStack Developer', 'SMA', 'Laki-laki', 'Full-time', 25000000.00, 'Singapore', 'A list of qualifications and skills required for the job. This can include educational background, work experience, technical skills, and any other relevant requirements.', '2024-06-29 18:04:31'),
-(97, 8, 101, 'Staff Notaris', 'S1 HUKUM', 'Perempuan', 'Part-time', 50000000.00, 'Kantor Notaris dan PPAT Windri Astuti Wismi Suprihatin, SH\r\nJl. Langenastran Kidul No. 43 A, Panembahan, Kraton, Yogyakarta.', '\r\n\r\n- Wanita\r\n- Pendidikan minimal SMA/K diutamakan jurusan Administrasi Perkantoran\r\n- Usia maksimal 30 tahun\r\n- Dapat mengopeerasikan Komputer (Ms. Word/Excel/sejenisnya)\r\n- Berpengalaman atau Freshgraduate\r\n- Mempunyai kendaraan sendiri (Punya SIM C)\r\n- Jujur, disiplin, teliti dan mampu bekerja individu dan tim', '2024-06-29 19:24:03'),
-(98, 9, 86, 'Information Technology Programmer', 'SMK/S1', 'Laki-laki', 'Full-time', 10000000.00, 'PT Telkom Indonesia (Persero) Tbk', '• Pria / Wanita Min 21 Tahun ke atas\r\n• Pendidikan Minimal SMK & D3.S1 Semua Jurusan\r\n• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-29 20:19:31'),
-(99, 9, 10, 'Data Analyst', ' S1, S2, Diploma, SMA', 'Semua', 'Full-time', 15000000.00, 'Yogyakarta', 'Menguasai bahasa pemrograman Java', '2024-06-29 21:24:04'),
-(100, 9, 46, 'Product Management', 'S2', 'Semua', 'Kontrak', 1000000.00, 'Sleman, Yogyakarta.', 'Pengalaman minimal 2 tahun di bidang terkait', '2024-06-29 21:26:29'),
-(101, 9, 2, 'Administration & Secretarial', 'SMK & D3.S1. Semua Jurusan', 'Semua', 'Full-time', 5000000.00, 'PT Telkom Indonesia (Persero) Tbk, Yogyakarta.', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-30 22:52:37'),
-(102, 9, 76, 'Software Documentation Engineer', 'SMA', 'Semua', 'Kontrak', 7500000.00, 'Yogyakarta', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Cabang Terdekat', '2024-06-30 22:55:12'),
-(103, 9, 10, 'Data Analyst Telkom', ' S1, S2, Diploma, SMA', 'Laki-laki', 'Kontrak', 1750000.00, 'Telkom Yogyakarta', 'IPK Minimal : 2.75', '2024-07-01 13:02:31'),
-(104, 9, 36, 'Back-End Developer', 'SMK/S1', 'Laki-laki', 'Part-time', 25000000.00, 'Telkom Sleman, Yogyakarta.', 'IPK : 2.75', '2024-07-01 13:13:14'),
-(105, 10, 10, 'Data Business Analyst', 'S1 Sains Data', 'Laki-laki', 'Part-time', 75000000.00, 'Yogyakarta, Gamping.', 'Pintar', '2024-07-01 19:30:35');
+(96, 15, 1, 'FullStack Developer', 'SMA', 'Laki-laki', 'Full-time', 25000000.00, 'Singapore', 'A list of qualifications and skills required for the job. This can include educational background, work experience, technical skills, and any other relevant requirements.', '2024-06-29 18:04:31'),
+(97, 15, 101, 'Staff Notaris', 'S1 HUKUM', 'Perempuan', 'Part-time', 50000000.00, 'Kantor Notaris dan PPAT Windri Astuti Wismi Suprihatin, SH\r\nJl. Langenastran Kidul No. 43 A, Panembahan, Kraton, Yogyakarta.', '\r\n\r\n- Wanita\r\n- Pendidikan minimal SMA/K diutamakan jurusan Administrasi Perkantoran\r\n- Usia maksimal 30 tahun\r\n- Dapat mengopeerasikan Komputer (Ms. Word/Excel/sejenisnya)\r\n- Berpengalaman atau Freshgraduate\r\n- Mempunyai kendaraan sendiri (Punya SIM C)\r\n- Jujur, disiplin, teliti dan mampu bekerja individu dan tim', '2024-06-29 19:24:03'),
+(98, 17, 86, 'Information Technology Programmer', 'SMK/S1', 'Laki-laki', 'Full-time', 10000000.00, 'PT Telkom Indonesia (Persero) Tbk', '• Pria / Wanita Min 21 Tahun ke atas\r\n• Pendidikan Minimal SMK & D3.S1 Semua Jurusan\r\n• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-29 20:19:31'),
+(99, 17, 10, 'Data Analyst', ' S1, S2, Diploma, SMA', 'Semua', 'Full-time', 15000000.00, 'Yogyakarta', 'Menguasai bahasa pemrograman Java', '2024-06-29 21:24:04'),
+(100, 17, 46, 'Product Management', 'S2', 'Semua', 'Kontrak', 1000000.00, 'Sleman, Yogyakarta.', 'Pengalaman minimal 2 tahun di bidang terkait', '2024-06-29 21:26:29'),
+(101, 17, 2, 'Administration & Secretarial', 'SMK & D3.S1. Semua Jurusan', 'Semua', 'Full-time', 5000000.00, 'PT Telkom Indonesia (Persero) Tbk, Yogyakarta.', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Caban Terdekat', '2024-06-30 22:52:37'),
+(102, 17, 76, 'Software Documentation Engineer', 'SMA', 'Semua', 'Kontrak', 7500000.00, 'Yogyakarta', '• Ipk Minimal 2,75\r\n• Berpenampilan Menarik\r\n• Komunikatif\r\n• Mampu Mengoperasikan Komputer\r\n• Berwawasan Luas\r\n• Berkepribadian Baik\r\n• Siap Ditempatkan Diseluruh Cabang Terdekat', '2024-06-30 22:55:12'),
+(103, 17, 10, 'Data Analyst Telkom', ' S1, S2, Diploma, SMA', 'Laki-laki', 'Kontrak', 1750000.00, 'Telkom Yogyakarta', 'IPK Minimal : 2.75', '2024-07-01 13:02:31'),
+(104, 16, 36, 'Back-End Developer', 'SMK/S1', 'Laki-laki', 'Part-time', 25000000.00, 'Telkom Sleman, Yogyakarta.', 'IPK : 2.75', '2024-07-01 13:13:14'),
+(105, 16, 10, 'Data Business Analyst', 'S1 Sains Data', 'Laki-laki', 'Part-time', 75000000.00, 'Yogyakarta, Gamping.', 'Pintar', '2024-07-01 19:30:35'),
+(106, 16, 102, 'Area Operations Staff ', 'SMA', 'Semua', 'Full-time', 2750000.00, 'Tangerang', 'Keterampilan interpersonal yang kuat untuk melayani dan membangun hubungan dengan berbagai pemangku kepentingan\r\nKeterampilan komunikasi tertulis & verbal yang sangat baik berfokus pada peningkatan kolaborasi, pemahaman, dan pertukaran informasi di seluruh pemangku kepentingan\r\nPerhatian yang tajam terhadap detail untuk meningkatkan produktivitas dan mengurangi kemungkinan kesalahan\r\nPerencanaan dan kemampuan organisasi yang sangat baik untuk memastikan tim area berada pada jalur yang tepat untuk mencapai tujuannya\r\nPemahaman tentang/keakraban dengan wilayah Tangerang', '2024-07-02 17:28:51'),
+(107, 16, 10, 'Marketing Analyst', 'S1 Sains Data', 'Perempuan', 'Full-time', 7500000.00, 'Yogyakarta, Kantor Gojek', 'Pengalaman mempersiapkan dan mengembangkan laporan kampanye atau berbagai laporan bisnis yang kompleks\r\nPengalaman mengembangkan segmentasi pengguna dan melaksanakan dorongan pengguna dan kampanye CRM atau Pemasaran Digital\r\n', '2024-07-02 17:30:29'),
+(108, 15, 103, 'Dosen Sistem Informasi', 'S3/ M.S.i', 'Laki-laki', 'Full-time', 125000.00, 'Universitas Islam Indonesia', '1.    Lulusan S2 atau S3 pada prodi yang terakreditasi minimal B.\r\n2.    S1, S2 linier.\r\n3.    IPK minimal 3,25.\r\n4.    Usia calon dosen S2 maksimal 35 tahun; S3 maksimal 45 tahun.\r\n5.    Berkelakuan baik yang dibuktikan dengan Surat Keterangan Catatan Kepolisian (SKCK).\r\n6.    Sehat jasmani, rohani dan bebas narkoba (dibuktikan dengan surat keterangan dari dokter).\r\n7.    Tidak memiliki NIDN / menyerahkan surat lulus butuh jika memiliki NIDN.\r\n8.    Tidak berkedudukan sebagai calon pegawai/pegawai tetap/pegawai kontrak di instansi lain (dibuktikan dengan surat pernyataan/lolos butuh).', '2024-07-02 18:28:33'),
+(109, 16, 1, 'Software Engineer (Backend)', 'S1 Sains Data, S1 Informatika', 'Semua', 'Part-time', 25000000.00, 'Perusahaan GOJEK Indonesia Yogyakarta', '• Setidaknya 2 tahun pengalaman pengembangan perangkat lunak yang relevan melalui tugas magang dan/atau proyek perguruan tinggi\r\n• Keterampilan yang baik dalam desain, pengembangan, pengujian dan penerapan aplikasi pada aplikasi skala besar Golang atau Erlang atau Ruby atau Java\r\n• Memiliki pemahaman mendalam tentang setidaknya satu bahasa pemrograman dan kerangka kerja\r\n• Mahir dalam OOP, SQL, Struktur Data dan Algoritma\r\n• Pengalaman pemodelan data dalam database Relasional\r\n• Kemampuan untuk menjangkau, meninjau, dan menyempurnakan cerita pengguna untuk kelengkapan teknis dan mengurangi risiko ketergantungan', '2024-07-02 18:38:26'),
+(110, 16, 5, 'Digital Performance Marketing Specialist Gojek', 'S1 Manajemen', 'Perempuan', 'Full-time', 20000000.00, 'Perusahaan GOJEK Indonesia Yogyakarta', '• 3+ tahun pengalaman pemasaran digital\r\n• Kemahiran dalam alat dan platform pemasaran digital\r\n• Keterampilan analitis, komunikasi, dan pemecahan masalah yang kuat\r\n• Gelar sarjana di bidang Pemasaran, Komunikasi, atau bidang terkait\r\n• Fasih berbahasa Inggris, (dengan kemampuan berbahasa Vietnam sebagai nilai tambah).\r\n• Daftarkan diri kamu melalui: Gojek Careers: Digital Performance Marketing Specialist Gojek', '2024-07-02 18:40:11'),
+(111, 16, 88, 'Product Management', ' S1, S2, Diploma, SMA', 'Perempuan', 'Part-time', 12500000.00, 'Yogyakarta Designer GOJEK', 'Kreatif dalam mendesain.', '2024-07-02 18:53:17'),
+(112, 16, 17, 'Information Technology Programmer', 'SMA/SMK', 'Laki-laki', 'Part-time', 15000000.00, 'Yogyakarta, Sleman, Candirejo.', 'Pintar mendesain web menggunakan berbagai tools.', '2024-07-02 18:54:29');
 
 -- --------------------------------------------------------
 
@@ -275,21 +283,6 @@ CREATE TABLE `transactions` (
   `transaction_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `transactions`
---
-
-INSERT INTO `transactions` (`id`, `user_id`, `package_id`, `order_id`, `transaction_status`, `gross_amount`, `payment_type`, `transaction_time`) VALUES
-(1, 9, 2, '6681df963b373', 'success', 175000.00, 'qris', '2024-06-30 22:43:55'),
-(2, 9, 2, '6681e4c989d6e', 'success', 175000.00, 'qris', '2024-06-30 23:06:01'),
-(3, 9, 2, '6681e6c82bbab', 'success', 175000.00, 'qris', '2024-06-30 23:14:31'),
-(4, 9, 1, '6681e7bea9807', 'success', 400000.00, 'qris', '2024-06-30 23:18:37'),
-(5, 9, 1, '6682a554c9dd2', 'success', 400000.00, 'qris', '2024-07-01 12:47:39'),
-(6, 9, 2, '6682a7a8057c1', 'success', 175000.00, 'qris', '2024-07-01 12:57:34'),
-(7, 9, 2, '6682a8a915b4a', 'success', 175000.00, 'qris', '2024-07-01 13:01:47'),
-(8, 9, 2, '6682cb9f5863a', 'success', 175000.00, 'qris', '2024-07-01 15:30:58'),
-(11, 10, 1, '6683038534cbb', 'success', 400000.00, 'qris', '2024-07-01 19:29:24');
-
 -- --------------------------------------------------------
 
 --
@@ -319,9 +312,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nama_perusahaan`, `industri`, `deskripsi_perusahaan`, `media_sosial`, `website`, `alamat_perusahaan`, `logo_perusahaan`, `username`, `password`, `status`, `created_at`, `updated_at`, `package_purchased`, `limit_publish_users`) VALUES
-(8, 'PT. Teknologi Inovatif Indonesia', 'Teknologi Informasi', 'PT. Teknologi Inovatif Indonesia adalah perusahaan yang bergerak di bidang pengembangan perangkat lunak dan solusi teknologi informasi. Kami berfokus pada inovasi dan kualitas untuk memberikan solusi terbaik kepada pelanggan kami.\r\n', 'Facebook: PT. Teknologi Inovatif Indonesia Instagram: @tekinovindo LinkedIn: PT. Teknologi Inovatif Indonesia', 'www.tekinovindo.co.id', 'Jl. Pahlawan No. 123, Jakarta Pusat, DKI Jakarta, 10130', 'uploads/Inovasiteknologi.png', 'teknovindo', 'SecurePass2024!', 'diterima', '2024-06-29 16:14:27', '2024-07-01 19:28:54', 0, 0),
-(9, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel.png', 'telkom', 'tsel123', 'diterima', '2024-06-29 19:59:06', '2024-07-01 15:45:16', 0, 0),
-(10, 'Gojek', 'Teknologi', 'Gojek adalah perusahaan teknologi asal Indonesia yang menyediakan berbagai layanan mulai dari transportasi, pengiriman makanan, pembayaran digital, hingga layanan keuangan dan logistik. Gojek didirikan pada tahun 2010 dan telah berkembang menjadi salah satu startup terbesar di Asia Tenggara.\r\n\r\n', 'Instagram: @gojekindonesia Twitter: @gojekindonesia Facebook: Gojek', 'www.gojek.com', 'Jl. Kemang Timur No. 21, RT.14/RW.8, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730, Indonesia', 'uploads/gojekindo.png', 'gojek_user', 'G0j3k@2024', 'diterima', '2024-06-30 20:49:33', '2024-07-01 19:30:35', 1, 4);
+(15, 'PT. Teknologi Inovatif Indonesia', 'Teknologi Informasi', 'PT. Teknologi Inovatif Indonesia adalah perusahaan yang bergerak di bidang pengembangan perangkat lunak dan solusi teknologi informasi. Kami berfokus pada inovasi dan kualitas untuk memberikan solusi terbaik kepada pelanggan kami.\r\n', 'Facebook: PT. Teknologi Inovatif Indonesia Instagram: @tekinovindo LinkedIn: PT. Teknologi Inovatif Indonesia', 'www.tekinovindo.co.id', 'Jl. Pahlawan No. 123, Sleman, DI Yogyakarta, 10130', 'uploads/Teknovindo2.png', 'teknovindo2', '$2y$10$GYLu4fA3Mn2d0ONwTDSs0eFIIpHI5Kyz.2ybvJYQHTxZEAaLcbIrS', 'diterima', '2024-07-02 19:31:07', '2024-07-02 19:37:53', 0, 0),
+(16, 'Gojek Indonesia', 'Teknologi dan Jasa Antar', 'Gojek adalah perusahaan teknologi asal Indonesia yang menyediakan berbagai layanan mulai dari transportasi, pengiriman makanan, pembayaran digital, hingga layanan keuangan dan logistik. Gojek didirikan pada tahun 2010 dan telah berkembang menjadi salah satu startup terbesar di Asia Tenggara.\r\n', 'Instagram: @gojekindonesia Twitter: @gojekindonesia Facebook: Gojek', 'www.gojek.com', 'Jl. Kemang Timur No. 21, RT.14/RW.8, Bangka, Kec. Mampang Prpt., Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12730, Indonesia', 'uploads/gojekindo2.png', 'gojek_user2', '$2y$10$1oerj0SQO7NuhKlUEG4/x.Q6mu8RtRr/dVhGmaoCuU54RiBnaPXKu', 'diterima', '2024-07-02 19:45:41', '2024-07-02 19:49:42', 0, 0),
+(17, 'PT Telkom Indonesia', 'Telekomunikasi', 'PT Telkom Indonesia adalah perusahaan telekomunikasi terbesar di Indonesia yang menyediakan layanan telekomunikasi dan jaringan.', 'https://facebook.com/telkomindonesia', 'https://www.telkom.co.id', 'Jl. Japati No. 1, Bandung', 'uploads/telkomsel2.png', 'telkom2', '$2y$10$auQN2gtjO204UBMY8GGAv.Xhf8XvdkodSl9KT7pC92/CEBxm7fJ3G', 'diterima', '2024-07-02 19:53:23', '2024-07-02 19:56:55', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -382,13 +375,13 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT untuk tabel `kategori_pekerjaan`
 --
 ALTER TABLE `kategori_pekerjaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT untuk tabel `loker`
 --
 ALTER TABLE `loker`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT untuk tabel `paketloker`
@@ -400,13 +393,13 @@ ALTER TABLE `paketloker`
 -- AUTO_INCREMENT untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
