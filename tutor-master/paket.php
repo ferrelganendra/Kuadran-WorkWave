@@ -88,7 +88,7 @@ $packages = $result->fetch_all(MYSQLI_ASSOC);
         </div>
       </header>
 
-      <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+      <div class="site-section-cover overlay" style="background-image: url('images/Image7.jpg');">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">

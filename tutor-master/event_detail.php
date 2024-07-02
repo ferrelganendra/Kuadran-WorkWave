@@ -94,7 +94,7 @@ if (!$event) {
             </div>
         </header>
 
-        <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');"></div>
+        <div class="site-section-cover overlay" style="background-image: url('images/Image9.jpg');"></div>
 
         <div class="site-section">
             <div class="container">

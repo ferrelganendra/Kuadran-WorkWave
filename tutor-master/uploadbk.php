@@ -87,7 +87,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     </header>
 
 
-    <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+    <div class="site-section-cover overlay" style="background-image: url('images/Image9.jpg');">
 
       <div class="container">
         <div class="row align-items-center justify-content-center">

@@ -59,7 +59,7 @@ include 'php/Admin/prosesLogin.php';
         </div>
       </div>
     </header>
-    <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+    <div class="site-section-cover overlay" style="background-image: url('images/Image8.jpg');">
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <h1><strong>Masuk</strong></h1>

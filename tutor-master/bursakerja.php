@@ -107,7 +107,7 @@ $result = $koneksi->query($query);
 
         </header>
 
-        <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+        <div class="site-section-cover overlay" style="background-image: url('images/Image5.jpg');">
 
             <div class="container">
                 <div class="row align-items-center justify-content-center">
