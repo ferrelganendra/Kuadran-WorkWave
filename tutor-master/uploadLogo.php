@@ -52,17 +52,26 @@ if (isset($_POST['upload'])) {
     // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["logo_perusahaan"]["tmp_name"], $target_file)) {
-            echo "The file ". htmlspecialchars(basename($_FILES["logo_perusahaan"]["name"])). " has been uploaded.<br>";
-
             // Update logo_perusahaan in database
             $query = "UPDATE users SET logo_perusahaan = ? WHERE username = ?";
             $stmt = $koneksi->prepare($query);
             $stmt->bind_param('ss', $target_file, $username);
 
             if ($stmt->execute()) {
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
                 echo "<script>
-                        alert('Logo berhasil diupload');
-                        window.location.href='profil.php';
+                        document.addEventListener('DOMContentLoaded', function() {
+                          Swal.fire({
+                            title: 'Success!',
+                            text: 'Logo berhasil diupload.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              window.location.href = 'profil.php';
+                            }
+                          });
+                        });
                       </script>";
             } else {
                 echo "Error: " . $stmt->error;
