@@ -26,9 +26,24 @@ $stmt->close();
 
 // Prevent the user from purchasing a new package if they still have publishing limits remaining
 if ($limit_publish_users > 0) {
-    echo "<script>alert('Anda masih memiliki batas publikasi yang tersisa. Silakan gunakan batas publikasi Anda sebelum membeli paket baru.'); window.location.href = 'lowongan.php';</script>";
-    exit();
+  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
+  echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+              title: 'Peringatan',
+              text: 'Anda masih memiliki batas publikasi yang tersisa. Silakan gunakan batas publikasi Anda sebelum membeli paket baru.',
+              icon: 'warning',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = 'lowongan.php';
+              }
+            });
+          });
+        </script>";
+  exit();
 }
+
 
 
 // Fetch package details

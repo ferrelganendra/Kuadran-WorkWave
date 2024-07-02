@@ -82,22 +82,6 @@ header {
     color: #bdc3c7;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-}
-
-.user-info img {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-}
-
-.user-info p {
-    margin-right: 20px;
-}
-
 .cards {
     display: flex;
     justify-content: space-between;
