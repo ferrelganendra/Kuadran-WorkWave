@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
@@ -26,12 +25,26 @@ $query = "SELECT limit_publish_users FROM users WHERE id = ?";
 $stmt = $koneksi->prepare($query);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
-$stmt->bind_result($limit_publish);
+$stmt->bind_result($limit_publish_users);
 $stmt->fetch();
 $stmt->close();
 
-if ($current_count >= $limit_publish) {
-    echo "<script>alert('Anda telah mencapai batas publikasi lowongan sesuai paket yang dibeli. Silakan beli paket baru.'); window.location.href = 'paket.php';</script>";
+if ($limit_publish_users <= 0) {
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Peringatan',
+                text: 'Anda telah mencapai batas publikasi lowongan sesuai paket yang dibeli. Silakan beli paket baru.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'paket.php?status=$status&user_id=$user_id&package_purchased=$package_purchased';
+                }
+            });
+        });
+    </script>";
     exit();
 }
 
@@ -59,13 +72,58 @@ if (isset($_POST['posisi']) && isset($_SESSION['user_id']) && isset($_POST['kate
         $stmt->execute();
         $stmt->close();
 
-        echo "<script>alert('Lowongan berhasil diupload.'); window.location.href = 'utama.php';</script>";
+        // Periksa apakah limit_publish_users sudah habis
+        $query = "SELECT limit_publish_users FROM users WHERE id = ?";
+        $stmt = $koneksi->prepare($query);
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $stmt->bind_result($limit_publish_users);
+        $stmt->fetch();
+        $stmt->close();
+
+        if ($limit_publish_users == 0) {
+            $stmt = $koneksi->prepare("UPDATE users SET package_purchased = 0 WHERE id = ?");
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Sukses',
+                    text: 'Lowongan berhasil diupload.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'utama.php';
+                    }
+                });
+            });
+        </script>";
     } else {
         echo "Error: " . $stmt->error;
     }
 
-    $stmt->close();
+    
 } else {
-    echo "<script>alert('Formulir tidak lengkap.'); window.location.href = 'lowongan.php';</script>";
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Error',
+                text: 'Formulir tidak lengkap.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'lowongan.php';
+                }
+            });
+        });
+    </script>";
+    $stmt->close();
 }
 ?>

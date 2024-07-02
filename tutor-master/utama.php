@@ -15,7 +15,7 @@ $gaji_min = isset($_GET['gaji_min']) ? (int)$_GET['gaji_min'] : 0;
 $gaji_max = isset($_GET['gaji_max']) ? (int)$_GET['gaji_max'] : PHP_INT_MAX;
 
 // Number of records to display per page
-$records_per_page = 6;
+$records_per_page = 12;
 
 // Get the current page number from the URL, if not set default to 1
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -293,7 +293,7 @@ $event_result = $koneksi->query($event_query);
             </div>
         </header>
 
-        <div class="site-section-cover overlay" style="background-image: url('images/Image13.jpg');">
+        <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-10 text-center">

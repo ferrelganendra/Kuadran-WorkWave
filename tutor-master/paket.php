@@ -15,6 +15,21 @@ $username = $_SESSION['username'];
 $status = $_SESSION['status'];
 $package_purchased = $_SESSION['package_purchased'];
 
+// Check the user's current limit_publish_users
+$query = "SELECT limit_publish_users FROM users WHERE id = ?";
+$stmt = $koneksi->prepare($query);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($limit_publish_users);
+$stmt->fetch();
+$stmt->close();
+
+// Prevent the user from purchasing a new package if they still have publishing limits remaining
+if ($limit_publish_users > 0) {
+    echo "<script>alert('Anda masih memiliki batas publikasi yang tersisa. Silakan gunakan batas publikasi Anda sebelum membeli paket baru.'); window.location.href = 'lowongan.php';</script>";
+    exit();
+}
+
 
 // Fetch package details
 $query = "SELECT * FROM paketloker";
@@ -88,7 +103,7 @@ $packages = $result->fetch_all(MYSQLI_ASSOC);
         </div>
       </header>
 
-      <div class="site-section-cover overlay" style="background-image: url('images/Image7.jpg');">
+      <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">

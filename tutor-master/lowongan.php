@@ -13,35 +13,35 @@ $user_id = $_SESSION['user_id'];
 $status = $_SESSION['status'];
 $package_purchased = $_SESSION['package_purchased'];
 
-// Periksa jumlah lowongan yang sudah diupload oleh pengguna
-$query = "SELECT COUNT(*) as count FROM loker WHERE user_id = ?";
+// Periksa apakah pengguna memiliki paket yang valid
+$query = "SELECT limit_publish_users, package_purchased FROM users WHERE id = ?";
 $stmt = $koneksi->prepare($query);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
-$stmt->bind_result($current_count);
+$stmt->bind_result($limit_publish_users, $package_purchased);
 $stmt->fetch();
 $stmt->close();
 
-// Dapatkan limit dari paket yang dibeli pengguna
-$query = "SELECT p.limit_publish FROM transactions t 
-          JOIN paketloker p ON t.package_id = p.package_id 
-          WHERE t.user_id = ? AND t.transaction_status = 'success' 
-          ORDER BY t.transaction_time DESC LIMIT 1";
-$stmt = $koneksi->prepare($query);
-$stmt->bind_param('i', $user_id);
-$stmt->execute();
-$stmt->bind_result($limit_publish);
-$stmt->fetch();
-$stmt->close();
-
-if ($current_count >= $limit_publish) {
-    echo "<script>alert('Anda telah mencapai batas publikasi lowongan sesuai paket yang dibeli. Silakan beli paket baru.'); window.location.href = 'paket.php?status=$status&user_id=$user_id&package_purchased=$package_purchased';</script>";
+if ($package_purchased == 0 || $limit_publish_users <= 0) {
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Peringatan',
+                text: 'Anda tidak memiliki paket yang valid untuk mengupload lowongan pekerjaan. Silakan beli paket baru.',
+                icon: 'warning',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'paket.php?status=$status&user_id=$user_id&package_purchased=$package_purchased';
+                }
+            });
+        });
+    </script>";
     exit();
 }
+
 ?>
-
-
-
 <!doctype html>
 <html lang="en">
 
@@ -129,7 +129,7 @@ if ($current_count >= $limit_publish) {
             </div>
         </header>
 
-        <div class="site-section-cover overlay" style="background-image: url('images/Image7.jpg');">
+        <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-10 text-center">
