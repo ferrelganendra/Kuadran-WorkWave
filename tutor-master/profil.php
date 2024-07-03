@@ -16,6 +16,16 @@ $username = $_SESSION['username'];
 $status = $_SESSION['status'];
 $package_purchased = $_SESSION['package_purchased'];
 
+// Check the user's current limit_publish_users
+$query = "SELECT limit_publish_users FROM users WHERE id = ?";
+$stmt = $koneksi->prepare($query);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($limit_publish_users);
+$stmt->fetch();
+$stmt->close();
+
+
 // Ambil data pengguna dari database
 $query = "SELECT * FROM users WHERE username = ?";
 $stmt = $koneksi->prepare($query);
@@ -70,7 +80,7 @@ $koneksi->close();
                     <div class="col-9 text-right">
                         <span class="d-inline-block d-lg-none"><a href="#" class="site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
                         <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-                            <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                            <ul class="site-menu main-menu js-clone-nav ml-auto">
                                 <li><a href="utama.php" class="nav-link">Utama</a></li>
                                 <li><a href="grafik.php" class="nav-link">Grafik</a></li>
                                 <li><a href="bursakerja.php" class="nav-link">Bursa Kerja</a></li>
@@ -79,9 +89,9 @@ $koneksi->close();
                                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                                 <?php endif; ?>
                                 <?php if ($user_id): ?>
-                                    <li><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a></li>
+                                    <li><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a><span class="badge badge-info"><?= $limit_publish_users ?></span></li>
                                     <li><a href="paket.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Beli Paket</a></li>
-                                    <li><a href="analisiscv.php" class="nav-link">Analisis CV</a></li>
+                                    <li><a href="analisiscv.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Analisis CV</a></li>
                                     <li class="active"><a href="profil.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Profil</a></li>
                                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                                 <?php endif; ?>

@@ -1,12 +1,20 @@
 <?php
-// Koneksi ke database
-include 'koneksi.php';
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
-
+// Koneksi ke database
+include 'koneksi.php';
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
+$query = "SELECT limit_publish_users FROM users WHERE id = ?";
+$stmt = $koneksi->prepare($query);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($limit_publish_users);
+$stmt->fetch();
+$stmt->close();
 
 // Get filter parameters from GET request
 $kategori = isset($_GET['kategori']) ? (int)$_GET['kategori'] : '';
@@ -281,7 +289,7 @@ $event_result = $koneksi->query($event_query);
                                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                                 <?php endif; ?>
                                 <?php if ($user_id) : ?>
-                                    <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
+                                    <li><a href="lowongan.php" class="nav-link">Lowongan</a><span class="badge badge-info"><?= $limit_publish_users ?></span></li>
                                     <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
                                     <li><a href="analisiscv.php" class="nav-link">Analisis CV</a></li>
                                     <li><a href="profil.php" class="nav-link">Profil</a></li>
@@ -294,7 +302,7 @@ $event_result = $koneksi->query($event_query);
             </div>
         </header>
 
-        <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+        <div class="site-section-cover overlay" style="background-image: url('images/Image13.jpg');">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-10 text-center">

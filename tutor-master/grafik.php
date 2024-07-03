@@ -3,10 +3,23 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
+
 include 'php/Admin/prosesGrafik3.php';  // Kode untuk Grafik 1
 include 'php/Admin/prosesGrafik2.php';  // Kode untuk Grafik 2
 
+
+
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
+// Check the user's current limit_publish_users
+include 'koneksi.php';
+$query = "SELECT limit_publish_users FROM users WHERE id = ?";
+$stmt = $koneksi->prepare($query);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($limit_publish_users);
+$stmt->fetch();
+$stmt->close();
 ?>
 <!doctype html>
 <html lang="id">
@@ -130,7 +143,7 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
                                 <li><a href="login.php" class="nav-link">Masuk</a></li>
                             <?php endif; ?>
                             <?php if ($user_id): ?>
-                                <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
+                                <li><a href="lowongan.php" class="nav-link">Lowongan</a><span class="badge badge-info"><?= $limit_publish_users ?></span></li>
                                 <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
                                 <li><a href="analisiscv.php" class="nav-link">Analisis CV</a></li>
                                 <li><a href="profil.php" class="nav-link">Profil</a></li>

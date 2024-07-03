@@ -14,6 +14,16 @@ $records_per_page = 6;
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $records_per_page;
 
+// Periksa apakah pengguna memiliki paket yang valid
+$query = "SELECT limit_publish_users, package_purchased FROM users WHERE id = ?";
+$stmt = $koneksi->prepare($query);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($limit_publish_users, $package_purchased);
+$stmt->fetch();
+$stmt->close();
+
+
 // Query to get total number of records
 $total_records_query = "SELECT COUNT(*) FROM event";
 $total_records_result = $koneksi->query($total_records_query);
@@ -94,7 +104,7 @@ $result = $koneksi->query($query);
                                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                                 <?php endif; ?>
                                 <?php if ($user_id): ?>
-                                    <li><a href="lowongan.php" class="nav-link">Lowongan</a></li>
+                                    <li><a href="lowongan.php" class="nav-link">Lowongan</a><span class="badge badge-info"><?= $limit_publish_users ?></span></li>
                                     <li><a href="paket.php" class="nav-link">Beli Paket</a></li>
                                     <li><a href="analisiscv.php" class="nav-link">Analisis CV</a></li>
                                     <li><a href="profil.php" class="nav-link">Profil</a></li>

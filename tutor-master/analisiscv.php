@@ -13,6 +13,15 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $status = $_SESSION['status'];
+$package_purchased = $_SESSION['package_purchased'];
+
+$query = "SELECT limit_publish_users FROM users WHERE id = ?";
+$stmt = $koneksi->prepare($query);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$stmt->bind_result($limit_publish_users);
+$stmt->fetch();
+$stmt->close();
 
 ?>
 <!doctype html>
@@ -69,9 +78,9 @@ $status = $_SESSION['status'];
                     <li><a href="login.php" class="nav-link">Masuk</a></li>
                   <?php endif; ?>
                   <?php if ($user_id): ?>
-                    <li><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a></li>
-                    <li class="active"><a href="paket.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Beli Paket</a></li>
-                    <li><a href="analisiscv.php" class="nav-link">Analisis CV</a></li>
+                    <li><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a><span class="badge badge-info"><?= $limit_publish_users ?></span></li>
+                    <li><a href="paket.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Beli Paket</a></li>
+                    <li class="active"><a href="analisiscv.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Analisis CV</a></li>
                     <li><a href="profil.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Profil</a></li>
                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                   <?php endif; ?>
@@ -82,7 +91,7 @@ $status = $_SESSION['status'];
         </div>
       </header>
 
-      <div class="site-section-cover overlay" style="background-image: url('images/hero_bg.jpg');">
+      <div class="site-section-cover overlay" style="background-image: url('images/Image11.jpg');">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">
