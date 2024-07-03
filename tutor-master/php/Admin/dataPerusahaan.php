@@ -45,6 +45,43 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Perusahaan</title>
     <link rel="stylesheet" href="css/adminpage2.css">
+    <style>
+        /* Modal CSS */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: rgb(48, 61, 78);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -130,9 +167,8 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
                                 echo "</td>";
                                 echo "</tr>";
                             }
-                        } else {
-                            echo "<tr><td colspan='6'>Tidak ada data pengguna</td></tr>";
-                        }
+                        } 
+                    
 
                         // Hitung total data pengguna
                         $sql_count_users = "SELECT COUNT(*) AS total FROM users";
@@ -154,47 +190,68 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
                         <a href="?page_users=<?php echo ($current_page_users + 1); ?>">Next</a>
                     <?php endif; ?>
                 </div>
+                <div class="container">
+        <h2>Data Perusahaan</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Perusahaan</th>
+                    <th>Industri</th>
+                    <th>Deskripsi Perusahaan</th>
+                    <th>Media Sosial</th>
+                    <th>Website</th>
+                    <th>Alamat Perusahaan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Query untuk mengambil data perusahaan dengan limit dan offset
+                $query_perusahaan = "SELECT * FROM users LIMIT $items_per_page OFFSET $offset_perusahaan";
+                $result_perusahaan = mysqli_query($koneksi, $query_perusahaan);
 
-                <h2>Data Perusahaan</h2>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Industri</th>
-                            <th>Deskripsi Perusahaan</th>
-                            <th>Media Sosial</th>
-                            <th>Website</th>
-                            <th>Alamat Perusahaan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // Query untuk mengambil data perusahaan dengan limit dan offset
-                        $query_perusahaan = "SELECT * FROM users LIMIT $items_per_page OFFSET $offset_perusahaan";
-                        $result_perusahaan = mysqli_query($koneksi, $query_perusahaan);
+                // Loop through each row and display data in table rows
+                while ($row = mysqli_fetch_assoc($result_perusahaan)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['id'] . "</td>";
+                    echo "<td>" . $row['nama_perusahaan'] . "</td>";
+                    echo "<td>" . $row['industri'] . "</td>";
+                    echo "<td><button class='btn btn-primary view-data' data-description='" . htmlspecialchars($row['deskripsi_perusahaan'], ENT_QUOTES) . "' data-address='" . htmlspecialchars($row['alamat_perusahaan'], ENT_QUOTES) . "'>View</button></td>";
+                    echo "<td>" . $row['media_sosial'] . "</td>";
+                    echo "<td>" . $row['website'] . "</td>";
+                    echo "<td><button class='btn btn-primary view-data' data-description='" . htmlspecialchars($row['deskripsi_perusahaan'], ENT_QUOTES) . "' data-address='" . htmlspecialchars($row['alamat_perusahaan'], ENT_QUOTES) . "'>View</button></td>";
+                    echo "</tr>";
+                }
 
-                        // Loop through each row and display data in table rows
-                        while ($row = mysqli_fetch_assoc($result_perusahaan)) {
-                            echo "<tr>";
-                            echo "<td>" . $row['id'] . "</td>";
-                            echo "<td>" . $row['nama_perusahaan'] . "</td>";
-                            echo "<td>" . $row['industri'] . "</td>";
-                            echo "<td>" . $row['deskripsi_perusahaan'] . "</td>";
-                            echo "<td>" . $row['media_sosial'] . "</td>";
-                            echo "<td>" . $row['website'] . "</td>";
-                            echo "<td>" . $row['alamat_perusahaan'] . "</td>";
-                            echo "</tr>";
-                        }
+                // Hitung total data perusahaan
+                $sql_count_perusahaan = "SELECT COUNT(*) AS total FROM users";
+                $result_count_perusahaan = mysqli_query($koneksi, $sql_count_perusahaan);
+                $row_count_perusahaan = mysqli_fetch_assoc($result_count_perusahaan);
+                $total_data_perusahaan = $row_count_perusahaan['total'];
+                ?>
+            </tbody>
+        </table>
 
-                        // Hitung total data perusahaan
-                        $sql_count_perusahaan = "SELECT COUNT(*) AS total FROM users";
-                        $result_count_perusahaan = mysqli_query($koneksi, $sql_count_perusahaan);
-                        $row_count_perusahaan = mysqli_fetch_assoc($result_count_perusahaan);
-                        $total_data_perusahaan = $row_count_perusahaan['total'];
-                        ?>
-                    </tbody>
-                </table>
+        <!-- Modal untuk menampilkan deskripsi perusahaan dan alamat perusahaan -->
+        <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewModalLabel">Detail Perusahaan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Deskripsi Perusahaan</h5>
+                        <p id="companyDescription"></p>
+                        <h5>Alamat Perusahaan</h5>
+                        <p id="companyAddress"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 <!-- Tombol Navigasi Halaman (Perusahaan) -->
                 <div class="pagination">
                     <?php if ($current_page_perusahaan > 1): ?>
@@ -210,5 +267,31 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
             </div>
         </div>
     </div>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var modal = $('#viewModal');
+
+            $('.view-data').click(function () {
+                var description = $(this).data('description');
+                var address = $(this).data('address');
+
+                $('#companyDescription').text(description);
+                $('#companyAddress').text(address);
+
+                modal.show();
+            });
+
+            $('.close').click(function () {
+                modal.hide();
+            });
+
+            $(window).click(function (event) {
+                if (event.target == modal[0]) {
+                    modal.hide();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
