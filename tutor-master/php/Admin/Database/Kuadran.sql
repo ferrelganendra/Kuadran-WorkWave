@@ -77,6 +77,7 @@ INSERT INTO `event` (`id`, `nama_acara`, `deskripsi_acara`, `tanggal_acara`, `wa
 (17, 'Lomba Desain Grafis 2024', 'Lomba desain grafis bagi pelajar dan mahasiswa', '2024-07-30', '13:00:00', 'Universitas Teknologi Yogyakarta', 'Lomba Desain', 50000.00, '08987654321', 'http://lombadesaingrafis2024.com', 'Pastikan file karya telah siap diupload di link yang tertera.', 'uploads/lomba_desain_2024.jpeg'),
 (18, 'INTEGRATED CAREER DAYS UII 2024', 'Hai sobat karier!\r\nUniversitas Islam Indonesia (UII) @uiiyogyakarta akan mengadakan acara Integrated Career Days loh! @uiicareer', '2024-06-08', '08:00:00', 'Auditorium Kahar Muzakir, Universitas Islam Indonesia Yogyakarta', 'Job Fair', 0.00, 's.id/ICDUII2024', 's.id/ICDUII2024', 'Pastinya kalian akan dapat banyak insight dan pengalaman baru setelah mengikuti rangkaian acara ini! Jadi, jangan lewatkan ya!', 'uploads/uiievent.jpeg');
 
+
 -- --------------------------------------------------------
 
 --
