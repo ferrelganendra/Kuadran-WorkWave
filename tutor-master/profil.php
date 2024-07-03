@@ -81,6 +81,7 @@ $koneksi->close();
                                 <?php if ($user_id): ?>
                                     <li><a href="lowongan.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Lowongan</a></li>
                                     <li><a href="paket.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Beli Paket</a></li>
+                                    <li><a href="analisiscv.php" class="nav-link">Analisis CV</a></li>
                                     <li class="active"><a href="profil.php?status=<?= $status ?>&user_id=<?= $user_id ?>&package_purchased=<?= $package_purchased ?>" class="nav-link">Profil</a></li>
                                     <li><a href="logout.php" class="nav-link">Keluar</a></li>
                                 <?php endif; ?>

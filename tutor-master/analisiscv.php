@@ -13,44 +13,6 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $status = $_SESSION['status'];
-$package_purchased = $_SESSION['package_purchased'];
-
-// Check the user's current limit_publish_users
-$query = "SELECT limit_publish_users FROM users WHERE id = ?";
-$stmt = $koneksi->prepare($query);
-$stmt->bind_param('i', $user_id);
-$stmt->execute();
-$stmt->bind_result($limit_publish_users);
-$stmt->fetch();
-$stmt->close();
-
-// Prevent the user from purchasing a new package if they still have publishing limits remaining
-if ($limit_publish_users > 0) {
-  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js'></script>";
-  echo "<script>
-          document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-              title: 'Peringatan',
-              text: 'Anda masih memiliki batas publikasi yang tersisa. Silakan gunakan batas publikasi Anda sebelum membeli paket baru.',
-              icon: 'warning',
-              confirmButtonText: 'OK'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location.href = 'lowongan.php';
-              }
-            });
-          });
-        </script>";
-  exit();
-}
-
-
-
-// Fetch package details
-$query = "SELECT * FROM paketloker";
-$result = $koneksi->query($query);
-$packages = $result->fetch_all(MYSQLI_ASSOC);
-
 
 ?>
 <!doctype html>
@@ -69,7 +31,8 @@ $packages = $result->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/paket.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">  
+    <link rel="stylesheet" href="css/analisiscv.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-9zm0L8TLN8ymMiJv"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -123,33 +86,22 @@ $packages = $result->fetch_all(MYSQLI_ASSOC);
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">
-              <h1>Paket <strong>Lowongan Pekerjaan</strong></h1>
+              <h1>Analisis <strong>CV</strong></h1>
             </div>
           </div>
         </div>
       </div>
-      <div class="container1">
-            <?php foreach ($packages as $package): ?>
-                <div class="package-item purchase-item">
-                    <div class="title"><img src="images/<?= strtolower($package['nama_paket']) ?>-icon.png" alt="<?= $package['nama_paket'] ?> Package Icon" /></div>
-                    <div class="package-title"><?= $package['nama_paket'] ?></div>
-                    <div class="package-price">Rp<?= number_format($package['price'], 0, ',', '.') ?></div>
-                    <ul class="package-benefits">
-                        <li><i class="fas fa-star"></i> <?= $package['nama_paket'] == 'Gold' ? 'Paket super efektif' : ($package['nama_paket'] == 'Silver' ? 'Kandidat lebih banyak' : 'Paket dasar') ?></li>
-                        <li><i class="fas fa-newspaper"></i> <?= $package['limit_publish'] ?> kali publikasi di Workwave.co.id</li>
-                        <li><i class="fas fa-globe"></i> Website & Aplikasi</li>
-                        <li><i class="fab fa-instagram"></i> Instagram Post & Story</li>
-                        <li><i class="fab fa-google"></i> Google Jobs & Bisnis</li>
-                        <li><i class="fab fa-facebook"></i> Facebook Post & Story</li>
-                        <li><i class="fab fa-twitter"></i> Twitter in Linkedin</li>
-                        <li><i class="fab fa-telegram"></i> Telegram</li>
-                    </ul>
-                    <div class="">
-                        <button type="button" class="purchase-button" data-package-id="<?= $package['package_id'] ?>">Beli sekarang</button>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+
+      <div class="analisiscv">
+      <form action="AnalisisCv/groq.php" method="post" enctype="multipart/form-data">
+        <label for="cv">Upload CV (PDF):</label>
+        <input type="file" name="cv" id="cv" accept="application/pdf" required><br><br>
+        <label for="cover_letter">Upload Surat Lamaran Kerja (PDF):</label>
+        <input type="file" name="cover_letter" id="cover_letter" accept="application/pdf" required><br><br>
+        <input type="submit" value="Upload dan Analisis">
+    </form>
+    </div>
+
 
       <footer class="site-footer">
         <div class="container">
