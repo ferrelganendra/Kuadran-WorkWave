@@ -44,7 +44,7 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Perusahaan</title>
-    <link rel="stylesheet" href="css/adminpage2.css">
+    <link rel="stylesheet" href="css/adminpage12.css">
     <style>
         /* Modal CSS */
         .modal {
@@ -89,19 +89,21 @@ $totalEvent = $koneksi->query($totalEventQuery)->fetch_row()[0];
     <script src="js/ScData.js"></script>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="sidebar-header">
+    <div class="sidebar-wrapper">
+        <div class="sidebar">
+            <div class="sidebar-header">
             <h2><strong>W</strong>ork<strong>W</strong>ave</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="AdminPage.php">Dashboard</a></li>
+                <li><a href="dataPerusahaan.php">Data Perusahaan</a></li>
+                <li><a href="dataLoker.php">Data Lowongan Pekerjaan</a></li> 
+                <li><a href="dataAI.php">CHAT AI</a></li>
+                <li><a href="dataAdmin.php">Admin</a></li>
+                <li><a href="databursakerja.php">Job Fair</a></li>
+                <li><a href="logout.php" class="btn btn-danger">Keluar</a></li>
+            </ul>
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="AdminPage.php">Dashboard</a></li>
-            <li><a href="dataPerusahaan.php">Data Perusahaan</a></li>
-            <li><a href="dataLoker.php">Data Lowongan Pekerjaan</a></li> 
-            <li><a href="dataAI.php">CHAT AI</a></li>
-            <li><a href="dataAdmin.php">Admin</a></li>
-            <li><a href="databursakerja.php">Job Fair</a></li>
-            <li><a href="logout.php" class="btn btn-danger">Keluar</a></li>
-        </ul>
     </div>
     <div class="main-content">
         <header>
