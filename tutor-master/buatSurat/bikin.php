@@ -7,6 +7,7 @@
 </head>
 <link rel="stylesheet" href="buatsurat.css">
 <body>
+<a href="javascript:history.back()" class="back-button">Kembali</a>
     <h1>Buat Surat Lamaran Otomatis</h1>
     <form action="lihatHasil.php" method="post">
         <label for="name">Nama Lengkap:</label>

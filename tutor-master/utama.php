@@ -303,14 +303,21 @@ $event_result = $koneksi->query($event_query);
         </header>
 
         <div class="site-section-cover overlay" style="background-image: url('images/Image13.jpg');">
-            <div class="container">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-lg-10 text-center">
-                        <h1><strong>W</strong>ork<strong>W</strong>ave</h1>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1><strong>W</strong>ork<strong>W</strong>ave</h1>
+                <table style="width:80%; margin:auto; background-color: #fff; opacity: 0.9; border-radius: 10px; padding: 20px;">
+                    <tr>
+                        <td>
+                            WorkWave adalah bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 
         <div class="site-section bg-light pb-0">
     <div class="container">

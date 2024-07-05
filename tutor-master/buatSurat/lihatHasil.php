@@ -77,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Review Surat Lamaran</title>
 </head>
 <body>
+    <a href="javascript:history.back()" class="back-button">Kembali</a>
     <h1>Review dan Edit Surat Lamaran</h1>
     <form id="coverLetterForm" action="generate_pdf.php" method="post">
         <textarea id="coverLetterTextarea" name="coverLetter" rows="20" cols="80"><?php echo htmlspecialchars(strip_tags($coverLetter)); ?></textarea><br><br>
